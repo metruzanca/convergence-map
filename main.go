@@ -15,37 +15,12 @@ const SIZE_X = 9644
 const SIZE_Y = 9118
 const outputDirectory = "./output/"
 
-func cropImage(img image.Image, rect image.Rectangle) image.Image {
-	return img.(interface {
-		SubImage(r image.Rectangle) image.Image
-	}).SubImage(rect)
-}
-
-func sliceImage(img image.Image, level int) [][]image.Image {
-	width := img.Bounds().Dx()
-	height := img.Bounds().Dy()
-
-	result := [][]image.Image{}
-	tilesPerSide := 1
-
-	for i := 0; i < level; i++ {
-		tilesPerSide *= 2
-		tileWidth := width / tilesPerSide
-		tileHeight := height / tilesPerSide
-
-		row := []image.Image{}
-		for y := 0; y < tilesPerSide; y++ {
-			for x := 0; x < tilesPerSide; x++ {
-				rect := image.Rect(x*tileWidth, y*tileHeight, (x+1)*tileWidth, (y+1)*tileHeight)
-				cropped := cropImage(img, rect)
-
-				row = append(row, cropped)
-			}
-		}
-		result = append(result, row)
+func createFilePath(level, x, y int) (string, error) {
+	if err := os.MkdirAll(fmt.Sprintf("%d/%d", level, x), os.ModePerm); err != nil {
+		return "nil", err
 	}
 
-	return result
+	return fmt.Sprintf("%d/%d/%d.jpg", level, x, y), nil
 }
 
 func main() {
@@ -81,16 +56,14 @@ func main() {
 		for y, row := range tiles {
 			for x, tile := range row {
 
-				path := fmt.Sprintf("%d/%d/%d.jpg", level, x, y)
-
-				// Ensure the directory exists
-				err := os.MkdirAll(fmt.Sprintf("%d/%d", level, x), os.ModePerm)
+				path, err := createFilePath(level, x, y)
 				if err != nil {
 					log.Fatal(err)
 				}
+
 				// Save the image tile
 				logWithLevel.Info("Writing png", "path", path)
-				err = WritePng(tile, path)
+				err = WriteJpeg(tile, path)
 				if err != nil {
 					log.Fatal(err)
 				}
