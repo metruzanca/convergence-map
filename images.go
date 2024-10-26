@@ -47,29 +47,29 @@ func cropImage(img image.Image, rect image.Rectangle) image.Image {
 	}).SubImage(rect)
 }
 
-func sliceImage(img image.Image, level int) [][]image.Image {
-	width := img.Bounds().Dx()
-	height := img.Bounds().Dy()
+// generateLeafletTiles slices the input image into a grid based on the zoom level.
+func generateLeafletTiles(img image.Image, level int) [][]image.Image {
+	// Calculate the number of tiles per side based on the level
+	tilesPerSide := 1 << level // 2^level
+	tileWidth := img.Bounds().Dx() / tilesPerSide
+	tileHeight := img.Bounds().Dy() / tilesPerSide
 
-	result := [][]image.Image{}
-	tilesPerSide := 1
-
-	for i := 0; i < level; i++ {
-		tilesPerSide *= 2
-		tileWidth := width / tilesPerSide
-		tileHeight := height / tilesPerSide
-
-		row := []image.Image{}
-		for y := 0; y < tilesPerSide; y++ {
-			for x := 0; x < tilesPerSide; x++ {
-				rect := image.Rect(x*tileWidth, y*tileHeight, (x+1)*tileWidth, (y+1)*tileHeight)
-				cropped := cropImage(img, rect)
-
-				row = append(row, cropped)
-			}
-		}
-		result = append(result, row)
+	// Initialize the output slice
+	tiles := make([][]image.Image, tilesPerSide)
+	for i := range tiles {
+		tiles[i] = make([]image.Image, tilesPerSide)
 	}
 
-	return result
+	// Loop to create the tiles
+	for x := 0; x < tilesPerSide; x++ {
+		for y := 0; y < tilesPerSide; y++ {
+			// Calculate the bounds for each tile
+			tileRect := image.Rect(x*tileWidth, y*tileHeight, (x+1)*tileWidth, (y+1)*tileHeight)
+
+			// Crop the tile from the original image
+			tiles[x][y] = cropImage(img, tileRect)
+		}
+	}
+
+	return tiles
 }
