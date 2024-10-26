@@ -3,73 +3,95 @@ package main
 import (
 	"fmt"
 	"image"
-	"image/draw"
-	"image/png"
 	"os"
+	"time"
 
-	"github.com/ftrvxmtrx/tga"
+	"github.com/charmbracelet/log"
 )
 
-// Helper to read and decode TGA file
-func readTga(filePath string) (image.Image, error) {
-	file, err := os.Open(filePath)
-	if err != nil {
-		return nil, fmt.Errorf("Error opening file: %v", err)
-	}
-	defer file.Close()
+// Overworld map width and height
+const SIZE_MAX = 10496
+const SIZE_X = 9644
+const SIZE_Y = 9118
+const outputDirectory = "./output/"
 
-	img, err := tga.Decode(file)
-	if err != nil {
-		return nil, fmt.Errorf("Error decoding TGA: %v", err)
-	}
-
-	return img, nil
+func cropImage(img image.Image, rect image.Rectangle) image.Image {
+	return img.(interface {
+		SubImage(r image.Rectangle) image.Image
+	}).SubImage(rect)
 }
 
-// Helper to encode and write PNG image
-func writePng(img image.Image, outputPath string) error {
-	outputFile, err := os.Create(outputPath)
-	if err != nil {
-		return fmt.Errorf("Error creating output file: %v", err)
-	}
-	defer outputFile.Close()
+func sliceImage(img image.Image, level int) [][]image.Image {
+	width := img.Bounds().Dx()
+	height := img.Bounds().Dy()
 
-	err = png.Encode(outputFile, img)
-	if err != nil {
-		return fmt.Errorf("Error encoding PNG: %v", err)
+	result := [][]image.Image{}
+	tilesPerSide := 1
+
+	for i := 0; i < level; i++ {
+		tilesPerSide *= 2
+		tileWidth := width / tilesPerSide
+		tileHeight := height / tilesPerSide
+
+		row := []image.Image{}
+		for y := 0; y < tilesPerSide; y++ {
+			for x := 0; x < tilesPerSide; x++ {
+				rect := image.Rect(x*tileWidth, y*tileHeight, (x+1)*tileWidth, (y+1)*tileHeight)
+				cropped := cropImage(img, rect)
+
+				row = append(row, cropped)
+			}
+		}
+		result = append(result, row)
 	}
 
-	return nil
+	return result
 }
 
 func main() {
+
 	// Read and decode the TGA image
-	decodedImage, err := readTga("./input/overworld.tga")
+	decodedImage, err := ReadTga("./input/overworld.tga")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	// Get the size of the decoded image
-	bounds := decodedImage.Bounds()
-	width, height := bounds.Dx(), bounds.Dy()
+	log.Info("Cropping source image to in-game map")
+	// crop decoded image to make next operations easier
+	rect := image.Rect(0, 0, SIZE_X, SIZE_Y)
+	decodedImage = cropImage(decodedImage, rect)
 
-	// Calculate the top-left point of the 100x100 region from the center of the original image
-	offsetX := (width - 100) / 2
-	offsetY := (height - 100) / 2
+	levels := 2
 
-	// Create a new image to store the cropped 100x100 region
-	croppedImage := image.NewRGBA(image.Rect(0, 0, 100, 100))
+	for level := 1; level <= levels; level++ {
+		logWithLevel := log.NewWithOptions(os.Stderr, log.Options{
+			Prefix:     fmt.Sprint("Level ", level),
+			TimeFormat: time.Kitchen,
+		})
+		logWithLevel.Info("Creating tiles")
+		// TODO merge these two loops and have a goroutine that will write the files
+		tiles := sliceImage(decodedImage, level)
+		logWithLevel.Info("Saving tiles...")
 
-	// Draw the cropped region from the original image onto the new image
-	draw.Draw(croppedImage, croppedImage.Bounds(), decodedImage, image.Pt(offsetX, offsetY), draw.Src)
+		for y, row := range tiles {
+			for x, tile := range row {
+				path := fmt.Sprintf("%s%d/%d/%d.jpg", outputDirectory, level, x, y)
 
-	// Write the cropped image as a PNG
-	err = writePng(croppedImage, "./output/output.png")
-	if err != nil {
-		fmt.Println(err)
-		return
+				// Ensure the directory exists
+				err := os.MkdirAll(fmt.Sprintf("%s%d/%d", outputDirectory, level, x), os.ModePerm)
+				if err != nil {
+					log.Fatal(err)
+				}
+				// Save the image tile
+				logWithLevel.Info("Writing png", "path", path)
+				err = WritePng(tile, path)
+				if err != nil {
+					log.Fatal(err)
+				}
+			}
+		}
 	}
 
-	fmt.Println("Successfully saved cropped image as output.png")
+	fmt.Printf("Successfully created tiles for %d levels\n", levels)
 }
