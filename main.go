@@ -49,6 +49,8 @@ func sliceImage(img image.Image, level int) [][]image.Image {
 }
 
 func main() {
+	log.SetReportTimestamp(true)
+	log.SetTimeFormat(time.Kitchen)
 
 	// Read and decode the TGA image
 	decodedImage, err := ReadTga("./input/overworld.tga")
@@ -62,12 +64,14 @@ func main() {
 	rect := image.Rect(0, 0, SIZE_X, SIZE_Y)
 	decodedImage = cropImage(decodedImage, rect)
 
-	levels := 2
+	levels := 4
 
+	os.Chdir(outputDirectory)
 	for level := 1; level <= levels; level++ {
 		logWithLevel := log.NewWithOptions(os.Stderr, log.Options{
-			Prefix:     fmt.Sprint("Level ", level),
-			TimeFormat: time.Kitchen,
+			Prefix:          fmt.Sprint("Level ", level),
+			TimeFormat:      time.Kitchen,
+			ReportTimestamp: true,
 		})
 		logWithLevel.Info("Creating tiles")
 		// TODO merge these two loops and have a goroutine that will write the files
@@ -76,10 +80,11 @@ func main() {
 
 		for y, row := range tiles {
 			for x, tile := range row {
-				path := fmt.Sprintf("%s%d/%d/%d.jpg", outputDirectory, level, x, y)
+
+				path := fmt.Sprintf("%d/%d/%d.jpg", level, x, y)
 
 				// Ensure the directory exists
-				err := os.MkdirAll(fmt.Sprintf("%s%d/%d", outputDirectory, level, x), os.ModePerm)
+				err := os.MkdirAll(fmt.Sprintf("%d/%d", level, x), os.ModePerm)
 				if err != nil {
 					log.Fatal(err)
 				}
