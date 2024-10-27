@@ -26,3 +26,10 @@ dist-ssr
 .env
 
 public/
+
+
+# GOLANG
+
+input
+output
+firebase-admin.json
