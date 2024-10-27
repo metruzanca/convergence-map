@@ -5,6 +5,7 @@ import { useParams } from "@solidjs/router";
 
 const MAP_ID = "map";
 
+// TODO add env variable to use local map files for map development
 const TILES_URL = (mapName: Maps) =>
   `https://firebasestorage.googleapis.com/v0/b/convergence-mod-map.appspot.com/o/` +
   encodeURIComponent(`maps/${mapName}/`) +
@@ -16,11 +17,23 @@ export default function App() {
   const params = useParams<{ map: string }>();
 
   onMount(() => {
-    const map = L.map(MAP_ID).setView([0, 0], 1);
-
     // TODO check that params is a valid value
+    const mapName = (params.map as Maps) || "overworld";
+    const map = L.map(MAP_ID, {
+      zoomControl: false,
+      attributionControl: false,
+    })
+      .setView([0, 0], 1)
+      .addControl(
+        L.control.zoom({
+          position: "bottomright",
+        })
+      )
+      .on("click", (e: L.LeafletMouseEvent) => {
+        L.marker(e.latlng).addTo(map);
+      });
 
-    L.tileLayer(TILES_URL((params.map as Maps) || "overworld"), {
+    L.tileLayer(TILES_URL(mapName), {
       maxZoom: 7,
       noWrap: true,
     }).addTo(map);
