@@ -10,13 +10,19 @@ import (
 )
 
 const outputDirectory = "/home/szanca/dev/elden-ring-map/public/maps/"
-const inputFile = "./input/overworld.tga"
+
+func InputFile(mapName string) string {
+	return fmt.Sprintf("./input/%s.tga", mapName)
+}
 
 // reliably change dir
 func cd(path string) {
 	os.MkdirAll(path, os.ModePerm)
 	os.Chdir(path)
 }
+
+// TODO don't hardcode
+const mapName = "scadutree"
 
 func main() {
 	log.SetReportTimestamp(true)
@@ -25,19 +31,21 @@ func main() {
 
 	config := GetConfig()
 
-	decodedImage, err := ReadTga(inputFile)
+	decodedImage, err := ReadTga(InputFile(mapName))
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	// TODO don't hardcode
-	overworld := config.Maps[0]
+	overworld, exists := config.Maps[mapName]
+	if !exists {
+		log.Fatal("No config for such map", "mapName", mapName)
+	}
 
 	decodedImage = cropToDivisibleSize(decodedImage, overworld)
 
 	cd(outputDirectory)
-	cd(overworld.Name)
+	cd(mapName)
 
 	for level := 1; level <= overworld.Levels; level++ {
 		logWithLevel := log.NewWithOptions(os.Stderr, log.Options{

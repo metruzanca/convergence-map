@@ -51,8 +51,8 @@ func cropToDivisibleSize(img image.Image, m Map) image.Image {
 	height := bounds.Dy()
 
 	// Calculate new dimensions
-	newWidth := m.Width - (m.Width % factor)
-	newHeight := m.Height - (m.Height % factor)
+	newWidth := m.X[1] - (m.X[1] % factor)
+	newHeight := m.Y[1] - (m.Y[1] % factor)
 
 	// Ensure the new dimensions do not exceed the original size
 	if newWidth > width {

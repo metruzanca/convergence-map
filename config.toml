@@ -1,17 +1,14 @@
-[[maps]]
+[maps.overworld]
 levels = 7
-name = "overworld"
-height = 9118
-width = 9644
+x = [0, 9644]
+y = [0, 9118]
 
-[[maps]]
+[maps.underworld]
 levels = 7
-name = "underworld"
-height = 1
-width = 1
+x = [0, 9644]
+y = [0,9118]
 
-[[maps]]
+[maps.scadutree]
 levels = 7
-name = "scadutree"
-height = 1
-width = 1
+x = [3575,7913]
+y = [1864, 7803]

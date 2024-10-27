@@ -7,14 +7,13 @@ import (
 )
 
 type Config struct {
-	Maps []Map `toml:"maps"`
+	Maps map[string]Map `toml:"maps"` // Updated to use a map[string]Map
 }
 
 type Map struct {
-	Name   string `toml:"name"`
-	Height int    `toml:"height"`
-	Width  int    `toml:"width"`
-	Levels int    `toml:"levels"`
+	Levels int   `toml:"levels"`
+	X      []int `toml:"x"` // Support for array of integers
+	Y      []int `toml:"y"` // Support for array of integers
 }
 
 const configPath = "./config.toml"
@@ -24,7 +23,7 @@ var (
 )
 
 func GetConfig() Config {
-	if len(config.Maps) == 0 {
+	if len(config.Maps) == 0 { // Check if the map is empty
 		if _, err := toml.DecodeFile(configPath, &config); err != nil {
 			log.Fatal(err)
 		}
