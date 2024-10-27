@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@solidjs/router':
+    specifier: ^0.14.10
+    version: 0.14.10(solid-js@1.8.8)
   '@types/leaflet':
     specifier: ^1.9.8
     version: 1.9.8
@@ -750,6 +753,14 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@solidjs/router@0.14.10(solid-js@1.8.8):
+    resolution: {integrity: sha512-5B8LVgvvXijfXyXWPVLUm7RQ05BhjIpAyRkYVDZtrR3OaSvftXobWc6qSEwk4ICLoGi/IE9CUp2LUdCBIs9AXg==}
+    peerDependencies:
+      solid-js: ^1.8.6
+    dependencies:
+      solid-js: 1.8.8
+    dev: false
 
   /@types/babel__core@7.20.5:
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
