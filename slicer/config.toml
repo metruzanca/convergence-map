@@ -1,0 +1,14 @@
+[maps.overworld]
+levels = 7
+x = [0, 9644]
+y = [0, 9118]
+
+[maps.underworld]
+levels = 7
+x = [0, 9644]
+y = [0,9118]
+
+[maps.scadutree]
+levels = 7
+x = [3575,7913]
+y = [1864, 7803]

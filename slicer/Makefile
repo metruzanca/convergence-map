@@ -1,0 +1,2 @@
+slice:
+	@go run .
