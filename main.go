@@ -2,22 +2,26 @@ package main
 
 import (
 	"fmt"
-	"image"
 	"os"
 	"time"
 
+	"github.com/charmbracelet/lipgloss"
 	"github.com/charmbracelet/log"
 )
 
-// Overworld map width and height
-const outputDirectory = "/home/szanca/dev/elden-ring-map/public/tiles/"
-
+const outputDirectory = "/home/szanca/dev/elden-ring-map/public/maps/"
 const inputFile = "./input/overworld.tga"
-const levels = 7
+
+// reliably change dir
+func cd(path string) {
+	os.MkdirAll(path, os.ModePerm)
+	os.Chdir(path)
+}
 
 func main() {
 	log.SetReportTimestamp(true)
 	log.SetTimeFormat(time.Kitchen)
+	log.SetLevel(log.DebugLevel)
 
 	config := GetConfig()
 
@@ -27,12 +31,15 @@ func main() {
 		return
 	}
 
-	// Crop source image to in-game map area
-	rect := image.Rect(0, 0, config.Overworld.Width, config.Overworld.Height)
-	decodedImage = cropImage(decodedImage, rect)
+	// TODO don't hardcode
+	overworld := config.Maps[0]
 
-	os.Chdir(outputDirectory)
-	for level := 1; level <= levels; level++ {
+	decodedImage = cropToDivisibleSize(decodedImage, overworld)
+
+	cd(outputDirectory)
+	cd(overworld.Name)
+
+	for level := 1; level <= overworld.Levels; level++ {
 		logWithLevel := log.NewWithOptions(os.Stderr, log.Options{
 			Prefix:          fmt.Sprint("Level ", level),
 			TimeFormat:      time.Kitchen,
@@ -60,5 +67,10 @@ func main() {
 		}
 	}
 
-	fmt.Printf("Successfully created tiles for %d levels\n", levels)
+	styles := lipgloss.NewStyle().
+		Padding(0, 1, 0, 1).
+		Background(lipgloss.Color("#04B575")).
+		Foreground(lipgloss.Color("0"))
+
+	log.Info(styles.Render("Done!"))
 }

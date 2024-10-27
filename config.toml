@@ -1,12 +1,17 @@
-[overworld]
+[[maps]]
+levels = 7
+name = "overworld"
 height = 9118
 width = 9644
-# size = 10496
 
-[underworld]
+[[maps]]
+levels = 7
+name = "underworld"
 height = 1
 width = 1
 
-[scadutree]
+[[maps]]
+levels = 7
+name = "scadutree"
 height = 1
 width = 1
