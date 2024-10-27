@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"sync"
+	"time"
 
 	"cloud.google.com/go/storage"
 	"github.com/charmbracelet/log"
@@ -30,6 +31,9 @@ func uploadFiles(ctx context.Context, bucket *storage.BucketHandle, files []stri
 		defer file.Close()
 
 		wc := bucket.Object(objectName).NewWriter(ctx)
+		maxAge := 3 * time.Hour
+		wc.CacheControl = fmt.Sprintf("public, max-age=%d", int(maxAge.Seconds()))
+
 		if _, err = io.Copy(wc, file); err != nil {
 			fmt.Printf("Failed to upload file %s: %v\n", filePath, err)
 			continue
