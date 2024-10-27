@@ -41,6 +41,34 @@ func WriteJpeg(img image.Image, outputPath string) error {
 	return nil
 }
 
+func cropToDivisibleSize(img image.Image, m Map) image.Image {
+	// Calculate the factor for divisibility
+	factor := 1 << m.Levels // 2^level
+
+	// Get the original dimensions
+	bounds := img.Bounds()
+	width := bounds.Dx()
+	height := bounds.Dy()
+
+	// Calculate new dimensions
+	newWidth := m.Width - (m.Width % factor)
+	newHeight := m.Height - (m.Height % factor)
+
+	// Ensure the new dimensions do not exceed the original size
+	if newWidth > width {
+		newWidth = width - (width % factor)
+	}
+	if newHeight > height {
+		newHeight = height - (height % factor)
+	}
+
+	// Create a rectangle for cropping
+	rect := image.Rect(0, 0, newWidth, newHeight)
+
+	// Crop and return the image
+	return cropImage(img, rect)
+}
+
 func cropImage(img image.Image, rect image.Rectangle) image.Image {
 	return img.(interface {
 		SubImage(r image.Rectangle) image.Image
