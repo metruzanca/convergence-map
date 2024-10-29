@@ -1,4 +1,4 @@
-package main
+package image
 
 import (
 	"fmt"
@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/ftrvxmtrx/tga"
+	"github.com/metruzanca/convergence-map/internal/config"
 )
 
 func ReadTga(filePath string) (image.Image, error) {
@@ -41,7 +42,7 @@ func WriteJpeg(img image.Image, outputPath string) error {
 	return nil
 }
 
-func cropToDivisibleSize(img image.Image, m Map) image.Image {
+func CropToDivisibleSize(img image.Image, m config.Map) image.Image {
 	// Calculate the factor for divisibility
 	factor := 1 << m.Levels // 2^level
 
@@ -76,7 +77,7 @@ func cropImage(img image.Image, rect image.Rectangle) image.Image {
 }
 
 // generateLeafletTiles slices the input image into a grid based on the zoom level.
-func generateLeafletTiles(img image.Image, level int) [][]image.Image {
+func GenerateLeafletTiles(img image.Image, level int) [][]image.Image {
 	// Calculate the number of tiles per side based on the level
 	tilesPerSide := 1 << level // 2^level
 	tileWidth := img.Bounds().Dx() / tilesPerSide
