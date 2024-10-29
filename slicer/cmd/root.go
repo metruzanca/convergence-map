@@ -5,7 +5,10 @@ package cmd
 
 import (
 	"os"
+	"os/signal"
+	"syscall"
 
+	"github.com/charmbracelet/log"
 	"github.com/spf13/cobra"
 )
 
@@ -21,6 +24,17 @@ var rootCmd = &cobra.Command{
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
+
+	// Channel to listen for OS signals
+	signals := make(chan os.Signal, 1)
+	signal.Notify(signals, syscall.SIGTERM)
+
+	// Start a goroutine to listen for signals
+	go func() {
+		<-signals
+		log.Fatal("Received ^C")
+	}()
+
 	err := rootCmd.Execute()
 	if err != nil {
 		os.Exit(1)

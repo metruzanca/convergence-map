@@ -5,9 +5,7 @@ package cmd
 
 import (
 	"fmt"
-	"os"
 	"path/filepath"
-	"time"
 
 	"github.com/charmbracelet/lipgloss"
 	"github.com/charmbracelet/log"
@@ -15,6 +13,7 @@ import (
 	"github.com/metruzanca/convergence-map/internal/image"
 	"github.com/metruzanca/convergence-map/internal/ui"
 	"github.com/metruzanca/convergence-map/internal/util"
+	"github.com/schollz/progressbar/v3"
 	"github.com/spf13/cobra"
 )
 
@@ -36,12 +35,24 @@ func InputFile(mapName string) string {
 	return fmt.Sprintf("./input/%s.tga", mapName)
 }
 
+func matrixLen[T any](matrix [][]T) int {
+	total := 0
+	for _, row := range matrix {
+		total += len(row)
+	}
+	return total
+}
+
 func run(cmd *cobra.Command, args []string) {
 	config := config.GetConfig()
 
 	mapPath := args[0]
-	mapName, _ := ui.PromptMapType()
+	mapName, err := ui.PromptMapType()
+	if err != nil {
+		log.Fatal("Invalid maptype")
+	}
 
+	log.Info("Loading tga file...")
 	decodedImage, err := image.ReadTga(mapPath)
 	if err != nil {
 		fmt.Println(err)
@@ -59,15 +70,25 @@ func run(cmd *cobra.Command, args []string) {
 	decodedImage = image.CropToDivisibleSize(decodedImage, mapConfig)
 
 	for level := 1; level <= mapConfig.Levels; level++ {
-		logWithLevel := log.NewWithOptions(os.Stderr, log.Options{
-			Prefix:          fmt.Sprint("Level ", level),
-			TimeFormat:      time.Kitchen,
-			ReportTimestamp: true,
-		})
-		logWithLevel.Info("Creating tiles")
 		tiles := image.GenerateLeafletTiles(decodedImage, level)
-		logWithLevel.Info("Saving tiles...")
 
+		count := matrixLen(tiles)
+		description := fmt.Sprintf("[cyan][%d/%d][reset] Generating tiles ", level, mapConfig.Levels)
+
+		bar := progressbar.NewOptions(count,
+			progressbar.OptionEnableColorCodes(true),
+			progressbar.OptionSetWidth(30),
+			progressbar.OptionSetDescription(description),
+			progressbar.OptionShowCount(),
+			progressbar.OptionSetPredictTime(false),
+			progressbar.OptionShowElapsedTimeOnFinish(),
+			progressbar.OptionSetTheme(progressbar.Theme{
+				Saucer:        "[green]=[reset]",
+				SaucerHead:    "[green]>[reset]",
+				SaucerPadding: " ",
+				BarStart:      "[",
+				BarEnd:        "]",
+			}))
 		for x, row := range tiles {
 			for y, tile := range row {
 
@@ -76,14 +97,16 @@ func run(cmd *cobra.Command, args []string) {
 					log.Fatal(err)
 				}
 
-				// Save the image tile
-				logWithLevel.Info("Writing png", "path", path)
+				bar.AddDetail(path)
+
 				err = image.WriteJpeg(tile, path)
 				if err != nil {
 					log.Fatal(err)
 				}
+				bar.Add(1)
 			}
 		}
+		fmt.Println()
 	}
 
 	styles := lipgloss.NewStyle().
