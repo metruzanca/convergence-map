@@ -94,7 +94,6 @@ var publishCmd = &cobra.Command{
 		}
 
 		// Handle any upload errors
-		close(errCh)
 		for err := range errCh {
 			if err != nil {
 				log.Error(err.Error())
