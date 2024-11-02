@@ -8,7 +8,7 @@ export default function App() {
   const [search, setSearch] = useSearchParams<Stringify<Position>>();
 
   return (
-    <div class="bg-black w-screen h-screen">
+    <div class="w-screen h-screen">
       <div class="absolute top-0 right-0 z-[500]">
         <select
           onChange={(e) => {

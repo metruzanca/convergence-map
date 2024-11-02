@@ -1,7 +1,8 @@
 import { useNavigate } from "@solidjs/router";
 import { login, logout, Protected } from "../firebase/auth";
 import { createSignal } from "solid-js";
-import { Button, H2 } from "../components/Core";
+import { Button } from "../components/Core";
+import { EnvelopeIcon, KeyIcon } from "../components/Icons";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -29,35 +30,58 @@ function LoginForm() {
   return (
     <form
       onSubmit={handleLogin}
-      class="bg-neutral-900 text-white p-6 rounded-lg shadow-md w-full max-w-sm mx-auto"
+      class="text-white p-6 rounded-lg shadow-md w-full max-w-sm mx-auto prose flex flex-col gap-4"
     >
-      <H2>Login</H2>
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        autocomplete="off"
-        required
-        class="w-full p-3 mb-4 text-neutral-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        autocomplete="off"
-        required
-        class="w-full p-3 mb-6 text-neutral-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <Button type="submit">Login</Button>
+      <h2>Login</h2>
+
+      <label class="input input-bordered flex items-center gap-2">
+        <EnvelopeIcon class="opacity-70" />
+        <input
+          type="text"
+          name="email"
+          placeholder="Email"
+          autocomplete="off"
+          required
+          class="grow"
+        />
+      </label>
+
+      <label class="input input-bordered flex items-center gap-2">
+        <KeyIcon class="opacity-70" />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          autocomplete="off"
+          required
+          class="grow"
+        />
+      </label>
+
+      <Button type="submit" class="w-full">
+        Login
+      </Button>
       {error() && <p class="text-red-700">{error()}</p>}
     </form>
   );
 }
 
 export default function Login() {
+  const navigate = useNavigate();
+
   return (
-    <Protected fallback={<LoginForm />}>
-      <Button onClick={logout}>Logout</Button>
+    <Protected
+      fallback={<LoginForm />}
+      class="h-screen flex flex-col items-center justify-center"
+    >
+      <div class="w-36 flex flex-col gap-4">
+        <Button class="w-full btn" onClick={() => navigate("/")}>
+          back to map
+        </Button>
+        <Button class="w-full btn-neutral" onClick={logout}>
+          Logout
+        </Button>
+      </div>
     </Protected>
   );
 }

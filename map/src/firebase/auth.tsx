@@ -54,23 +54,26 @@ if (import.meta.env.DEV) {
 
 export const getUser = user;
 
-const Spinner = () => <></>;
+const Spinner = () => <span class="loading loading-ring loading-lg"></span>;
 
 export function Protected(props: {
   children: JSXElement;
   fallback?: JSXElement;
+  class?: string;
 }) {
   return (
-    <>
+    <div class={props.class}>
       <Switch>
         <Match when={getUser().type === "loading"}>
-          <Spinner />
+          <div class="w-full h-full flex items-center justify-center">
+            <Spinner />
+          </div>
         </Match>
         <Match when={getUser().type === "user"}>{props.children}</Match>
         <Match when={getUser().type === "no-user"}>
           {props.fallback ?? <Button>Log in to access</Button>}
         </Match>
       </Switch>
-    </>
+    </div>
   );
 }
