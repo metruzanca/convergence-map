@@ -64,9 +64,8 @@ var publishCmd = &cobra.Command{
 		bar := ui.ProgressBar(len(files), "Uploading tiles")
 
 		errCh := make(chan error, len(files))
-		defer close(errCh)
 
-		concurrentUploads := 10
+		concurrentUploads := 20
 		uploadCh := make(chan struct{}, concurrentUploads)
 
 		for _, file := range files {
@@ -93,6 +92,7 @@ var publishCmd = &cobra.Command{
 			uploadCh <- struct{}{}
 		}
 
+		close(errCh)
 		// Handle any upload errors
 		for err := range errCh {
 			if err != nil {
