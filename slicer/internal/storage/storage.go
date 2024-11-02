@@ -9,17 +9,18 @@ import (
 	"time"
 
 	"cloud.google.com/go/storage"
+	"github.com/charmbracelet/log"
 )
 
 var maxAge = 24 * time.Hour
 
-func UploadFile(ctx context.Context, bucket *storage.BucketHandle, filePath string, firebasePath string) {
+func UploadFile(ctx context.Context, bucket *storage.BucketHandle, filePath string, firebasePath string) error {
 	objectName := filepath.Join(firebasePath, filepath.Base(filePath))
 
 	file, err := os.Open(filePath)
 	if err != nil {
-		fmt.Printf("Failed to open file %s: %v\n", filePath, err)
-		return
+		log.Error("Failed to open file %s: %v\n", filePath, err)
+		return err
 	}
 	defer file.Close()
 
@@ -27,14 +28,15 @@ func UploadFile(ctx context.Context, bucket *storage.BucketHandle, filePath stri
 	wc.CacheControl = fmt.Sprintf("public, max-age=%d", int(maxAge.Seconds()))
 
 	if _, err = io.Copy(wc, file); err != nil {
-		fmt.Printf("Failed to upload file %s: %v\n", filePath, err)
-		return
+		log.Error("Failed to upload file %s: %v\n", filePath, err)
+		return err
 	}
 
 	if err := wc.Close(); err != nil {
-		fmt.Printf("Failed to close writer for file %s: %v\n", filePath, err)
-		return
+		log.Error("Failed to close writer for file %s: %v\n", filePath, err)
+		return err
 	}
 
-	fmt.Printf("Successfully uploaded %s to bucket\n", objectName)
+	log.Info("Successfully uploaded %s to bucket\n", objectName)
+	return nil
 }

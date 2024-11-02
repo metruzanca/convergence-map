@@ -56,17 +56,28 @@ var publishCmd = &cobra.Command{
 			log.Fatal("Couldn't get storage bucket")
 		}
 
-		err = filepath.Walk(dirPath, func(filePath string, info os.FileInfo, err error) error {
-			if err != nil {
-				return err
-			}
-			if info.IsDir() {
-				return nil
+		files, err := os.ReadDir(dirPath)
+		if err != nil {
+			log.Fatal("Couldn't list files in directory")
+		}
+
+		bar := ui.ProgressBar(len(files), "Uploading tiles")
+
+		for _, file := range files {
+			if file.IsDir() {
+				continue
 			}
 
-			storage.UploadFile(ctx, bucket, filePath, firebaseStoragePath)
-			return nil
-		})
+			filePath := filepath.Join(dirPath, file.Name())
+
+			if err := storage.UploadFile(ctx, bucket, filePath, firebaseStoragePath); err != nil {
+				log.Error("Error uploading file %s: %v", filePath, err)
+			}
+
+			bar.Add(1)
+		}
+
+		bar.Close()
 
 		if err != nil {
 			fmt.Println("Error walking the file path:", err)

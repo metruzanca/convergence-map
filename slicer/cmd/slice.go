@@ -13,7 +13,6 @@ import (
 	"github.com/metruzanca/convergence-map/internal/image"
 	"github.com/metruzanca/convergence-map/internal/ui"
 	"github.com/metruzanca/convergence-map/internal/util"
-	"github.com/schollz/progressbar/v3"
 	"github.com/spf13/cobra"
 )
 
@@ -54,20 +53,7 @@ var sliceCmd = &cobra.Command{
 			count := matrixLen(tiles)
 			description := fmt.Sprintf("[cyan][%d/%d][reset] Generating tiles ", level, mapConfig.Levels)
 
-			bar := progressbar.NewOptions(count,
-				progressbar.OptionEnableColorCodes(true),
-				progressbar.OptionSetWidth(30),
-				progressbar.OptionSetDescription(description),
-				progressbar.OptionShowCount(),
-				progressbar.OptionSetPredictTime(false),
-				progressbar.OptionShowElapsedTimeOnFinish(),
-				progressbar.OptionSetTheme(progressbar.Theme{
-					Saucer:        "[green]=[reset]",
-					SaucerHead:    "[green]>[reset]",
-					SaucerPadding: " ",
-					BarStart:      "[",
-					BarEnd:        "]",
-				}))
+			bar := ui.ProgressBar(count, description)
 			for x, row := range tiles {
 				for y, tile := range row {
 
@@ -85,6 +71,7 @@ var sliceCmd = &cobra.Command{
 					bar.Add(1)
 				}
 			}
+			bar.Close()
 			fmt.Println()
 		}
 
