@@ -1,43 +1,11 @@
 import "leaflet/dist/leaflet.css";
-import * as L from "leaflet";
-import { onMount } from "solid-js";
-import { useParams } from "@solidjs/router";
-
-const MAP_ID = "map";
-
-// TODO add env variable to use local map files for map development
-const TILES_URL = (mapName: Maps) =>
-  `https://firebasestorage.googleapis.com/v0/b/convergence-mod-map.appspot.com/o/` +
-  encodeURIComponent(`maps/${mapName}/`) +
-  "{z}-{x}-{y}.jpg?alt=media";
-
-type Maps = "overworld" | "underworld" | "scadutree";
+import { useParams, useSearchParams } from "@solidjs/router";
+import Map, { Position } from "./components/Map";
+import { Stringify } from "./lib/types";
 
 export default function App() {
   const params = useParams<{ map: string }>();
-
-  onMount(() => {
-    // TODO check that params is a valid value
-    const mapName = (params.map as Maps) || "overworld";
-    const map = L.map(MAP_ID, {
-      zoomControl: false,
-      attributionControl: false,
-    })
-      .setView([0, 0], 1)
-      .addControl(
-        L.control.zoom({
-          position: "bottomright",
-        })
-      )
-      .on("click", (e: L.LeafletMouseEvent) => {
-        L.marker(e.latlng).addTo(map);
-      });
-
-    L.tileLayer(TILES_URL(mapName), {
-      maxZoom: 7,
-      noWrap: true,
-    }).addTo(map);
-  });
+  const [search, setSearch] = useSearchParams<Stringify<Position>>();
 
   return (
     <div class="bg-black w-screen h-screen">
@@ -53,7 +21,7 @@ export default function App() {
           <option value="scadutree">scadutree</option>
         </select>
       </div>
-      <div id={MAP_ID} class="h-screen" />
+      <Map map={params.map} onMove={setSearch} position={search} />
     </div>
   );
 }
