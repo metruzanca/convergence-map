@@ -37,6 +37,5 @@ func UploadFile(ctx context.Context, bucket *storage.BucketHandle, filePath stri
 		return err
 	}
 
-	log.Info("Successfully uploaded %s to bucket\n", objectName)
 	return nil
 }

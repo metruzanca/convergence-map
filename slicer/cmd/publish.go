@@ -63,6 +63,12 @@ var publishCmd = &cobra.Command{
 
 		bar := ui.ProgressBar(len(files), "Uploading tiles")
 
+		errCh := make(chan error, len(files))
+		defer close(errCh)
+
+		concurrentUploads := 10
+		uploadCh := make(chan struct{}, concurrentUploads)
+
 		for _, file := range files {
 			if file.IsDir() {
 				continue
@@ -70,11 +76,29 @@ var publishCmd = &cobra.Command{
 
 			filePath := filepath.Join(dirPath, file.Name())
 
-			if err := storage.UploadFile(ctx, bucket, filePath, firebaseStoragePath); err != nil {
-				log.Error("Error uploading file %s: %v", filePath, err)
-			}
+			uploadCh <- struct{}{} // Block if there are 5 concurrent uploads
 
-			bar.Add(1)
+			go func(filePath string) {
+				defer func() { <-uploadCh }() // Release spot in uploadCh
+				err := storage.UploadFile(ctx, bucket, filePath, firebaseStoragePath)
+				if err != nil {
+					errCh <- fmt.Errorf("error uploading file %s: %v", filePath, err)
+				}
+				bar.Add(1)
+			}(filePath)
+		}
+
+		// Wait for all uploads to finish
+		for i := 0; i < cap(uploadCh); i++ {
+			uploadCh <- struct{}{}
+		}
+
+		// Handle any upload errors
+		close(errCh)
+		for err := range errCh {
+			if err != nil {
+				log.Error(err.Error())
+			}
 		}
 
 		bar.Close()
