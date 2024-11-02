@@ -11,9 +11,6 @@ import (
 	"cloud.google.com/go/storage"
 )
 
-const BucketName = "convergence-mod-map.appspot.com"
-const ServiceAccountJson = "/home/szanca/dev/convergence-map/slicer/firebase-admin.json"
-
 var maxAge = 24 * time.Hour
 
 func UploadFile(ctx context.Context, bucket *storage.BucketHandle, filePath string, firebasePath string) {

@@ -11,6 +11,7 @@ import (
 
 	firebase "firebase.google.com/go"
 	"github.com/charmbracelet/log"
+	"github.com/metruzanca/convergence-map/internal/config"
 	"github.com/metruzanca/convergence-map/internal/storage"
 	"github.com/metruzanca/convergence-map/internal/ui"
 	"github.com/spf13/cobra"
@@ -23,6 +24,8 @@ var publishCmd = &cobra.Command{
 	Short: "Uploads tiles to Object Storage",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
+		config := config.GetConfig()
+
 		dirPath := args[0]
 
 		mapName, err := ui.PromptMapType()
@@ -32,10 +35,11 @@ var publishCmd = &cobra.Command{
 
 		firebaseStoragePath := fmt.Sprintf("maps/%s/", mapName)
 
-		cwd, _ := os.Getwd()
-		log.Debug(storage.ServiceAccountJson, "cwd", cwd)
+		if config.Firebase.ServiceAccountPath == "" {
+			log.Fatal("Missing Service Account path")
+		}
 
-		opt := option.WithCredentialsFile(storage.ServiceAccountJson)
+		opt := option.WithCredentialsFile(config.Firebase.ServiceAccountPath)
 		app, err := firebase.NewApp(context.Background(), nil, opt)
 		if err != nil {
 			log.Fatal("Couldn't init firebase app")
@@ -47,7 +51,7 @@ var publishCmd = &cobra.Command{
 			log.Fatal("Couldn't init firebase app", err)
 		}
 
-		bucket, err := storageClient.Bucket(storage.BucketName)
+		bucket, err := storageClient.Bucket(config.Firebase.BucketName)
 		if err != nil {
 			log.Fatal("Couldn't get storage bucket")
 		}

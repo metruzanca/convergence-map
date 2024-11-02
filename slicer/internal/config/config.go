@@ -9,8 +9,9 @@ import (
 )
 
 type Config struct {
-	Maps  map[string]Map `toml:"maps"`
-	Tiles Tiles          `toml:"tiles"`
+	Maps     map[string]Map `toml:"maps"`
+	Tiles    Tiles          `toml:"tiles"`
+	Firebase FirebaseConfig `toml:"firebase"`
 }
 
 type Map struct {
@@ -22,6 +23,11 @@ type Map struct {
 type Tiles struct {
 	Input  string `toml:"input"`
 	Output string `toml:"output"`
+}
+
+type FirebaseConfig struct {
+	ServiceAccountPath string `toml:"service_account_path"`
+	BucketName         string `toml:"bucket_name"`
 }
 
 var defaultConfig = Config{
@@ -41,6 +47,9 @@ var defaultConfig = Config{
 			X:      []int{3575, 7913},
 			Y:      []int{1864, 7803},
 		},
+	},
+	Firebase: FirebaseConfig{
+		BucketName: "convergence-mod-map.appspot.com",
 	},
 	// Tiles: Tiles{
 	// 	Input:  ".",
