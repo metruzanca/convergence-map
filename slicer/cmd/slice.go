@@ -22,7 +22,80 @@ var sliceCmd = &cobra.Command{
 	Use:   "slice [path]",
 	Short: "Slices source .tga file into leafletjs compatible tiles",
 	Args:  cobra.ExactArgs(1),
-	Run:   run,
+	Run: func(cmd *cobra.Command, args []string) {
+		config := config.GetConfig()
+
+		mapPath := args[0]
+		mapName, err := ui.PromptMapType()
+		if err != nil {
+			log.Fatal("Invalid maptype")
+		}
+
+		log.Info("Loading tga file...")
+		decodedImage, err := image.ReadTga(mapPath)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		mapConfig, exists := config.Maps[mapName]
+		if !exists {
+			log.Fatal("No config for such map", "mapName", mapName)
+		}
+
+		outputPath := util.ChangeDir(filepath.Dir(mapPath), "maps", mapName)
+		log.Debug("Saving tiles to", "path", outputPath)
+
+		decodedImage = image.CropToDivisibleSize(decodedImage, mapConfig)
+
+		for level := 1; level <= mapConfig.Levels; level++ {
+			tiles := image.GenerateLeafletTiles(decodedImage, level)
+
+			count := matrixLen(tiles)
+			description := fmt.Sprintf("[cyan][%d/%d][reset] Generating tiles ", level, mapConfig.Levels)
+
+			bar := progressbar.NewOptions(count,
+				progressbar.OptionEnableColorCodes(true),
+				progressbar.OptionSetWidth(30),
+				progressbar.OptionSetDescription(description),
+				progressbar.OptionShowCount(),
+				progressbar.OptionSetPredictTime(false),
+				progressbar.OptionShowElapsedTimeOnFinish(),
+				progressbar.OptionSetTheme(progressbar.Theme{
+					Saucer:        "[green]=[reset]",
+					SaucerHead:    "[green]>[reset]",
+					SaucerPadding: " ",
+					BarStart:      "[",
+					BarEnd:        "]",
+				}))
+			for x, row := range tiles {
+				for y, tile := range row {
+
+					path := fmt.Sprintf("%d-%d-%d.jpg", level, x, y)
+					if err != nil {
+						log.Fatal(err)
+					}
+
+					bar.AddDetail(path)
+
+					err = image.WriteJpeg(tile, path)
+					if err != nil {
+						log.Fatal(err)
+					}
+					bar.Add(1)
+				}
+			}
+			fmt.Println()
+		}
+
+		styles := lipgloss.NewStyle().
+			Padding(0, 1, 0, 1).
+			Background(lipgloss.Color("#04B575")).
+			Foreground(lipgloss.Color("0"))
+
+		log.Info(styles.Render("Done!"))
+
+	},
 }
 
 func init() {
@@ -41,79 +114,4 @@ func matrixLen[T any](matrix [][]T) int {
 		total += len(row)
 	}
 	return total
-}
-
-func run(cmd *cobra.Command, args []string) {
-	config := config.GetConfig()
-
-	mapPath := args[0]
-	mapName, err := ui.PromptMapType()
-	if err != nil {
-		log.Fatal("Invalid maptype")
-	}
-
-	log.Info("Loading tga file...")
-	decodedImage, err := image.ReadTga(mapPath)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	mapConfig, exists := config.Maps[mapName]
-	if !exists {
-		log.Fatal("No config for such map", "mapName", mapName)
-	}
-
-	outputPath := util.ChangeDir(filepath.Dir(mapPath), "maps", mapName)
-	log.Debug("Saving tiles to", "path", outputPath)
-
-	decodedImage = image.CropToDivisibleSize(decodedImage, mapConfig)
-
-	for level := 1; level <= mapConfig.Levels; level++ {
-		tiles := image.GenerateLeafletTiles(decodedImage, level)
-
-		count := matrixLen(tiles)
-		description := fmt.Sprintf("[cyan][%d/%d][reset] Generating tiles ", level, mapConfig.Levels)
-
-		bar := progressbar.NewOptions(count,
-			progressbar.OptionEnableColorCodes(true),
-			progressbar.OptionSetWidth(30),
-			progressbar.OptionSetDescription(description),
-			progressbar.OptionShowCount(),
-			progressbar.OptionSetPredictTime(false),
-			progressbar.OptionShowElapsedTimeOnFinish(),
-			progressbar.OptionSetTheme(progressbar.Theme{
-				Saucer:        "[green]=[reset]",
-				SaucerHead:    "[green]>[reset]",
-				SaucerPadding: " ",
-				BarStart:      "[",
-				BarEnd:        "]",
-			}))
-		for x, row := range tiles {
-			for y, tile := range row {
-
-				path := fmt.Sprintf("%d-%d-%d.jpg", level, x, y)
-				if err != nil {
-					log.Fatal(err)
-				}
-
-				bar.AddDetail(path)
-
-				err = image.WriteJpeg(tile, path)
-				if err != nil {
-					log.Fatal(err)
-				}
-				bar.Add(1)
-			}
-		}
-		fmt.Println()
-	}
-
-	styles := lipgloss.NewStyle().
-		Padding(0, 1, 0, 1).
-		Background(lipgloss.Color("#04B575")).
-		Foreground(lipgloss.Color("0"))
-
-	log.Info(styles.Render("Done!"))
-
 }
