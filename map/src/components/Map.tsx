@@ -20,9 +20,9 @@ const MapSchema = z
   ])
   .default("overworld");
 
-type Maps = z.infer<typeof MapSchema>;
+export type MapNames = z.infer<typeof MapSchema>;
 
-const TILES_URL = (mapName: Maps) =>
+const TILES_URL = (mapName: MapNames) =>
   `${LEAFLET_BASE_URL}${encodeURIComponent(`maps/${mapName}/`)}{z}-{x}-{y}.jpg?alt=media`;
 
 export type MapUrlParams = { map: string };
@@ -34,7 +34,7 @@ export const getMap = map;
 
 export default function Map(props: {
   onMove: (pos: Position) => void;
-  map: Maps | (string & {});
+  map: MapNames | (string & {});
   /** This is coming from params, so string here */
   position: Partial<Stringify<Position>>;
 }) {
