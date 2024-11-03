@@ -1,4 +1,4 @@
-import { onMount } from "solid-js";
+import { createSignal, onMount } from "solid-js";
 import * as L from "leaflet";
 import { z } from "zod";
 import { Stringify } from "../lib/types";
@@ -25,6 +25,13 @@ type Maps = z.infer<typeof MapSchema>;
 const TILES_URL = (mapName: Maps) =>
   `${LEAFLET_BASE_URL}${encodeURIComponent(`maps/${mapName}/`)}{z}-{x}-{y}.jpg?alt=media`;
 
+export type MapUrlParams = { map: string };
+
+// In theory, should never run into the situation where this "{} as L.Map" will be problematic..
+const [map, setMap] = createSignal<L.Map>({} as L.Map);
+
+export const getMap = map;
+
 export default function Map(props: {
   onMove: (pos: Position) => void;
   map: Maps | (string & {});
@@ -39,16 +46,11 @@ export default function Map(props: {
     const map = L.map(MAP_ID, {
       zoomControl: false,
       attributionControl: false,
-      minZoom: 1,
+      minZoom: 2,
       maxZoom: 7,
       zoom: +(props.position.zoom ?? "1"),
       center: [+(props.position.lat ?? "0"), +(props.position.lng ?? "0")],
     });
-    // map.addControl(
-    //   L.control.zoom({
-    //     position: "bottomright",
-    //   })
-    // );
     // .on("click", (e: L.LeafletMouseEvent) => {
     //   L.marker(e.latlng).addTo(map);
     // });
@@ -68,6 +70,8 @@ export default function Map(props: {
       maxZoom: 7,
       noWrap: true,
     }).addTo(map);
+
+    setMap(map);
   });
 
   return <div id={MAP_ID} class="h-screen" />;

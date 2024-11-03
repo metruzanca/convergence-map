@@ -13,6 +13,7 @@ import {
   Show,
   Switch,
 } from "solid-js";
+import { LOGOUT_CLEAR } from "../lib/constants";
 
 type LoggedIn = {
   type: "user";
@@ -50,6 +51,9 @@ export async function login(email: string, password: string) {
 
 export async function logout() {
   await signOut(auth);
+  for (const storedSetting of LOGOUT_CLEAR) {
+    localStorage.removeItem(storedSetting);
+  }
   setUser({ type: "no-user" });
 }
 

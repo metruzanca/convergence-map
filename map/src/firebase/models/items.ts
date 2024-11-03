@@ -5,6 +5,8 @@ import { firestore } from "../init";
 
 export namespace Item {
   export type Data = {
+    name: string;
+    wikiUrl: string;
     coords: LatLngTuple;
   };
 }
@@ -27,7 +29,16 @@ export class Item {
     });
   }
 
+  static create() {
+    return new Item("", {
+      name: "",
+      coords: [0, 0],
+      wikiUrl: "",
+    } satisfies Item.Data);
+  }
+
   async save() {
+    // TODO zod parse this.data
     // await Firestore.createDoc(
     //   doc(firestore, Item.collection, this.id),
     //   this.data

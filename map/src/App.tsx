@@ -1,43 +1,76 @@
 import "leaflet/dist/leaflet.css";
 import { useParams, useSearchParams } from "@solidjs/router";
-import Map, { Position } from "./components/Map";
+import Map, { MapUrlParams, Position } from "./components/Map";
 import { Stringify } from "./lib/types";
 import { Drawer } from "./components/Drawer";
-import { createSignal } from "solid-js";
 import { Protected } from "./firebase/auth";
+import MapSidebar from "./components/MapSidebar";
+import { createPersistedSignal } from "./lib/signals";
+import { EDITOR_SIDEBAR, MAP_SIDEBAR } from "./lib/constants";
+import { isInIframe } from "./lib/iframe";
+import EditorSiderbar from "./components/EditorSidebar";
+import { onHotkey, registerHotkeys } from "./lib/hotkeys";
+import { onMount, onCleanup } from "solid-js";
+import { minWidth } from "./lib/styling";
 
 export default function App() {
-  const params = useParams<{ map: string }>();
+  const params = useParams<MapUrlParams>();
   const [search, setSearch] = useSearchParams<Stringify<Position>>();
 
-  const [open, setOpen] = createSignal(false);
+  const [openLeft, setOpenLeft] = createPersistedSignal(MAP_SIDEBAR, false);
+  const [openRight, setOpenRight] = createPersistedSignal(
+    EDITOR_SIDEBAR,
+    false
+  );
 
-  //@ts-ignore
-  window.setOpen = setOpen;
+  onMount(() => {
+    onCleanup(
+      registerHotkeys([
+        { key: "k", ctrl: true },
+        { key: "Escape" },
+        { key: "1", ctrl: true },
+        { key: "2", ctrl: true },
+        { key: "3", ctrl: true },
+      ])
+    );
+    onCleanup(
+      onHotkey({ key: "k", ctrl: true }, () => {
+        setOpenLeft(true);
+      })
+    );
+    onCleanup(
+      onHotkey({ key: "Escape" }, () => {
+        setOpenLeft(false);
+        setOpenRight(false);
+      })
+    );
+  });
+
+  const widthQuery = minWidth(640);
 
   return (
     <div class="w-screen h-screen">
-      <div class="absolute top-0 left-0 z-[500] bg-base-300">
-        <label>
-          Map:
-          <select
-            onChange={(e) => {
-              window.location.pathname = `/${e.target.value}`;
-            }}
-            value={params.map ?? "overworld"}
-          >
-            <option value="overworld">overworld</option>
-            <option value="underworld">underworld</option>
-            <option value="scadutree">scadutree</option>
-          </select>
-        </label>
-      </div>
       <Map map={params.map} onMove={setSearch} position={search} />
-      <Protected>
-        <Drawer onChange={setOpen} open={open}>
-          Testing drawer
-        </Drawer>
-      </Protected>
+
+      {!isInIframe() && (
+        <>
+          <Drawer
+            position="left"
+            onChange={setOpenLeft}
+            open={openLeft}
+            children={<MapSidebar />}
+          />
+          {widthQuery() && (
+            <Protected>
+              <Drawer
+                onChange={setOpenRight}
+                open={openRight}
+                children={<EditorSiderbar />}
+              />
+            </Protected>
+          )}
+        </>
+      )}
     </div>
   );
 }

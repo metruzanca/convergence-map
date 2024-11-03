@@ -90,3 +90,56 @@ export const DoubleChevronRightIcon = Icon((props) => (
     />
   </svg>
 ));
+
+export const SearchIcon = Icon((props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 16 16"
+    fill="currentColor"
+    {...props}
+  >
+    <path
+      fill-rule="evenodd"
+      d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+      clip-rule="evenodd"
+    />
+  </svg>
+));
+
+export const CloseIcon = Icon((props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    {...props}
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+    />
+  </svg>
+));
+
+type Sprites = "grace";
+
+export function Sprite(props: {
+  sprite: Sprites;
+  size?: number;
+  class?: string;
+  onClick?: VoidFunction;
+}) {
+  return (
+    <img
+      style={{
+        width: `${props.size ?? 1}rem`,
+        height: `${props.size ?? 1}rem`,
+      }}
+      src={`/icons/${props.sprite}.webp`}
+      class={props.class}
+      onClick={props.onClick}
+    />
+  );
+}

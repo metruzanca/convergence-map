@@ -28,3 +28,29 @@ body {
 button {
   cursor: initial !important;
 }
+
+@layer components {
+  h2 {
+    @apply text-lg font-bold border-b-neutral-700 border-b mb-2;
+  }
+
+  h3 {
+    @apply font-semibold mb-2;
+  }
+}
+
+@layer utilities {
+  /* Taken from daisyui's btn */
+  .btn-hover {
+    background-color: color-mix(
+      in oklab,
+      oklch(var(--btn-color, var(--b2)) / var(--tw-bg-opacity, 1)) 90%,
+      black
+    );
+    border-color: color-mix(
+      in oklab,
+      oklch(var(--btn-color, var(--b2)) / var(--tw-border-opacity, 1)) 90%,
+      black
+    );
+  }
+}
