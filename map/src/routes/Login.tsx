@@ -30,7 +30,7 @@ function LoginForm() {
   return (
     <form
       onSubmit={handleLogin}
-      class="text-white p-6 rounded-lg shadow-md w-full max-w-sm mx-auto flex flex-col gap-4"
+      class="text-white p-6 rounded-lg shadow-2xl w-full max-w-sm mx-auto flex flex-col gap-4"
     >
       <h2>Login</h2>
 
