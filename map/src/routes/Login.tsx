@@ -61,6 +61,9 @@ function LoginForm() {
       <Button type="submit" class="w-full">
         Login
       </Button>
+      <a class="btn-link cursor-pointer" onClick={() => navigate("/")}>
+        back to map
+      </a>
       {error() && <p class="text-red-700">{error()}</p>}
     </form>
   );
