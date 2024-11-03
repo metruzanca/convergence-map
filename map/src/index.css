@@ -18,8 +18,13 @@
 
 body {
   font-family: "Inter Variable", sans-serif;
+  user-select: none;
 }
 
 .leaflet-container {
   background-color: transparent !important;
+}
+
+button {
+  cursor: initial !important;
 }

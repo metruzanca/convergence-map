@@ -43,11 +43,12 @@ export default function Map(props: {
       maxZoom: 7,
       zoom: +(props.position.zoom ?? "1"),
       center: [+(props.position.lat ?? "0"), +(props.position.lng ?? "0")],
-    }).addControl(
-      L.control.zoom({
-        position: "bottomright",
-      })
-    );
+    });
+    // map.addControl(
+    //   L.control.zoom({
+    //     position: "bottomright",
+    //   })
+    // );
     // .on("click", (e: L.LeafletMouseEvent) => {
     //   L.marker(e.latlng).addTo(map);
     // });

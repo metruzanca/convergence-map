@@ -5,8 +5,14 @@ import {
   User,
 } from "firebase/auth";
 import { auth } from "./init";
-import { createSignal, JSXElement, Match, Switch } from "solid-js";
-import { Button } from "../components/Core";
+import {
+  createSignal,
+  JSXElement,
+  Match,
+  onMount,
+  Show,
+  Switch,
+} from "solid-js";
 
 type LoggedIn = {
   type: "user";
@@ -54,25 +60,43 @@ if (import.meta.env.DEV) {
 
 export const getUser = user;
 
-const Spinner = () => <span class="loading loading-ring loading-lg"></span>;
+/** If spinner is on screen for longer than 50ms, will show loading spinner */
+export const Spinner = () => {
+  const [show, setShow] = createSignal(false);
+
+  onMount(() => {
+    const timer = setTimeout(() => setShow(true), 50);
+    return () => clearTimeout(timer);
+  });
+
+  return (
+    <Show when={show()}>
+      <div class="w-full h-full flex items-center justify-center">
+        <span class="loading loading-ring loading-lg"></span>
+      </div>
+    </Show>
+  );
+};
 
 export function Protected(props: {
   children: JSXElement;
   fallback?: JSXElement;
+  loading?: true | JSXElement;
   class?: string;
 }) {
   return (
     <div class={props.class}>
       <Switch>
         <Match when={getUser().type === "loading"}>
-          <div class="w-full h-full flex items-center justify-center">
+          {/* IF truethy, check if its just true, then show default spinner, else show custom element */}
+          {props.loading && props.loading === true ? (
             <Spinner />
-          </div>
+          ) : (
+            props.loading
+          )}
         </Match>
+        <Match when={getUser().type === "no-user"}>{props.fallback}</Match>
         <Match when={getUser().type === "user"}>{props.children}</Match>
-        <Match when={getUser().type === "no-user"}>
-          {props.fallback ?? <Button>Log in to access</Button>}
-        </Match>
       </Switch>
     </div>
   );

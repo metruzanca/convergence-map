@@ -72,6 +72,7 @@ export default function Login() {
   return (
     <Protected
       fallback={<LoginForm />}
+      loading
       class="h-screen flex flex-col items-center justify-center"
     >
       <div class="w-36 flex flex-col gap-4">
