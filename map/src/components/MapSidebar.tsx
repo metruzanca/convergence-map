@@ -1,5 +1,5 @@
 import { A, useParams } from "@solidjs/router";
-import { MapUrlParams } from "./Map";
+import { MapNames, MapUrlParams } from "./Map";
 import { onCleanup } from "solid-js";
 import { onHotkey } from "../lib/hotkeys";
 import { Sprite } from "./Icons";
@@ -14,6 +14,19 @@ export default function MapSidebar() {
     })
   );
 
+  const changeMap = (mapname: MapNames) => {
+    if (window.location.href.includes(mapname)) return;
+    if (window.location.href.includes("scadutree")) {
+      window.location.href = `/${mapname}`;
+    } else {
+      window.location.pathname = `/${mapname}`;
+    }
+  };
+
+  onCleanup(onHotkey({ key: "1", ctrl: true }, () => changeMap("overworld")));
+  onCleanup(onHotkey({ key: "2", ctrl: true }, () => changeMap("underworld")));
+  onCleanup(onHotkey({ key: "3", ctrl: true }, () => changeMap("scadutree")));
+
   return (
     <div class="h-full px-2 flex flex-col justify-between">
       <div>
@@ -21,9 +34,7 @@ export default function MapSidebar() {
           <h2>Map</h2>
           <select
             class="select w-full"
-            onChange={(e) => {
-              window.location.href = `/${e.target.value}`;
-            }}
+            onChange={(e) => changeMap(e.target.value as MapNames)}
             value={params.map ?? "overworld"}
           >
             <option value="overworld">overworld</option>

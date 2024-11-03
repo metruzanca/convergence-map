@@ -3,7 +3,7 @@ type Modifiers = {
   shift?: boolean;
 };
 
-type HotkeyDetails = { key: string } & Modifiers;
+export type HotkeyDetails = { key: string } & Modifiers;
 
 function hotkeyName({ key, ctrl, shift }: HotkeyDetails) {
   return `hotkey:${ctrl || ""}+${shift || ""}+${key}`;

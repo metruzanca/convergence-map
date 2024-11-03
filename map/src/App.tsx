@@ -9,9 +9,17 @@ import { createPersistedSignal } from "./lib/signals";
 import { EDITOR_SIDEBAR, MAP_SIDEBAR } from "./lib/constants";
 import { isInIframe } from "./lib/iframe";
 import EditorSiderbar from "./components/EditorSidebar";
-import { onHotkey, registerHotkeys } from "./lib/hotkeys";
+import { HotkeyDetails, onHotkey, registerHotkeys } from "./lib/hotkeys";
 import { onMount, onCleanup } from "solid-js";
 import { minWidth } from "./lib/styling";
+
+const hotkeys: Array<HotkeyDetails & { description: string }> = [
+  { key: "Escape", description: "Close all drawers" },
+  { key: "k", ctrl: true, description: "Open and focus item search" },
+  { key: "1", ctrl: true, description: "Quick switch to Map 1" },
+  { key: "2", ctrl: true, description: "Quick switch to Map 2" },
+  { key: "3", ctrl: true, description: "Quick switch to Map 3" },
+];
 
 export default function App() {
   const params = useParams<MapUrlParams>();
@@ -24,15 +32,7 @@ export default function App() {
   );
 
   onMount(() => {
-    onCleanup(
-      registerHotkeys([
-        { key: "k", ctrl: true },
-        { key: "Escape" },
-        { key: "1", ctrl: true },
-        { key: "2", ctrl: true },
-        { key: "3", ctrl: true },
-      ])
-    );
+    onCleanup(registerHotkeys(hotkeys));
     onCleanup(
       onHotkey({ key: "k", ctrl: true }, () => {
         setOpenLeft(true);
