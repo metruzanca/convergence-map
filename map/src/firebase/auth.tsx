@@ -6,12 +6,14 @@ import {
 } from "firebase/auth";
 import { auth } from "./init";
 import {
+  createContext,
   createSignal,
   JSXElement,
   Match,
   onMount,
   Show,
   Switch,
+  useContext,
 } from "solid-js";
 import { LOGOUT_CLEAR } from "../lib/constants";
 
@@ -29,6 +31,8 @@ type AuthLoading = {
 type AuthState = AuthLoading | LoggedOut | LoggedIn;
 
 const [user, setUser] = createSignal<AuthState>({ type: "loading" });
+
+export const getCurrentUser = user;
 
 let listenerInitialized = false;
 
@@ -62,8 +66,6 @@ if (import.meta.env.DEV) {
   window.logout = logout;
 }
 
-export const getUser = user;
-
 /** If spinner is on screen for longer than 50ms, will show loading spinner */
 export const Spinner = () => {
   const [show, setShow] = createSignal(false);
@@ -82,6 +84,10 @@ export const Spinner = () => {
   );
 };
 
+type UserContext = { user: User };
+const AuthenticatedUserContext = createContext<UserContext>({} as UserContext);
+export const useCurrentUser = () => useContext(AuthenticatedUserContext);
+
 export function Protected(props: {
   children: JSXElement;
   fallback?: JSXElement;
@@ -91,7 +97,7 @@ export function Protected(props: {
   return (
     <div class={props.class}>
       <Switch>
-        <Match when={getUser().type === "loading"}>
+        <Match when={user().type === "loading"}>
           {/* IF truethy, check if its just true, then show default spinner, else show custom element */}
           {props.loading && props.loading === true ? (
             <Spinner />
@@ -99,8 +105,17 @@ export function Protected(props: {
             props.loading
           )}
         </Match>
-        <Match when={getUser().type === "no-user"}>{props.fallback}</Match>
-        <Match when={getUser().type === "user"}>{props.children}</Match>
+        <Match when={user().type === "no-user"}>{props.fallback}</Match>
+
+        <Match when={user().type === "user"}>
+          <AuthenticatedUserContext.Provider
+            value={{
+              user: (user() as LoggedIn).user,
+            }}
+          >
+            {props.children}
+          </AuthenticatedUserContext.Provider>
+        </Match>
       </Switch>
     </div>
   );

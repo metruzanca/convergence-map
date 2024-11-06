@@ -3,6 +3,7 @@ import { MapNames, MapUrlParams } from "./Map";
 import { onCleanup } from "solid-js";
 import { onHotkey } from "../lib/hotkeys";
 import { Sprite } from "./Icons";
+import { getCurrentUser } from "../firebase/auth";
 
 export default function MapSidebar() {
   const params = useParams<MapUrlParams>();
@@ -59,7 +60,7 @@ export default function MapSidebar() {
       </div>
       <div class="pb-10 flex items-center justify-center">
         <A href="/login" class="btn-link">
-          Login
+          {getCurrentUser().type === "user" ? "Account" : "Login"}
         </A>
       </div>
     </div>

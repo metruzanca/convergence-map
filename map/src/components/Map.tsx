@@ -1,8 +1,10 @@
-import { createSignal, onMount } from "solid-js";
+import { createEffect, createSignal, onMount } from "solid-js";
 import * as L from "leaflet";
 import { z } from "zod";
 import { Stringify } from "../lib/types";
 import { LEAFLET_BASE_URL } from "../lib/constants";
+import { formatLatLng } from "../lib/map";
+import { Item } from "../firebase";
 
 const MAP_ID = "map";
 
@@ -40,6 +42,9 @@ export default function Map(props: {
 }) {
   const mapName = MapSchema.safeParse(props.map).data!;
 
+  const [items, setItems] = createSignal<Item[]>([]);
+  Item.liveCollection(setItems);
+
   onMount(() => {
     // TODO check that params is a valid value
 
@@ -51,9 +56,6 @@ export default function Map(props: {
       zoom: +(props.position.zoom ?? "1"),
       center: [+(props.position.lat ?? "0"), +(props.position.lng ?? "0")],
     });
-    // .on("click", (e: L.LeafletMouseEvent) => {
-    //   L.marker(e.latlng).addTo(map);
-    // });
 
     map.on("zoomend moveend", () => {
       const zoom = map.getZoom();
@@ -61,8 +63,8 @@ export default function Map(props: {
 
       props.onMove({
         zoom,
-        lat: +center.lat.toFixed(0),
-        lng: +center.lng.toFixed(0),
+        lat: formatLatLng(center.lat),
+        lng: formatLatLng(center.lng),
       });
     });
 
@@ -72,6 +74,22 @@ export default function Map(props: {
     }).addTo(map);
 
     setMap(map);
+  });
+
+  createEffect(() => {
+    const map = getMap();
+    if (!map) return;
+
+    const customIcon = L.icon({
+      iconUrl: "/icons/grace.webp",
+      iconSize: [32, 32], // size of the icon
+      iconAnchor: [16, 32], // point of the icon which will correspond to marker's location
+      popupAnchor: [0, -32], // point from which the popup should open relative to the iconAnchor
+    });
+
+    for (const item of items()) {
+      L.marker(item.data.coords, { icon: customIcon }).addTo(map);
+    }
   });
 
   return <div id={MAP_ID} class="h-screen" />;
