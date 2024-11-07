@@ -20,7 +20,7 @@ export function ItemForm(props: { item: Item; onSubmit: OnSubmit<Item> }) {
   const [pin, setPin] = createSignal<ItemData["latlng"]>(
     props.item.data.latlng
   );
-  const [editingPin, setEditingPin] = createSignal(false);
+  const [editingPin, setEditingPin] = createSignal(true);
   const addMarker = (e: L.LeafletMouseEvent) => {
     const existingMarkers = mapMarkers();
     if (existingMarkers.has(props.item.id)) {
@@ -75,7 +75,7 @@ export function ItemForm(props: { item: Item; onSubmit: OnSubmit<Item> }) {
         <div class="flex gap-2 items-center justify-around input input-sm">
           <CoordinatesInput latlng={pin()} />
           <PinIcon
-            onClick={() => setEditingPin(true)}
+            onClick={() => setEditingPin((prev) => !prev)}
             class={cn(editingPin() && "stroke-accent")}
           />
         </div>
