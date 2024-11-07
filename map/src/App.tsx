@@ -1,6 +1,6 @@
 import "leaflet/dist/leaflet.css";
 import { useParams, useSearchParams } from "@solidjs/router";
-import Map, { MapUrlParams, Position } from "./components/Map";
+import MapComponent, { MapUrlParams, Position } from "./components/Map";
 import { Stringify } from "./lib/types";
 import { Drawer } from "./components/Drawer";
 import { Protected } from "./firebase/auth";
@@ -50,7 +50,7 @@ export default function App() {
 
   return (
     <div class="w-screen h-screen">
-      <Map map={params.map} onMove={setSearch} position={search} />
+      <MapComponent map={params.map} onMove={setSearch} position={search} />
 
       {!isInIframe() && (
         <>

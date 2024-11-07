@@ -4,14 +4,16 @@ import { collection, onSnapshot, QuerySnapshot } from "firebase/firestore";
 import { firestore } from "../init";
 import { Firestore, Timestamps } from "../firestore";
 import { DeepPartial } from "../../lib/types";
+import { MapNames } from "../../components/Map";
 
 export type ItemData = Timestamps & {
   author: string;
   deleted: boolean;
   name: string;
   wikiUrl: string;
-  coords: LatLngTuple;
+  latlng: LatLngTuple;
   category: string;
+  map: MapNames;
 };
 
 export class Item {
@@ -44,11 +46,15 @@ export class Item {
     await Firestore.upsert<ItemData>(Item, this, { deleted: false });
   }
 
-  static async create(username: string): Promise<Item> {
+  static async create(
+    author: string,
+    map: MapNames = "overworld"
+  ): Promise<Item> {
     return Firestore.create(Item, {
-      author: username,
+      author,
+      map,
       name: "new item",
-      coords: [0, 0],
+      latlng: [0, 0],
       wikiUrl: "",
       category: "",
       deleted: false,

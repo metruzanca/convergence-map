@@ -1,7 +1,7 @@
 import { marker, LatLngTuple } from "leaflet";
 import { onMount, createSignal, createEffect, onCleanup } from "solid-js";
 import { Item, ItemData } from "../firebase";
-import { formatLatLng } from "../lib/map";
+import { formatLatLng, mapMarkers } from "../lib/map";
 import cn from "../lib/styling";
 import { OnSubmit } from "../lib/types";
 import { Button } from "./Core";
@@ -17,13 +17,21 @@ export function ItemForm(props: { item: Item; onSubmit: OnSubmit<Item> }) {
 
   const map = getMap();
 
-  const [pin, setPin] = createSignal<ItemData["coords"]>(
-    props.item.data.coords
+  const [pin, setPin] = createSignal<ItemData["latlng"]>(
+    props.item.data.latlng
   );
   const [editingPin, setEditingPin] = createSignal(false);
   const addMarker = (e: L.LeafletMouseEvent) => {
+    const existingMarkers = mapMarkers();
+    if (existingMarkers.has(props.item.id)) {
+      existingMarkers
+        .get(props.item.id)
+        ?.setLatLng([formatLatLng(e.latlng.lat), formatLatLng(e.latlng.lng)]);
+    } else {
+      marker(e.latlng).addTo(map);
+    }
+
     setPin([formatLatLng(e.latlng.lat), formatLatLng(e.latlng.lng)]);
-    marker(e.latlng).addTo(map);
     setEditingPin(false);
   };
   createEffect(() => {
@@ -41,7 +49,7 @@ export function ItemForm(props: { item: Item; onSubmit: OnSubmit<Item> }) {
         props.item.update({
           name: fd.get("name")?.toString() ?? "new item",
           wikiUrl: fd.get("wikiUrl")?.toString() ?? "",
-          coords: pin(),
+          latlng: pin(),
         });
         e.preventDefault();
       }}
@@ -65,7 +73,7 @@ export function ItemForm(props: { item: Item; onSubmit: OnSubmit<Item> }) {
           value={props.item.data.wikiUrl}
         />
         <div class="flex gap-2 items-center justify-around input input-sm">
-          <CoordinatesInput latlng={pin()} edit />
+          <CoordinatesInput latlng={pin()} />
           <PinIcon
             onClick={() => setEditingPin(true)}
             class={cn(editingPin() && "stroke-accent")}
@@ -77,33 +85,17 @@ export function ItemForm(props: { item: Item; onSubmit: OnSubmit<Item> }) {
   );
 }
 
-export function CoordinatesInput(props: {
-  latlng: LatLngTuple;
-  edit?: boolean;
-}) {
+export function CoordinatesInput(props: { latlng: LatLngTuple }) {
   return (
     <div class="flex gap-2 text-sm items-center">
-      {props.edit ? (
-        <>
-          <div>
-            <span>X</span>:{" "}
-            <input class="max-w-10" type="number" value={props.latlng[0]} />
-          </div>
-          <div>
-            <span>Y</span>:{" "}
-            <input class="max-w-10" type="number" value={props.latlng[1]} />
-          </div>
-        </>
-      ) : (
-        <>
-          <span>
-            <span>X</span>: {props.latlng[0]}
-          </span>
-          <span>
-            <span>Y</span>: {props.latlng[1]}
-          </span>
-        </>
-      )}
+      <div>
+        <span>X</span>:{" "}
+        <input class="max-w-10" type="number" value={props.latlng?.[0]} />
+      </div>
+      <div>
+        <span>Y</span>:{" "}
+        <input class="max-w-10" type="number" value={props.latlng?.[1]} />
+      </div>
     </div>
   );
 }

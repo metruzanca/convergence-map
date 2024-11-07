@@ -1,5 +1,5 @@
 import { Item } from "../firebase";
-import { createEffect, createSignal, For, Show } from "solid-js";
+import { createSignal, For, Show } from "solid-js";
 import {
   CloseMarkIcon,
   PencilSquareIcon,
@@ -10,7 +10,8 @@ import {
 import { Button } from "./Core";
 import { useCurrentUser } from "../firebase/auth";
 import cn from "../lib/styling";
-import { CoordinatesInput, ItemForm } from "./Forms";
+import { ItemForm } from "./Forms";
+import { setMapMarkers } from "../lib/map";
 
 export default function EditorSiderbar() {
   // const params = useParams<MapUrlParams>();
@@ -18,9 +19,6 @@ export default function EditorSiderbar() {
   Item.liveCollection(setItems);
 
   const [item, setItem] = createSignal<Item>();
-  createEffect(() => {
-    console.log(item());
-  });
 
   const current = useCurrentUser();
 
@@ -39,6 +37,7 @@ export default function EditorSiderbar() {
             class="btn-neutral w-full btn-xs"
             onClick={async () => {
               const item = await Item.create(current.user.uid);
+
               setItem(item);
             }}
           >
@@ -49,10 +48,14 @@ export default function EditorSiderbar() {
             {import.meta.env.DEV && items().length > 0 && (
               <Button
                 class="btn-xs btn-error"
-                onClick={() =>
-                  confirm(`About to delete all ${items().length} pins`) &&
-                  items().forEach((i) => i.delete())
-                }
+                onClick={() => {
+                  if (confirm(`About to delete all ${items().length} pins`)) {
+                    items().forEach((i) => {
+                      i.delete();
+                      setMapMarkers(new Map());
+                    });
+                  }
+                }}
               >
                 DevTool: delete all
               </Button>
@@ -93,7 +96,14 @@ function ItemCard(props: { item: Item; edit: () => void }) {
       <div>
         <h4 class="text-sm">{props.item.data.name}</h4>
 
-        <CoordinatesInput latlng={props.item.data.coords} />
+        <div class="text-xs">
+          <span>
+            <span>X</span>: {props.item.data.latlng?.[0]}
+          </span>
+          <span>
+            <span>Y</span>: {props.item.data.latlng?.[1]}
+          </span>
+        </div>
       </div>
 
       {/* Controls */}
