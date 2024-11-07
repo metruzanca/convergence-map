@@ -1,6 +1,10 @@
 {
   "routes": [
     {
+      "src": "/icons/(.*)",
+      "dest": "/icons/$1"
+    },
+    {
       "src": "/[^.]+",
       "dest": "/",
       "status": 200
