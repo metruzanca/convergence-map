@@ -1,5 +1,5 @@
 import { Item } from "../firebase";
-import { createSignal, For, Show } from "solid-js";
+import { createMemo, createSignal, For, Show } from "solid-js";
 import {
   CloseMarkIcon,
   PencilSquareIcon,
@@ -7,11 +7,10 @@ import {
   SearchIcon,
   TrashIcon,
 } from "./Icons";
-import { Button } from "./Core";
 import { useCurrentUser } from "../firebase/auth";
 import cn from "../lib/styling";
-import { ItemForm } from "./Forms";
-import { setMapMarkers } from "../lib/map";
+import { setStore } from "../lib/map";
+import ItemForm from "./ItemForm";
 
 export default function EditorSiderbar() {
   // const params = useParams<MapUrlParams>();
@@ -22,6 +21,15 @@ export default function EditorSiderbar() {
 
   const current = useCurrentUser();
 
+  const [markFilter, setMarkFilter] = createSignal("");
+  const filteredItems = createMemo(() =>
+    items()
+      .filter((i) =>
+        i.data.name.toLowerCase().includes(markFilter().toLowerCase())
+      )
+      .sort((a, b) => Number(a.data.deleted) - Number(b.data.deleted))
+  );
+
   return (
     <div class="flex flex-col px-2">
       <h2 class="border-b-neutral-700 border-b">Editor Panel</h2>
@@ -29,41 +37,44 @@ export default function EditorSiderbar() {
         <div>
           <h3>Map Pins</h3>
           <label class="input input-bordered flex items-center gap-2">
-            <input type="text" class="grow" placeholder="Search" />
+            <input
+              type="text"
+              class="grow"
+              placeholder="Filter"
+              onInput={(e) => setMarkFilter(e.target.value)}
+            />
             <SearchIcon class="w-4 h-4 opacity-70" />
           </label>
 
-          <Button
-            class="btn-neutral w-full btn-xs"
+          <button
+            class="btn btn-neutral w-full btn-xs"
             onClick={async () => {
-              const item = await Item.create(current.user.uid);
+              const item = await Item.create(current.user.email!.split("@")[0]);
 
               setItem(item);
             }}
           >
             Add Pin
-          </Button>
+          </button>
 
           <div class="flex flex-col gap-2 overflow-y-scroll">
             {import.meta.env.DEV && items().length > 0 && (
-              <Button
-                class="btn-xs btn-error"
+              <button
+                class="btn btn-primary btn-xs btn-error"
                 onClick={() => {
                   if (confirm(`About to delete all ${items().length} pins`)) {
                     items().forEach((i) => {
                       i.delete();
-                      setMapMarkers(new Map());
+                      setStore("markers", new Map());
                     });
                   }
                 }}
               >
                 DevTool: delete all
-              </Button>
+              </button>
             )}
             <For
-              each={items().sort(
-                (a, b) => Number(a.data.deleted) - Number(b.data.deleted)
-              )}
+              each={filteredItems()}
               children={(item) => (
                 <ItemCard item={item} edit={() => setItem(item)} />
               )}
@@ -108,6 +119,7 @@ function ItemCard(props: { item: Item; edit: () => void }) {
 
       {/* Controls */}
       <div class="absolute top-1 right-1 flex gap-1">
+        <p class="text-xs">author: {props.item.data.author.substring(0, 3)}</p>
         {props.item.data.deleted ? (
           <RestoreIcon
             class="text-base-content"

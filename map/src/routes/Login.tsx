@@ -1,7 +1,6 @@
 import { useNavigate } from "@solidjs/router";
 import { login, logout, Protected } from "../firebase/auth";
 import { createSignal } from "solid-js";
-import { Button } from "../components/Core";
 import { EnvelopeIcon, KeyIcon } from "../components/Icons";
 
 function LoginForm() {
@@ -58,9 +57,9 @@ function LoginForm() {
         />
       </label>
 
-      <Button type="submit" class="w-full">
+      <button type="submit" class="btn btn-primary w-full">
         Login
-      </Button>
+      </button>
       <a class="btn-link cursor-pointer" onClick={() => navigate("/")}>
         back to map
       </a>
@@ -79,12 +78,12 @@ export default function Login() {
       class="h-screen flex flex-col items-center justify-center"
     >
       <div class="w-36 flex flex-col gap-4">
-        <Button class="w-full btn" onClick={() => navigate("/")}>
+        <button class=" tn btn-primary w-full" onClick={() => navigate("/")}>
           back to map
-        </Button>
-        <Button class="w-full btn-neutral" onClick={logout}>
+        </button>
+        <button class="btn w-full btn-neutral" onClick={logout}>
           Logout
-        </Button>
+        </button>
       </div>
     </Protected>
   );

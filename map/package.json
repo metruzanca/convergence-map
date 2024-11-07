@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.1.0",
+    "@kobalte/core": "^0.13.7",
     "@solidjs/router": "^0.14.10",
     "@tailwindcss/typography": "^0.5.15",
     "@types/leaflet": "^1.9.8",

@@ -3,7 +3,7 @@ import * as L from "leaflet";
 import { z } from "zod";
 import { Stringify } from "../lib/types";
 import { LEAFLET_BASE_URL } from "../lib/constants";
-import { formatLatLng, mapMarkers } from "../lib/map";
+import { formatLatLng, store } from "../lib/map";
 
 const MAP_ID = "map";
 
@@ -76,7 +76,7 @@ export default function MapComponent(props: {
     const map = getMap();
     if (!map) return;
 
-    mapMarkers().forEach((marker) => marker.addTo(map));
+    store.markers.forEach((marker) => marker.addTo(map));
   });
 
   return <div id={MAP_ID} class="h-screen" />;

@@ -43,7 +43,7 @@ export default function MapSidebar() {
             <option value="scadutree">scadutree</option>
           </select>
 
-          <label class="input input-bordered flex items-center btn gap-2">
+          <label class="input input-bordered flex items-center gap-2">
             <input
               type="text"
               class="grow"
