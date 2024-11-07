@@ -1,30 +1,20 @@
-import { Item, ItemData } from "../firebase";
+import { Item } from "../firebase";
+import { createEffect, createSignal, For, Show } from "solid-js";
 import {
-  createEffect,
-  createSignal,
-  For,
-  onCleanup,
-  onMount,
-  Show,
-} from "solid-js";
-import {
+  CloseMarkIcon,
   PencilSquareIcon,
-  PinIcon,
   RestoreIcon,
   SearchIcon,
   TrashIcon,
 } from "./Icons";
 import { Button } from "./Core";
 import { useCurrentUser } from "../firebase/auth";
-import { LatLngTuple, marker } from "leaflet";
-import { getMap } from "./Map";
 import cn from "../lib/styling";
-import { formatLatLng } from "../lib/map";
-import { OnSubmit } from "../lib/types";
+import { CoordinatesInput, ItemForm } from "./Forms";
 
 export default function EditorSiderbar() {
   // const params = useParams<MapUrlParams>();
-  const [items, setItems] = createSignal<Item[]>();
+  const [items, setItems] = createSignal<Item[]>([]);
   Item.liveCollection(setItems);
 
   const [item, setItem] = createSignal<Item>();
@@ -56,8 +46,21 @@ export default function EditorSiderbar() {
           </Button>
 
           <div class="flex flex-col gap-2 overflow-y-scroll">
+            {import.meta.env.DEV && items().length > 0 && (
+              <Button
+                class="btn-xs btn-error"
+                onClick={() =>
+                  confirm(`About to delete all ${items().length} pins`) &&
+                  items().forEach((i) => i.delete())
+                }
+              >
+                DevTool: delete all
+              </Button>
+            )}
             <For
-              each={items()}
+              each={items().sort(
+                (a, b) => Number(a.data.deleted) - Number(b.data.deleted)
+              )}
               children={(item) => (
                 <ItemCard item={item} edit={() => setItem(item)} />
               )}
@@ -66,7 +69,13 @@ export default function EditorSiderbar() {
         </div>
 
         <Show when={item()}>
-          <ItemForm item={item()!} onSubmit={setItem} />
+          <div class="relative">
+            <CloseMarkIcon
+              class="absolute top-0 right-0 hover:text-error"
+              onClick={() => setItem()}
+            />
+            <ItemForm item={item()!} onSubmit={setItem} />
+          </div>
         </Show>
       </div>
     </div>
@@ -78,18 +87,18 @@ function ItemCard(props: { item: Item; edit: () => void }) {
     <div
       class={cn(
         "bg-primary-content min-h-16 rounded relative p-1",
-        props.item.data?.meta?.deleted && "bg-error-content text-error"
+        props.item.data.deleted && "bg-error-content text-error"
       )}
     >
       <div>
         <h4 class="text-sm">{props.item.data.name}</h4>
 
-        <Coordinates latlng={props.item.data.coords} />
+        <CoordinatesInput latlng={props.item.data.coords} />
       </div>
 
       {/* Controls */}
       <div class="absolute top-1 right-1 flex gap-1">
-        {props.item.data?.meta?.deleted ? (
+        {props.item.data.deleted ? (
           <RestoreIcon
             class="text-base-content"
             size="small"
@@ -103,114 +112,17 @@ function ItemCard(props: { item: Item; edit: () => void }) {
             <TrashIcon
               size="small"
               onClick={() => {
-                props.item.delete();
+                props.item.softDelete();
               }}
             />
           </>
         )}
       </div>
 
-      {props.item.data.meta.deleted && (
+      {props.item.data.deleted && (
         <p class="text-xs absolute bottom-1 left-1">
           deleted on {props.item.data.updatedAt?.toDate().toLocaleString()}
         </p>
-      )}
-    </div>
-  );
-}
-
-function ItemForm(props: { item: Item; onSubmit: OnSubmit<Item> }) {
-  let newItemName!: HTMLInputElement;
-
-  onMount(() => {
-    newItemName.focus();
-  });
-
-  const map = getMap();
-
-  const [pin, setPin] = createSignal<ItemData["coords"]>(
-    props.item.data.coords
-  );
-  const [editingPin, setEditingPin] = createSignal(false);
-  const addMarker = (e: L.LeafletMouseEvent) => {
-    setPin([formatLatLng(e.latlng.lat), formatLatLng(e.latlng.lng)]);
-    marker(e.latlng).addTo(map);
-    setEditingPin(false);
-  };
-  createEffect(() => {
-    if (editingPin()) {
-      map.on("click", addMarker);
-    }
-    onCleanup(() => map.off("click", addMarker));
-  });
-
-  return (
-    <form
-      class="flex flex-col"
-      onSubmit={(e) => {
-        const fd = new FormData(e.target as HTMLFormElement);
-        props.item.update({
-          name: fd.get("name")?.toString() ?? "new item",
-          wikiUrl: fd.get("wikiUrl")?.toString() ?? "",
-          coords: pin(),
-        });
-        e.preventDefault();
-      }}
-    >
-      <h3>New Pin</h3>
-      <div class="flex flex-col gap-2">
-        <input
-          name="name"
-          ref={newItemName}
-          class="input input-bordered input-sm w-full max-w-xs"
-          placeholder="Item name"
-          type="text"
-          value={props.item.data.name}
-        />
-        <input
-          name="wikiUrl"
-          ref={newItemName}
-          class="input input-bordered input-sm w-full max-w-xs"
-          placeholder="Item name"
-          type="url"
-          value={props.item.data.wikiUrl}
-        />
-        <div class="flex gap-2 items-center justify-around input input-sm">
-          <Coordinates latlng={pin()} edit />
-          <PinIcon
-            onClick={() => setEditingPin(true)}
-            class={cn(editingPin() && "stroke-accent")}
-          />
-        </div>
-        <Button class="btn w-full btn-xs">Save</Button>
-      </div>
-    </form>
-  );
-}
-
-function Coordinates(props: { latlng: LatLngTuple; edit?: boolean }) {
-  return (
-    <div class="flex gap-2 text-sm items-center">
-      {props.edit ? (
-        <>
-          <div>
-            <span>X</span>:{" "}
-            <input class="max-w-10" type="number" value={props.latlng[0]} />
-          </div>
-          <div>
-            <span>Y</span>:{" "}
-            <input class="max-w-10" type="number" value={props.latlng[1]} />
-          </div>
-        </>
-      ) : (
-        <>
-          <span>
-            <span>X</span>: {props.latlng[0]}
-          </span>
-          <span>
-            <span>Y</span>: {props.latlng[1]}
-          </span>
-        </>
       )}
     </div>
   );

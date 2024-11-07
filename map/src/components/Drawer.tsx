@@ -1,10 +1,6 @@
 import { Accessor, Setter, ParentComponent } from "solid-js";
 import cn from "../lib/styling";
-import {
-  DoubleChevronRightIcon,
-  DoubleChevronLeftIcon,
-  CloseIcon,
-} from "./Icons";
+import { DoubleChevronRightIcon, DoubleChevronLeftIcon } from "./Icons";
 
 type SidebarProps = {
   open: Accessor<boolean>;
@@ -45,12 +41,6 @@ export const RightDrawer: ParentComponent<Omit<SidebarProps, "position">> = (
         )}
       </button>
       {props.children}
-      <button
-        class="block xs:hidden absolute top-0 right-0"
-        onClick={() => props.onChange(false)}
-      >
-        <CloseIcon />
-      </button>
     </aside>
   );
 };
@@ -80,12 +70,6 @@ export const LeftDrawer: ParentComponent<Omit<SidebarProps, "position">> = (
         )}
       </button>
       {props.children}
-      <button
-        class="block xs:hidden absolute top-0 right-0"
-        onClick={() => props.onChange(false)}
-      >
-        <CloseIcon />
-      </button>
     </aside>
   );
 };

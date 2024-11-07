@@ -6,10 +6,8 @@ import { Firestore, Timestamps } from "../firestore";
 import { DeepPartial } from "../../lib/types";
 
 export type ItemData = Timestamps & {
-  meta: {
-    username: string;
-    deleted?: boolean;
-  };
+  author: string;
+  deleted: boolean;
   name: string;
   wikiUrl: string;
   coords: LatLngTuple;
@@ -34,22 +32,26 @@ export class Item {
     });
   }
 
+  async softDelete() {
+    await Firestore.upsert<ItemData>(Item, this, { deleted: true });
+  }
+
   async delete() {
-    await Firestore.upsert<ItemData>(Item, this, { meta: { deleted: true } });
-    // await Firestore.remove(Item, this);
+    await Firestore.remove(Item, this);
   }
 
   async restore() {
-    await Firestore.upsert<ItemData>(Item, this, { meta: { deleted: false } });
+    await Firestore.upsert<ItemData>(Item, this, { deleted: false });
   }
 
   static async create(username: string): Promise<Item> {
     return Firestore.create(Item, {
-      meta: { username },
+      author: username,
       name: "new item",
       coords: [0, 0],
       wikiUrl: "",
       category: "",
+      deleted: false,
     });
   }
 
