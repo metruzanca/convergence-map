@@ -33,17 +33,17 @@ type FirebaseConfig struct {
 var defaultConfig = Config{
 	Maps: map[string]Map{
 		"overworld": {
-			Levels: 7,
+			Levels: 6,
 			X:      []int{0, 9644},
 			Y:      []int{0, 9118},
 		},
 		"underworld": {
-			Levels: 7,
+			Levels: 6,
 			X:      []int{0, 9644},
 			Y:      []int{0, 9118},
 		},
 		"scadutree": {
-			Levels: 7,
+			Levels: 6,
 			X:      []int{3575, 7913},
 			Y:      []int{1864, 7803},
 		},
