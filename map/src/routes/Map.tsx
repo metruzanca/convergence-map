@@ -12,7 +12,7 @@ import { EDITOR_SIDEBAR, MAP_SIDEBAR } from "~/lib/constants";
 import { isInIframe } from "~/lib/iframe";
 import EditorSiderbar from "~/components/EditorSidebar";
 import { HotkeyDetails, onHotkey, registerHotkeys } from "~/lib/hotkeys";
-import { onMount, onCleanup } from "solid-js";
+import { onMount, onCleanup, createEffect } from "solid-js";
 import { minWidth } from "~/lib/styling";
 
 const hotkeys: Array<HotkeyDetails & { description: string }> = [
@@ -23,8 +23,13 @@ const hotkeys: Array<HotkeyDetails & { description: string }> = [
   { key: "3", ctrl: true, description: "Quick switch to Map 3" },
 ];
 
-export default function Home() {
+export default function Map() {
   const params = useParams<MapUrlParams>();
+
+  createEffect(() => {
+    console.log("params", params.map);
+  });
+
   const [search, setSearch] = useSearchParams<Stringify<Position>>();
 
   const [openLeft, setOpenLeft] = createPersistedSignal(MAP_SIDEBAR, false);

@@ -1,22 +1,22 @@
 import { MetaProvider, Title } from "@solidjs/meta";
-import { Router } from "@solidjs/router";
-import { FileRoutes } from "@solidjs/start/router";
+import { Route, Router } from "@solidjs/router";
 import { Suspense } from "solid-js";
 import "./app.css";
+import Login from "./routes/Login";
+import Map from "./routes/Map";
 
 export default function App() {
   return (
     <Router
       root={(props) => (
         <MetaProvider>
-          <Title>SolidStart - Basic</Title>
-          {/* <a href="/">Index</a>
-          <a href="/about">About</a> */}
+          <Title>Convergence Mod Map</Title>
           <Suspense>{props.children}</Suspense>
         </MetaProvider>
       )}
     >
-      <FileRoutes />
+      <Route path="/:map?" component={Map} />
+      <Route path="/login" component={Login} />
     </Router>
   );
 }

@@ -1,4 +1,4 @@
-import { createEffect, createSignal, onMount } from "solid-js";
+import { createEffect, createMemo, createSignal, onMount } from "solid-js";
 import * as L from "leaflet";
 import { z } from "zod";
 import { Stringify } from "~/lib/types";
@@ -29,11 +29,17 @@ const TILES_URL = (mapName: MapNames) =>
   )}{z}-{x}-{y}.jpg?alt=media`;
 
 export type MapUrlParams = { map: string };
+export type MapSearchParams = Stringify<Position>;
 
 // In theory, should never run into the situation where this "{} as L.Map" will be problematic..
 const [map, setMap] = createSignal<L.Map>({} as L.Map);
 
 export const getMap = map;
+
+const tileLayerOptions: L.TileLayerOptions = {
+  maxZoom: 7,
+  noWrap: true,
+};
 
 export default function MapComponent(props: {
   onMove: (pos: Position) => void;
@@ -41,7 +47,18 @@ export default function MapComponent(props: {
   /** This is coming from params, so string here */
   position: Partial<Stringify<Position>>;
 }) {
-  const mapName = MapSchema.safeParse(props.map).data!;
+  const mapName = createMemo(() => MapSchema.safeParse(props.map).data!);
+
+  let currentLayer: L.TileLayer;
+
+  createEffect(() => {
+    const mapNameValue = mapName(); // keep above return for reactivity purposes
+    if (currentLayer === undefined) return;
+
+    getMap()
+      .removeLayer(currentLayer)
+      .addLayer(L.tileLayer(TILES_URL(mapNameValue), tileLayerOptions));
+  });
 
   onMount(() => {
     // TODO check that params is a valid value
@@ -66,10 +83,9 @@ export default function MapComponent(props: {
       });
     });
 
-    L.tileLayer(TILES_URL(mapName), {
-      maxZoom: 7,
-      noWrap: true,
-    }).addTo(map);
+    currentLayer = L.tileLayer(TILES_URL(mapName()), tileLayerOptions).addTo(
+      map
+    );
 
     setMap(map);
   });

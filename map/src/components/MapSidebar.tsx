@@ -1,12 +1,14 @@
-import { A, useParams } from "@solidjs/router";
-import { MapNames, MapUrlParams } from "./Map";
+import { A, useNavigate, useParams, useSearchParams } from "@solidjs/router";
+import { MapNames, MapSearchParams, MapUrlParams, Position } from "./Map";
 import { onCleanup } from "solid-js";
 import { onHotkey } from "~/lib/hotkeys";
 import { Sprite } from "./Icons";
 import { getCurrentUser } from "~/firebase/auth";
+import { Stringify } from "~/lib/types";
 
 export default function MapSidebar() {
   const params = useParams<MapUrlParams>();
+  const [search, setSearch] = useSearchParams<MapSearchParams>();
   let inputRef!: HTMLInputElement;
 
   onCleanup(
@@ -15,12 +17,20 @@ export default function MapSidebar() {
     })
   );
 
+  const navigate = useNavigate();
+
   const changeMap = (mapname: MapNames) => {
     if (window.location.href.includes(mapname)) return;
     if (window.location.href.includes("scadutree")) {
-      window.location.href = `/${mapname}`;
+      navigate(`/${mapname}`);
+      // window.location.href = `/${mapname}`;
     } else {
-      window.location.pathname = `/${mapname}`;
+      // TODO preseve query params when changing between overworld and underworld
+
+      search;
+
+      navigate(`/${mapname}`);
+      // window.location.pathname = `/${mapname}`;
     }
   };
 
