@@ -8,20 +8,15 @@ import { Drawer } from "~/components/Drawer";
 import { Protected } from "~/firebase/auth";
 import MapSidebar from "~/components/MapSidebar";
 import { createPersistedSignal } from "~/lib/signals";
-import { EDITOR_SIDEBAR, MAP_SIDEBAR } from "~/lib/constants";
+import { EDITOR_SIDEBAR, HOTKEYS, MAP_SIDEBAR } from "~/lib/constants";
 import { isInIframe } from "~/lib/iframe";
 import EditorSiderbar from "~/components/EditorSidebar";
 import { HotkeyDetails, onHotkey, registerHotkeys } from "~/lib/hotkeys";
 import { onMount, onCleanup, createEffect } from "solid-js";
 import { minWidth } from "~/lib/styling";
 
-const hotkeys: Array<HotkeyDetails & { description: string }> = [
-  { key: "Escape", description: "Close all drawers" },
-  { key: "k", ctrl: true, description: "Open and focus item search" },
-  { key: "1", ctrl: true, description: "Quick switch to Map 1" },
-  { key: "2", ctrl: true, description: "Quick switch to Map 2" },
-  { key: "3", ctrl: true, description: "Quick switch to Map 3" },
-];
+
+
 
 export default function Map() {
   const params = useParams<MapUrlParams>();
