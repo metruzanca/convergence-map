@@ -3,8 +3,9 @@ import { CollectionRef } from "../types";
 import { collection, onSnapshot, QuerySnapshot } from "firebase/firestore";
 import { firestore } from "../init";
 import { Firestore, Timestamps } from "../firestore";
-import { DeepPartial } from "../~/lib/types";
-import { MapNames } from "../.~/components/Map";
+import { DeepPartial } from "~/lib/types";
+import { MapNames } from "~/components/Map";
+import { SITE_URL } from "~/lib/constants";
 
 export type ItemData = Timestamps & {
   author: string;

@@ -1,7 +1,7 @@
 import { collection, onSnapshot, QuerySnapshot } from "firebase/firestore";
 import { firestore } from "../init";
 import { CollectionRef } from "../types";
-import { Sprites } from "../.~/components/Icons";
+import { Sprites } from "~/components/Icons";
 
 export namespace Category {
   export type Data = {
