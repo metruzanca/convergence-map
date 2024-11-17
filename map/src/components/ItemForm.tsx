@@ -1,9 +1,9 @@
 import { marker } from "leaflet";
 import { onMount, createSignal, createEffect, onCleanup } from "solid-js";
-import { Item } from "../firebase";
-import { formatLatLng, store } from "../lib/map";
-import cn from "../lib/styling";
-import { OnSubmit } from "../lib/types";
+import { Item } from "~/firebase";
+import { formatLatLng, store } from "~/lib/map";
+import cn from "~/lib/styling";
+import { OnSubmit } from "~/lib/types";
 import { PinIcon } from "./Icons";
 import { getMap } from "./Map";
 import { CoordinatesInput, Input } from "./inputs";

@@ -1,7 +1,7 @@
 import { collection, onSnapshot, QuerySnapshot } from "firebase/firestore";
 import { firestore } from "../init";
 import { CollectionRef } from "../types";
-import { Sprites } from "../../components/Icons";
+import { Sprites } from "../.~/components/Icons";
 
 export namespace Category {
   export type Data = {
@@ -12,10 +12,7 @@ export namespace Category {
 
 export class Category {
   static collection = "item";
-  constructor(
-    public id: string,
-    public data: Category.Data
-  ) {}
+  constructor(public id: string, public data: Category.Data) {}
 
   static liveCollection(
     onChange: (data: Category[]) => void,

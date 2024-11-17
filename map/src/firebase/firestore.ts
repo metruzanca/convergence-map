@@ -8,7 +8,7 @@ import {
 } from "firebase/firestore";
 import { v4 as uuidV4 } from "uuid";
 import { firestore } from "./init";
-import { DeepPartial } from "../lib/types";
+import { DeepPartial } from "~/lib/types";
 
 export type Timestamps = {
   createdAt: Timestamp;

@@ -15,7 +15,7 @@ import {
   Switch,
   useContext,
 } from "solid-js";
-import { LOGOUT_CLEAR } from "../lib/constants";
+import { LOGOUT_CLEAR } from "~/lib/constants";
 
 type LoggedIn = {
   type: "user";

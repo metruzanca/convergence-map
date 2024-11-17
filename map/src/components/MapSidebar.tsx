@@ -1,9 +1,9 @@
 import { A, useParams } from "@solidjs/router";
 import { MapNames, MapUrlParams } from "./Map";
 import { onCleanup } from "solid-js";
-import { onHotkey } from "../lib/hotkeys";
+import { onHotkey } from "~/lib/hotkeys";
 import { Sprite } from "./Icons";
-import { getCurrentUser } from "../firebase/auth";
+import { getCurrentUser } from "~/firebase/auth";
 
 export default function MapSidebar() {
   const params = useParams<MapUrlParams>();

@@ -1,4 +1,4 @@
-import { Item } from "../firebase";
+import { Item } from "~/firebase";
 import * as L from "leaflet";
 import { createStore } from "solid-js/store";
 

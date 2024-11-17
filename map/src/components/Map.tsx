@@ -1,9 +1,9 @@
 import { createEffect, createSignal, onMount } from "solid-js";
 import * as L from "leaflet";
 import { z } from "zod";
-import { Stringify } from "../lib/types";
-import { LEAFLET_BASE_URL } from "../lib/constants";
-import { formatLatLng, store } from "../lib/map";
+import { Stringify } from "~/lib/types";
+import { LEAFLET_BASE_URL } from "~/lib/constants";
+import { formatLatLng, store } from "~/lib/map";
 
 const MAP_ID = "map";
 
@@ -24,7 +24,9 @@ const MapSchema = z
 export type MapNames = z.infer<typeof MapSchema>;
 
 const TILES_URL = (mapName: MapNames) =>
-  `${LEAFLET_BASE_URL}${encodeURIComponent(`maps/${mapName}/`)}{z}-{x}-{y}.jpg?alt=media`;
+  `${LEAFLET_BASE_URL}${encodeURIComponent(
+    `maps/${mapName}/`
+  )}{z}-{x}-{y}.jpg?alt=media`;
 
 export type MapUrlParams = { map: string };
 

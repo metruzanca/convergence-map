@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
-import { BUCKET_NAME, PROJECT_ID } from "../lib/constants";
+import { BUCKET_NAME, PROJECT_ID } from "~/lib/constants";
 
 const firebaseConfig = {
   authDomain: `${PROJECT_ID}.firebaseapp.com`,

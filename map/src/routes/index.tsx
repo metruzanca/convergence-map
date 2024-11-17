@@ -1,17 +1,19 @@
+// import { Title } from "@solidjs/meta";
+
 import "leaflet/dist/leaflet.css";
 import { useParams, useSearchParams } from "@solidjs/router";
-import MapComponent, { MapUrlParams, Position } from "./components/Map";
-import { Stringify } from "./lib/types";
-import { Drawer } from "./components/Drawer";
-import { Protected } from "./firebase/auth";
-import MapSidebar from "./components/MapSidebar";
-import { createPersistedSignal } from "./lib/signals";
-import { EDITOR_SIDEBAR, MAP_SIDEBAR } from "./lib/constants";
-import { isInIframe } from "./lib/iframe";
-import EditorSiderbar from "./components/EditorSidebar";
-import { HotkeyDetails, onHotkey, registerHotkeys } from "./lib/hotkeys";
+import MapComponent, { MapUrlParams, Position } from "~/components/Map";
+import { Stringify } from "~/lib/types";
+import { Drawer } from "~/components/Drawer";
+import { Protected } from "~/firebase/auth";
+import MapSidebar from "~/components/MapSidebar";
+import { createPersistedSignal } from "~/lib/signals";
+import { EDITOR_SIDEBAR, MAP_SIDEBAR } from "~/lib/constants";
+import { isInIframe } from "~/lib/iframe";
+import EditorSiderbar from "~/components/EditorSidebar";
+import { HotkeyDetails, onHotkey, registerHotkeys } from "~/lib/hotkeys";
 import { onMount, onCleanup } from "solid-js";
-import { minWidth } from "./lib/styling";
+import { minWidth } from "~/lib/styling";
 
 const hotkeys: Array<HotkeyDetails & { description: string }> = [
   { key: "Escape", description: "Close all drawers" },
@@ -21,7 +23,7 @@ const hotkeys: Array<HotkeyDetails & { description: string }> = [
   { key: "3", ctrl: true, description: "Quick switch to Map 3" },
 ];
 
-export default function App() {
+export default function Home() {
   const params = useParams<MapUrlParams>();
   const [search, setSearch] = useSearchParams<Stringify<Position>>();
 
@@ -50,7 +52,11 @@ export default function App() {
 
   return (
     <div class="w-screen h-screen">
-      <MapComponent map={params.map} onMove={setSearch} position={search} />
+      <MapComponent
+        map={params.map || "overworld"}
+        onMove={setSearch}
+        position={search}
+      />
 
       {!isInIframe() && (
         <>

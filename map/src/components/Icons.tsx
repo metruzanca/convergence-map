@@ -1,7 +1,7 @@
 // https://heroicons.com
 
 import { Component } from "solid-js";
-import cn from "../lib/styling";
+import cn from "~/lib/styling";
 
 type Size = "small" | "medium" | "large";
 

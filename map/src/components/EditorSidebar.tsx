@@ -1,4 +1,4 @@
-import { Item } from "../firebase";
+import { Item } from "~/firebase";
 import { createMemo, createSignal, For, Show } from "solid-js";
 import {
   CloseMarkIcon,
@@ -7,9 +7,9 @@ import {
   SearchIcon,
   TrashIcon,
 } from "./Icons";
-import { useCurrentUser } from "../firebase/auth";
-import cn from "../lib/styling";
-import { setStore } from "../lib/map";
+import { useCurrentUser } from "~/firebase/auth";
+import cn from "~/lib/styling";
+import { setStore } from "~/lib/map";
 import ItemForm from "./ItemForm";
 
 export default function EditorSiderbar() {

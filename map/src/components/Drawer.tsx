@@ -1,5 +1,5 @@
 import { Accessor, Setter, ParentComponent } from "solid-js";
-import cn from "../lib/styling";
+import cn from "~/lib/styling";
 import { DoubleChevronRightIcon, DoubleChevronLeftIcon } from "./Icons";
 
 type SidebarProps = {
