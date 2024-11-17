@@ -16,3 +16,7 @@ export const HOTKEYS: Array<HotkeyDetails & { description: string }> = [
   { key: "2", ctrl: true, description: "Quick switch to Map 2" },
   { key: "3", ctrl: true, description: "Quick switch to Map 3" },
 ];
+
+export const SITE_URL = import.meta.env.DEV
+  ? `http://localhost:3000`
+  : `https://convergence-map.vercel.app`;

@@ -1,9 +1,8 @@
 // import { Title } from "@solidjs/meta";
 
-import "leaflet/dist/leaflet.css";
 import { useParams, useSearchParams } from "@solidjs/router";
 import MapComponent, { MapUrlParams, Position } from "~/components/Map";
-import { Stringify } from "~/lib/types";
+import { MapSearchParams, Stringify } from "~/lib/types";
 import { Drawer } from "~/components/Drawer";
 import { Protected } from "~/firebase/auth";
 import MapSidebar from "~/components/MapSidebar";
@@ -11,21 +10,17 @@ import { createPersistedSignal } from "~/lib/signals";
 import { EDITOR_SIDEBAR, HOTKEYS, MAP_SIDEBAR } from "~/lib/constants";
 import { isInIframe } from "~/lib/iframe";
 import EditorSiderbar from "~/components/EditorSidebar";
-import { HotkeyDetails, onHotkey, registerHotkeys } from "~/lib/hotkeys";
-import { onMount, onCleanup, createEffect } from "solid-js";
+import { onHotkey, registerHotkeys } from "~/lib/hotkeys";
+import { onMount, onCleanup } from "solid-js";
 import { minWidth } from "~/lib/styling";
 
-
-
+import "leaflet/dist/leaflet.css";
 
 export default function Map() {
   const params = useParams<MapUrlParams>();
+  const [search, setSearch] = useSearchParams<MapSearchParams>();
 
-  createEffect(() => {
-    console.log("params", params.map);
-  });
-
-  const [search, setSearch] = useSearchParams<Stringify<Position>>();
+  // TODO search.item zoom on item
 
   const [openLeft, setOpenLeft] = createPersistedSignal(MAP_SIDEBAR, false);
   const [openRight, setOpenRight] = createPersistedSignal(
@@ -34,7 +29,7 @@ export default function Map() {
   );
 
   onMount(() => {
-    onCleanup(registerHotkeys(hotkeys));
+    onCleanup(registerHotkeys(HOTKEYS));
     onCleanup(
       onHotkey({ key: "k", ctrl: true }, () => {
         setOpenLeft(true);

@@ -32,6 +32,13 @@ export class Item {
     });
   }
 
+  get embedUrl() {
+    const params = new URLSearchParams();
+    params.append("item", this.data.name);
+    // TODO embed url to include item_name to focus, ideally no lat, lng, zoom.
+    return `${SITE_URL}?${params.toString()}`;
+  }
+
   async softDelete() {
     await Firestore.upsert<ItemData>(Item, this, { deleted: true });
   }

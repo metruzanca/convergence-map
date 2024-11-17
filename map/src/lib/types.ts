@@ -1,4 +1,5 @@
 import { Component, JSX } from "solid-js";
+import { Position } from "~/components/Map";
 
 export type Stringify<T> = {
   [K in keyof T]: string;
@@ -16,10 +17,10 @@ export type Styled<P = {}> = Component<
 export type DeepPartial<Thing> = Thing extends Function
   ? Thing
   : Thing extends Array<infer InferrerArrayMember>
-    ? DeepPartialArray<InferrerArrayMember>
-    : Thing extends object
-      ? DeepPartialObject<Thing>
-      : Thing | undefined;
+  ? DeepPartialArray<InferrerArrayMember>
+  : Thing extends object
+  ? DeepPartialObject<Thing>
+  : Thing | undefined;
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface DeepPartialArray<Thing> extends Array<DeepPartial<Thing>> {}
@@ -29,3 +30,9 @@ type DeepPartialObject<Thing> = {
 };
 
 export type OnSubmit<T> = (thing: T) => void;
+
+type EmbedMapSearchParams = {
+  item: string;
+};
+
+export type MapSearchParams = Stringify<Position & EmbedMapSearchParams>;

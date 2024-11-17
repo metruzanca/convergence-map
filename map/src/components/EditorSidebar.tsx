@@ -2,6 +2,7 @@ import { Item } from "~/firebase";
 import { createMemo, createSignal, For, Show } from "solid-js";
 import {
   CloseMarkIcon,
+  CopyIcon,
   PencilSquareIcon,
   RestoreIcon,
   SearchIcon,
@@ -11,6 +12,8 @@ import { useCurrentUser } from "~/firebase/auth";
 import cn from "~/lib/styling";
 import { setStore } from "~/lib/map";
 import ItemForm from "./ItemForm";
+import { copyToClipboard } from "~/lib/utils";
+import Copy from "./Copy";
 
 export default function EditorSiderbar() {
   // const params = useParams<MapUrlParams>();
@@ -139,6 +142,8 @@ function ItemCard(props: { item: Item; edit: () => void }) {
             />
           </>
         )}
+
+        <Copy text={props.item.embedUrl} />
       </div>
 
       {props.item.data.deleted && (

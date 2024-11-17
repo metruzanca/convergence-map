@@ -10,3 +10,9 @@ Heavily inspired by Fextralife's map of elden ring. I wanted to bring something 
 - UI Kits to look at:
   - https://ark-ui.com
   - https://kobalte.dev
+
+---
+
+### TODO
+
+- [ ] Tryout Biomejs
