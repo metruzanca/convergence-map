@@ -1,5 +1,7 @@
 // https://heroicons.com
 
+// TODO make this an icon font instead for better performance
+
 import { Component } from "solid-js";
 import cn from "~/lib/styling";
 
@@ -264,7 +266,7 @@ export const CopyIcon = Icon((props) => (
     <path
       stroke-linecap="round"
       stroke-linejoin="round"
-      d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"
+      d="M16.5 8.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v8.25A2.25 2.25 0 0 0 6 16.5h2.25m8.25-8.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-7.5A2.25 2.25 0 0 1 8.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 0 0-2.25 2.25v6"
     />
   </svg>
 ));
@@ -282,6 +284,23 @@ export const CheckmarkIcon = Icon((props) => (
       stroke-linecap="round"
       stroke-linejoin="round"
       d="m4.5 12.75 6 6 9-13.5"
+    />
+  </svg>
+));
+
+export const GotoIcon = Icon((props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    {...props}
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M15.042 21.672 13.684 16.6m0 0-2.51 2.225.569-9.47 5.227 7.917-3.286-.672Zm-7.518-.267A8.25 8.25 0 1 1 20.25 10.5M8.288 14.212A5.25 5.25 0 1 1 17.25 10.5"
     />
   </svg>
 ));

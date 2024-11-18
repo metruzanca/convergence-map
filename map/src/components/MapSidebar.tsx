@@ -35,6 +35,7 @@ export default function MapSidebar() {
     return navigate(`/${mapname}${location.search.toString()}`);
   };
 
+  // NOTE: there might be a memory leak with event handlers when you change map. Noticible when spamming it tf out of it.
   onCleanup(onHotkey({ key: "1", ctrl: true }, () => changeMap("overworld")));
   onCleanup(onHotkey({ key: "2", ctrl: true }, () => changeMap("underworld")));
   onCleanup(onHotkey({ key: "3", ctrl: true }, () => changeMap("scadutree")));
