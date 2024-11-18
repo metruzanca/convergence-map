@@ -10,6 +10,7 @@ export default function App() {
   return (
     <AppContextProvider>
       <Router
+        base="map"
         root={(props) => (
           <MetaProvider>
             <Title>Convergence Mod Map</Title>
