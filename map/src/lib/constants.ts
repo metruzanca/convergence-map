@@ -20,3 +20,6 @@ export const HOTKEYS: Array<HotkeyDetails & { description: string }> = [
 export const SITE_URL = import.meta.env.DEV
   ? `http://localhost:3000`
   : `https://convergence-map.vercel.app`;
+
+// const ZOOM_LEVELS = [2, 3, 4, 5, 6]
+export const FOCUS_ZOOM = 5;

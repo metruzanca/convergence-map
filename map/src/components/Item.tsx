@@ -3,8 +3,12 @@ import cn from "~/lib/styling";
 import Copy from "./Copy";
 import { RestoreIcon, PencilSquareIcon, TrashIcon, GotoIcon } from "./Icons";
 import { getMap } from "./Map";
+import { useSearchParams } from "@solidjs/router";
+import { MapSearchParams } from "~/lib/types";
+import { FOCUS_ZOOM } from "~/lib/constants";
 
 export function ItemCard(props: { item: Item; edit?: () => void }) {
+  const [params, setParams] = useSearchParams<MapSearchParams>();
   return (
     <div
       class={cn(
@@ -59,9 +63,10 @@ export function ItemCard(props: { item: Item; edit?: () => void }) {
         ) : (
           <GotoIcon
             onClick={() => {
-              const map = getMap();
-              // TODO instead of 5, have some const
-              map.setView(props.item.data.latlng, 5);
+              getMap().setView(props.item.data.latlng, FOCUS_ZOOM);
+              setParams({
+                item: props.item.data.name,
+              });
             }}
           />
         )}

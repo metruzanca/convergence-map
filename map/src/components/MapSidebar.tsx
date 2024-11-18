@@ -5,12 +5,13 @@ import {
   useParams,
   useSearchParams,
 } from "@solidjs/router";
-import { MapNames, MapSearchParams, MapUrlParams } from "./Map";
+import { MapNames, MapUrlParams } from "./Map";
 import { createMemo, createSignal, For, onCleanup } from "solid-js";
 import { onHotkey } from "~/lib/hotkeys";
 import { getCurrentUser } from "~/firebase/auth";
 import { Item } from "~/firebase";
 import { ItemCard } from "./Item";
+import { MapSearchParams } from "~/lib/types";
 
 export default function MapSidebar() {
   const params = useParams<MapUrlParams>();

@@ -29,7 +29,6 @@ const TILES_URL = (mapName: MapNames) =>
   )}{z}-{x}-{y}.jpg?alt=media`;
 
 export type MapUrlParams = { map: string };
-export type MapSearchParams = Stringify<Position>;
 
 // In theory, should never run into the situation where this "{} as L.Map" will be problematic..
 const [map, setMap] = createSignal<L.Map>({} as L.Map);
