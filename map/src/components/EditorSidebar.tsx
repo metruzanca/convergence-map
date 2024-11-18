@@ -1,20 +1,12 @@
 import { Item } from "~/firebase";
 import { createMemo, createSignal, For, Show } from "solid-js";
-import {
-  CloseMarkIcon,
-  CopyIcon,
-  PencilSquareIcon,
-  RestoreIcon,
-  SearchIcon,
-  TrashIcon,
-} from "./Icons";
+import { CloseMarkIcon, SearchIcon } from "./Icons";
 import { useCurrentUser } from "~/firebase/auth";
-import cn from "~/lib/styling";
 import { setStore } from "~/lib/map";
 import ItemForm from "./ItemForm";
-import { copyToClipboard } from "~/lib/utils";
-import Copy from "./Copy";
+import { readFromClipboard } from "~/lib/utils";
 import { ItemCard } from "./Item";
+import { parseWikiLink } from "~/lib/wiki-integration";
 
 export default function EditorSiderbar() {
   // const params = useParams<MapUrlParams>();
@@ -60,6 +52,24 @@ export default function EditorSiderbar() {
             }}
           >
             Add Pin
+          </button>
+
+          <button
+            class="btn btn-neutral w-full btn-xs"
+            onClick={async () => {
+              const text = await readFromClipboard();
+              const wikiData = parseWikiLink(text);
+              const item = await Item.create(
+                current.user.email!.split("@")[0],
+                wikiData
+              );
+
+              console.log(item);
+
+              setItem(item);
+            }}
+          >
+            Add from clipboard
           </button>
 
           <div class="flex flex-col gap-2 overflow-y-scroll">

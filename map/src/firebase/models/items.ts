@@ -11,7 +11,7 @@ export type ItemData = Timestamps & {
   author: string;
   deleted: boolean;
   name: string;
-  wikiUrl: string;
+  url: string;
   latlng: LatLngTuple;
   category: string;
   map: MapNames;
@@ -53,15 +53,15 @@ export class Item {
 
   static async create(
     author: string,
-    map: MapNames = "overworld"
+    data: Partial<ItemData> = {}
   ): Promise<Item> {
     return Firestore.create(Item, {
       author,
-      map,
-      name: "new item",
+      map: data.map ?? "overworld",
+      name: data.name ?? "new item",
+      category: data.category ?? "",
       latlng: [0, 0],
-      wikiUrl: "",
-      category: "",
+      url: data.url ?? "",
       deleted: false,
     });
   }

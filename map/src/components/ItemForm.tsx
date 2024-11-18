@@ -68,7 +68,13 @@ export default function ItemForm(props: {
           onChange={setInputs}
         />
         <Input
-          name="wikiUrl"
+          class="input input-bordered input-sm w-full max-w-xs"
+          name="category"
+          value={inputs}
+          onChange={setInputs}
+        />
+        <Input
+          name="url"
           class="input input-bordered input-sm w-full max-w-xs"
           placeholder="wiki URL"
           type="url"

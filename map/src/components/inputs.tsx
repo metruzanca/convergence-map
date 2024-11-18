@@ -29,8 +29,6 @@ export function Input<T extends { [key: string]: any }>(
     }
   >
 ) {
-  // const [_, rest] = splitProps(props, ["name", "values", "onChange"]);
-
   return (
     // @ts-ignore
     <input
