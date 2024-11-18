@@ -1,10 +1,10 @@
 import { A, useNavigate, useParams, useSearchParams } from "@solidjs/router";
-import { MapNames, MapSearchParams, MapUrlParams, Position } from "./Map";
-import { onCleanup } from "solid-js";
+import { MapNames, MapSearchParams, MapUrlParams } from "./Map";
+import { createMemo, createSignal, For, onCleanup } from "solid-js";
 import { onHotkey } from "~/lib/hotkeys";
-import { Sprite } from "./Icons";
 import { getCurrentUser } from "~/firebase/auth";
-import { Stringify } from "~/lib/types";
+import { Item } from "~/firebase";
+import { ItemCard } from "./Item";
 
 export default function MapSidebar() {
   const params = useParams<MapUrlParams>();
@@ -38,6 +38,19 @@ export default function MapSidebar() {
   onCleanup(onHotkey({ key: "2", ctrl: true }, () => changeMap("underworld")));
   onCleanup(onHotkey({ key: "3", ctrl: true }, () => changeMap("scadutree")));
 
+  const [items, setItems] = createSignal<Item[]>([]);
+  Item.liveCollection(setItems);
+
+  const [markFilter, setMarkFilter] = createSignal("");
+  const filteredItems = createMemo(() =>
+    items()
+      .filter((i) =>
+        i.data.name.toLowerCase().includes(markFilter().toLowerCase())
+      )
+      .filter((i) => !i.data.deleted)
+      .sort((a, b) => Number(a.data.deleted) - Number(b.data.deleted))
+  );
+
   return (
     <div class="h-full px-2 flex flex-col justify-between">
       <div>
@@ -59,14 +72,18 @@ export default function MapSidebar() {
               class="grow"
               placeholder="Search"
               ref={inputRef}
+              onInput={(e) => setMarkFilter(e.target.value)}
             />
             <kbd class="kbd text-nowrap">ctrl + K</kbd>
           </label>
         </label>
 
-        <p class="py-2">More to come...</p>
+        <For
+          each={filteredItems()}
+          children={(item) => <ItemCard item={item} />}
+        />
 
-        <Sprite sprite="grace" size={2} />
+        {/* <Sprite sprite="grace" size={2} /> */}
       </div>
       <div class="pb-10 flex items-center justify-center">
         <A href="/login" class="btn-link">
