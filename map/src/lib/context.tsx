@@ -1,10 +1,11 @@
-import { createContext, JSXElement, useContext } from "solid-js";
+import { createContext, createEffect, JSXElement, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 import { Item } from "~/firebase";
 import * as L from "leaflet";
+import { Category } from "~/firebase/models/category";
 
 type AppState = {
-  categories: string[];
+  categories: Category[];
   items: Item[];
   markers: Map<string, L.Marker>;
   map: L.Map;
@@ -19,7 +20,13 @@ const initial: AppState = {
 
 const appContext = createContext<AppState>(initial satisfies AppState);
 
-export const useAppContext = () => useContext(appContext);
+export const useAppContext = () => {
+  const value = useContext(appContext);
+  if (value === undefined) {
+    throw new Error("useAppContext must be used within a AppContextProvider");
+  }
+  return value;
+};
 
 const GraceIcon = L.icon({
   iconUrl: "/icons/grace.webp",
@@ -31,6 +38,7 @@ const GraceIcon = L.icon({
 const [store, setStore] = createStore<AppState>(initial);
 
 export function AppContextProvider(props: { children: JSXElement }) {
+  Category.liveCollection((data) => setStore("categories", data));
   Item.liveCollection((items) => {
     // Clear markers whenever items is updated
     setStore("markers", new Map());
@@ -48,7 +56,6 @@ export function AppContextProvider(props: { children: JSXElement }) {
       }
     }
   });
-  // Category.liveCollection((data) => setStore("category", data));
 
   return (
     <appContext.Provider value={store}>{props.children}</appContext.Provider>

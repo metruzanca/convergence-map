@@ -52,19 +52,14 @@ export default function Map() {
 
       {!isInIframe() && (
         <>
-          <Drawer
-            position="left"
-            onChange={setOpenLeft}
-            open={openLeft}
-            children={<MapSidebar />}
-          />
+          <Drawer position="left" onChange={setOpenLeft} open={openLeft}>
+            <MapSidebar />
+          </Drawer>
           {widthQuery() && (
             <Protected>
-              <Drawer
-                onChange={setOpenRight}
-                open={openRight}
-                children={<EditorSiderbar />}
-              />
+              <Drawer onChange={setOpenRight} open={openRight}>
+                <EditorSiderbar />
+              </Drawer>
             </Protected>
           )}
         </>

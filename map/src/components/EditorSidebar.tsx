@@ -1,5 +1,5 @@
 import { Item } from "~/firebase";
-import { createMemo, createSignal, For, Show } from "solid-js";
+import { createEffect, createMemo, createSignal, For, Show } from "solid-js";
 import { CloseMarkIcon, SearchIcon } from "./Icons";
 import { useCurrentUser } from "~/firebase/auth";
 import ItemForm from "./ItemForm";
@@ -11,22 +11,23 @@ import { useAppContext } from "~/lib/context";
 
 export default function EditorSiderbar() {
   const context = useAppContext();
-  const [item, setItem] = createSignal<Item>();
-
   const current = useCurrentUser();
 
+  const [item, setItem] = createSignal<Item>();
+
   const [markFilter, setMarkFilter] = createSignal("");
-  const filteredItems = createMemo(() =>
-    context.items
+  const filteredItems = createMemo(() => {
+    return context.items
       .filter((i) =>
         i.data.name.toLowerCase().includes(markFilter().toLowerCase())
       )
-      .sort((a, b) => Number(a.data.deleted) - Number(b.data.deleted))
-  );
+      .sort((a, b) => Number(a.data.deleted) - Number(b.data.deleted));
+  });
 
   return (
     <div class="flex flex-col px-2">
       <h2 class="border-b-neutral-700 border-b">Editor Panel</h2>
+
       <Tabs
         items={[
           {
