@@ -26,16 +26,20 @@ export function Input<T extends { [key: string]: any }>(
       name: keyof T;
       value: T;
       onChange: (name: string, value: any) => void;
+      label?: string;
     }
   >
 ) {
   return (
-    // @ts-ignore
-    <input
-      {...props}
-      name={props.name as string}
-      value={props.value[props.name]}
-      onChange={(e) => props.onChange(props.name as string, e.target.value)}
-    />
+    <label>
+      {props.label && props.label}
+      {/* @ts-ignore */}
+      <input
+        {...props}
+        name={props.name as string}
+        value={props.value[props.name]}
+        onChange={(e) => props.onChange(props.name as string, e.target.value)}
+      />
+    </label>
   );
 }

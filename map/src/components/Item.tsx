@@ -1,7 +1,13 @@
 import { Item } from "~/firebase";
 import cn from "~/lib/styling";
 import Copy from "./Copy";
-import { RestoreIcon, PencilSquareIcon, TrashIcon, GotoIcon } from "./Icons";
+import {
+  RestoreIcon,
+  PencilSquareIcon,
+  TrashIcon,
+  GotoIcon,
+  LinkIcon,
+} from "./Icons";
 import { getMap } from "./Map";
 import { useSearchParams } from "@solidjs/router";
 import { MapSearchParams } from "~/lib/types";
@@ -61,14 +67,18 @@ export function ItemCard(props: { item: Item; edit?: () => void }) {
             <Copy text={props.item.embedUrl} />
           </>
         ) : (
-          <GotoIcon
-            onClick={() => {
-              getMap().setView(props.item.data.latlng, FOCUS_ZOOM);
-              setParams({
-                item: props.item.data.name,
-              });
-            }}
-          />
+          <>
+            <GotoIcon
+              size="small"
+              onClick={() => {
+                getMap().setView(props.item.data.latlng, FOCUS_ZOOM);
+                setParams({
+                  item: props.item.data.name,
+                });
+              }}
+            />
+            <LinkIcon size="small" onClick={() => {}} />
+          </>
         )}
       </div>
 

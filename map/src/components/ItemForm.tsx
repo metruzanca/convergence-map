@@ -1,4 +1,4 @@
-import { marker } from "leaflet";
+import { LatLngTuple, marker } from "leaflet";
 import { onMount, createSignal, createEffect, onCleanup } from "solid-js";
 import { Item } from "~/firebase";
 import { formatLatLng, store } from "~/lib/map";
@@ -9,12 +9,18 @@ import { getMap } from "./Map";
 import { CoordinatesInput, Input } from "./inputs";
 import { createStore } from "solid-js/store";
 
+function latlngUnset(latlng: LatLngTuple) {
+  return latlng[0] === 0 && latlng[1] === 0;
+}
+
 export default function ItemForm(props: {
   item: Item;
   onSubmit: OnSubmit<Item>;
 }) {
   const [inputs, setInputs] = createStore(props.item.data);
-  const [editingPin, setEditingPin] = createSignal(true);
+  const [editingPin, setEditingPin] = createSignal(
+    latlngUnset(props.item.data.latlng)
+  );
 
   const map = getMap();
 
@@ -59,24 +65,28 @@ export default function ItemForm(props: {
       <h3>New Pin</h3>
       <div class="flex flex-col gap-2">
         <Input
+          label="Item name"
+          placeholder="Blade of Valor"
           name="name"
           ref={newItemName}
           class="input input-bordered input-sm w-full max-w-xs"
-          placeholder="Item name"
           type="text"
           value={inputs}
           onChange={setInputs}
         />
         <Input
+          label="Category"
+          placeholder="weapons"
           class="input input-bordered input-sm w-full max-w-xs"
           name="category"
           value={inputs}
           onChange={setInputs}
         />
         <Input
+          label="Wiki url"
+          placeholder="https://convergencemod.com/..."
           name="url"
           class="input input-bordered input-sm w-full max-w-xs"
-          placeholder="wiki URL"
           type="url"
           value={inputs}
           onChange={setInputs}

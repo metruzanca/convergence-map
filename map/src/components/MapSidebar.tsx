@@ -58,7 +58,7 @@ export default function MapSidebar() {
     <div class="h-full px-2 flex flex-col justify-between">
       <div>
         <label>
-          <h2>Map</h2>
+          <h2>Map</h2>\
           <select
             class="select w-full"
             onChange={(e) => changeMap(e.target.value as MapNames)}
@@ -68,7 +68,6 @@ export default function MapSidebar() {
             <option value="underworld">underworld</option>
             <option value="scadutree">scadutree</option>
           </select>
-
           <label class="input input-bordered flex items-center gap-2">
             <input
               type="text"
