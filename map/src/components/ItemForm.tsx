@@ -8,6 +8,7 @@ import { PinIcon } from "./Icons";
 import { getMap } from "./Map";
 import { CoordinatesInput, Input } from "./inputs";
 import { createStore } from "solid-js/store";
+import { Select } from "./kobalte";
 
 function latlngUnset(latlng: LatLngTuple) {
   return latlng[0] === 0 && latlng[1] === 0;
@@ -74,6 +75,14 @@ export default function ItemForm(props: {
           value={inputs}
           onChange={setInputs}
         />
+
+        <Select
+          size="small"
+          name="category"
+          placeholder="Category"
+          options={["Apple", "Banana", "Blueberry", "Grapes", "Pineapple"]}
+        />
+
         <Input
           label="Category"
           placeholder="weapons"

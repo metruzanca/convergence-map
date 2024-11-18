@@ -22,3 +22,6 @@ export function minWidth(pixels: Breakpoints) {
 
   return matches;
 }
+
+/** Mainly used for styling */
+export type Size = "small" | "medium" | "large";

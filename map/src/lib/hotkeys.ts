@@ -9,12 +9,21 @@ function hotkeyName({ key, ctrl, shift }: HotkeyDetails) {
   return `hotkey:${ctrl || ""}+${shift || ""}+${key}`;
 }
 
-function hotkeyPressed(detail: HotkeyDetails) {
-  const hotkeyEvent = new CustomEvent(hotkeyName(detail), { detail });
+function hotkeyPressed(target: HTMLElement | null, detail: HotkeyDetails) {
+  const hotkeyEvent = new CustomEvent(hotkeyName(detail), {
+    detail: {
+      ...detail,
+      target,
+    },
+  });
   document.dispatchEvent(hotkeyEvent);
 }
 
-type HotkeyEvent = CustomEvent<{ key: string; mod: Modifiers }>;
+type HotkeyEvent = CustomEvent<{
+  target: HTMLElement | null;
+  key: string;
+  mod: Modifiers;
+}>;
 
 /** Hotkeys registered will preventDefault.
  ** Important to prevent browser behaviors e.g. ctrl/cmd+k on Chrome */
@@ -30,7 +39,7 @@ export function registerHotkeys(supportedHotkeys: HotkeyDetails[]) {
       })
     ) {
       event.preventDefault();
-      hotkeyPressed({
+      hotkeyPressed(event.target as HTMLElement, {
         key: event.key,
         ctrl: event.ctrlKey || event.metaKey,
         shift: event.shiftKey,

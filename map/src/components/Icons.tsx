@@ -3,9 +3,7 @@
 // TODO make this an icon font instead for better performance
 
 import { Component } from "solid-js";
-import cn from "~/lib/styling";
-
-type Size = "small" | "medium" | "large";
+import cn, { Size } from "~/lib/styling";
 
 function getSize(size: Size = "medium") {
   switch (size) {

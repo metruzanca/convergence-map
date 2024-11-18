@@ -36,7 +36,12 @@ export default function Map() {
       })
     );
     onCleanup(
-      onHotkey({ key: "Escape" }, () => {
+      onHotkey({ key: "Escape" }, (e) => {
+        if (e.detail.target?.tagName === "INPUT") {
+          e.detail.target.blur();
+          return;
+        }
+
         setOpenLeft(false);
         setOpenRight(false);
       })
