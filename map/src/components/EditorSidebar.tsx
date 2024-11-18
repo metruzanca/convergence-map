@@ -95,7 +95,13 @@ export default function EditorSiderbar() {
                       <For
                         each={filteredItems()}
                         children={(item) => (
-                          <ItemCard item={item} edit={() => setItem(item)} />
+                          <ItemCard
+                            item={item}
+                            edit={() => {
+                              setItem(item);
+                              context.map.setView(item.data.latlng);
+                            }}
+                          />
                         )}
                       />
                     </div>

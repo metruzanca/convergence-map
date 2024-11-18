@@ -6,11 +6,21 @@ export function CoordinatesInput(props: { latlng: LatLngTuple }) {
     <div class="flex gap-2 text-sm items-center">
       <div>
         <span>X</span>:{" "}
-        <input class="max-w-10" type="number" value={props.latlng?.[0]} />
+        <input
+          class="max-w-10"
+          type="number"
+          step={0.01}
+          value={props.latlng?.[0]}
+        />
       </div>
       <div>
         <span>Y</span>:{" "}
-        <input class="max-w-10" type="number" value={props.latlng?.[1]} />
+        <input
+          class="max-w-10"
+          step={0.01}
+          type="number"
+          value={props.latlng?.[1]}
+        />
       </div>
     </div>
   );

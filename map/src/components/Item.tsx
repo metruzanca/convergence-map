@@ -35,9 +35,11 @@ export function ItemCard(props: { item: Item; edit?: () => void }) {
               <span>Y</span>: {props.item.data.latlng?.[1]}
             </span>
           </div>
-          <p class="text-xs">
-            author: {props.item.data.author.substring(0, 3)}
-          </p>
+          {props.edit && (
+            <p class="text-xs">
+              author: {props.item.data.author.substring(0, 3)}
+            </p>
+          )}
         </div>
       </div>
 

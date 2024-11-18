@@ -44,8 +44,12 @@ export default function ItemForm(props: {
   createEffect(() => {
     if (editingPin()) {
       context.map.on("click", addMarker);
+      context.map.getContainer().style.cursor = "crosshair";
     }
-    onCleanup(() => context.map.off("click", addMarker));
+    onCleanup(() => {
+      context.map.off("click", addMarker);
+      context.map.getContainer().style.cursor = "";
+    });
   });
 
   let newItemName!: HTMLInputElement;
@@ -75,13 +79,13 @@ export default function ItemForm(props: {
           onChange={setInputs}
         />
 
-        <Select
+        {/* <Select
           size="small"
           name="category"
           placeholder="Category"
           // FIXME add category list
           options={[]}
-        />
+        /> */}
 
         <Input
           label="Category"
