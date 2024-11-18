@@ -12,8 +12,10 @@ import { getCurrentUser } from "~/firebase/auth";
 import { Item } from "~/firebase";
 import { ItemCard } from "./Item";
 import { MapSearchParams } from "~/lib/types";
+import { useAppContext } from "~/lib/context";
 
 export default function MapSidebar() {
+  const context = useAppContext();
   const params = useParams<MapUrlParams>();
   const [search, setSearch] = useSearchParams<MapSearchParams>();
   let inputRef!: HTMLInputElement;
@@ -41,12 +43,9 @@ export default function MapSidebar() {
   onCleanup(onHotkey({ key: "2", ctrl: true }, () => changeMap("underworld")));
   onCleanup(onHotkey({ key: "3", ctrl: true }, () => changeMap("scadutree")));
 
-  const [items, setItems] = createSignal<Item[]>([]);
-  Item.liveCollection(setItems);
-
   const [markFilter, setMarkFilter] = createSignal("");
   const filteredItems = createMemo(() =>
-    items()
+    context.items
       .filter((i) =>
         i.data.name.toLowerCase().includes(markFilter().toLowerCase())
       )

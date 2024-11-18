@@ -8,20 +8,18 @@ import { readFromClipboard } from "~/lib/utils";
 import { ItemCard } from "./Item";
 import { parseWikiLink } from "~/lib/wiki-integration";
 import { Tabs } from "./kobalte";
+import { useAppContext } from "~/lib/context";
 
 export default function EditorSiderbar() {
+  const context = useAppContext();
   // const params = useParams<MapUrlParams>();
-
   const [item, setItem] = createSignal<Item>();
 
   const current = useCurrentUser();
 
-  const [items, setItems] = createSignal<Item[]>([]);
-  Item.liveCollection(setItems);
-
   const [markFilter, setMarkFilter] = createSignal("");
   const filteredItems = createMemo(() =>
-    items()
+    context.items
       .filter((i) =>
         i.data.name.toLowerCase().includes(markFilter().toLowerCase())
       )
@@ -78,16 +76,16 @@ export default function EditorSiderbar() {
                       Add from clipboard
                     </button>
 
-                    {import.meta.env.DEV && items().length > 0 && (
+                    {import.meta.env.DEV && context.items.length > 0 && (
                       <button
                         class="btn btn-primary btn-xs btn-error w-full "
                         onClick={() => {
                           if (
                             confirm(
-                              `About to delete all ${items().length} pins`
+                              `About to delete all ${context.items.length} pins`
                             )
                           ) {
-                            items().forEach((i) => {
+                            context.items.forEach((i) => {
                               i.delete();
                               setStore("markers", new Map());
                             });
@@ -97,7 +95,7 @@ export default function EditorSiderbar() {
                         DevTool: delete all
                       </button>
                     )}
-                    <div class="flex flex-col gap-2 h-screen overflow-y-scroll ">
+                    <div class="flex flex-col gap-2 h-[80vh] overflow-y-scroll ">
                       <For
                         each={filteredItems()}
                         children={(item) => (

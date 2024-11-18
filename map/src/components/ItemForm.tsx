@@ -80,7 +80,8 @@ export default function ItemForm(props: {
           size="small"
           name="category"
           placeholder="Category"
-          options={["Apple", "Banana", "Blueberry", "Grapes", "Pineapple"]}
+          // FIXME add category list
+          options={[]}
         />
 
         <Input

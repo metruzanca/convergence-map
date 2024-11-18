@@ -19,17 +19,17 @@ export function Select(props: {
     <Combobox
       defaultValue={props.defaultValue}
       name={props.name}
-      class="relative"
+      class={`relative ${TW_ZINDEX}`}
       options={props.options}
       placeholder={props.placeholder}
       itemComponent={(props) => (
         <Combobox.Item
           item={props.item}
-          class={`cursor-pointer flex items-center justify-between px-4 py-2 hover:bg-primary hover:text-primary-content data-[highlighted]:bg-primary data-[highlighted]:text-primary-content`}
+          class={`cursor-pointer flex items-center justify-between px-4 py-2 hover:bg-neutral hover:text-neutral-content data-[highlighted]:bg-neutral data-[highlighted]:text-neutral-content ${TW_ZINDEX}`}
         >
           <Combobox.ItemLabel>{props.item.rawValue}</Combobox.ItemLabel>
           <Combobox.ItemIndicator>
-            <CheckmarkIcon class="w-4 h-4 text-primary-content" />
+            <CheckmarkIcon />
           </Combobox.ItemIndicator>
         </Combobox.Item>
       )}
@@ -51,7 +51,7 @@ export function Select(props: {
         <Combobox.Content
           class={`absolute w-full mt-2 bg-base-100 rounded-lg shadow-lg border border-base-300 overflow-hidden ${TW_ZINDEX}`}
         >
-          <Combobox.Listbox class="max-h-60 overflow-auto">
+          <Combobox.Listbox class={`max-h-60 overflow-auto ${TW_ZINDEX}`}>
             {/* List items will render here */}
           </Combobox.Listbox>
         </Combobox.Content>

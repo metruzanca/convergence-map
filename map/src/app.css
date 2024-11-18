@@ -53,13 +53,14 @@ button {
       black
     );
   }
+}
 
-  .scrollbar-hide {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
+/* Firefox */
+* {
+  scrollbar-width: thin;
+}
 
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none; /* Chrome, Safari and Opera */
-  }
+/* Chrome */
+::-webkit-scrollbar {
+  width: 6px;
 }

@@ -13,6 +13,7 @@ const GraceIcon = L.icon({
   popupAnchor: [0, -32], // point from which the popup should open relative to the iconAnchor
 });
 
+// FIXME move this to lib/context
 const [store, setStore] = createStore<{
   items: Item[];
   markers: Map<string, L.Marker>;
