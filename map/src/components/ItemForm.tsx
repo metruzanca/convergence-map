@@ -1,14 +1,14 @@
 import { LatLngTuple, marker } from "leaflet";
 import { onMount, createSignal, createEffect, onCleanup } from "solid-js";
 import { Item } from "~/firebase";
-import { formatLatLng, store } from "~/lib/map";
 import cn from "~/lib/styling";
 import { OnSubmit } from "~/lib/types";
 import { PinIcon } from "./Icons";
-import { getMap } from "./Map";
 import { CoordinatesInput, Input } from "./inputs";
 import { createStore } from "solid-js/store";
 import { Select } from "./kobalte";
+import { formatLatLng } from "~/lib/leaflet";
+import { useAppContext } from "~/lib/context";
 
 function latlngUnset(latlng: LatLngTuple) {
   return latlng[0] === 0 && latlng[1] === 0;
@@ -18,21 +18,20 @@ export default function ItemForm(props: {
   item: Item;
   onSubmit: OnSubmit<Item>;
 }) {
+  const context = useAppContext();
   const [inputs, setInputs] = createStore(props.item.data);
   const [editingPin, setEditingPin] = createSignal(
     latlngUnset(props.item.data.latlng)
   );
 
-  const map = getMap();
-
   const addMarker = (e: L.LeafletMouseEvent) => {
-    const existingMarkers = store.markers;
+    const existingMarkers = context.markers;
     if (existingMarkers.has(props.item.id)) {
       existingMarkers
         .get(props.item.id)
         ?.setLatLng([formatLatLng(e.latlng.lat), formatLatLng(e.latlng.lng)]);
     } else {
-      marker(e.latlng).addTo(map);
+      marker(e.latlng).addTo(context.map);
     }
 
     setInputs("latlng", [
@@ -44,9 +43,9 @@ export default function ItemForm(props: {
 
   createEffect(() => {
     if (editingPin()) {
-      map.on("click", addMarker);
+      context.map.on("click", addMarker);
     }
-    onCleanup(() => map.off("click", addMarker));
+    onCleanup(() => context.map.off("click", addMarker));
   });
 
   let newItemName!: HTMLInputElement;

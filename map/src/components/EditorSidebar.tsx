@@ -2,7 +2,6 @@ import { Item } from "~/firebase";
 import { createMemo, createSignal, For, Show } from "solid-js";
 import { CloseMarkIcon, SearchIcon } from "./Icons";
 import { useCurrentUser } from "~/firebase/auth";
-import { setStore } from "~/lib/map";
 import ItemForm from "./ItemForm";
 import { readFromClipboard } from "~/lib/utils";
 import { ItemCard } from "./Item";
@@ -12,7 +11,6 @@ import { useAppContext } from "~/lib/context";
 
 export default function EditorSiderbar() {
   const context = useAppContext();
-  // const params = useParams<MapUrlParams>();
   const [item, setItem] = createSignal<Item>();
 
   const current = useCurrentUser();
@@ -85,10 +83,7 @@ export default function EditorSiderbar() {
                               `About to delete all ${context.items.length} pins`
                             )
                           ) {
-                            context.items.forEach((i) => {
-                              i.delete();
-                              setStore("markers", new Map());
-                            });
+                            context.items.forEach((i) => i.delete());
                           }
                         }}
                       >

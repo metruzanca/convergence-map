@@ -8,18 +8,18 @@ import { AppContextProvider } from "./lib/context";
 
 export default function App() {
   return (
-    <AppContextProvider>
-      <Router
-        root={(props) => (
-          <MetaProvider>
-            <Title>Convergence Mod Map</Title>
-            <Suspense>{props.children}</Suspense>
-          </MetaProvider>
-        )}
-      >
+    <Router
+      root={(props) => (
+        <MetaProvider>
+          <Title>Convergence Mod Map</Title>
+          <Suspense>{props.children}</Suspense>
+        </MetaProvider>
+      )}
+    >
+      <AppContextProvider>
         <Route path="/:map?" component={Map} />
-        <Route path="/login" component={Login} />
-      </Router>
-    </AppContextProvider>
+      </AppContextProvider>
+      <Route path="/login" component={Login} />
+    </Router>
   );
 }

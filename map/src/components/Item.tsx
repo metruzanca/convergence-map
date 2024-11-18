@@ -8,12 +8,13 @@ import {
   GotoIcon,
   LinkIcon,
 } from "./Icons";
-import { getMap } from "./Map";
 import { useSearchParams } from "@solidjs/router";
 import { MapSearchParams } from "~/lib/types";
 import { FOCUS_ZOOM } from "~/lib/constants";
+import { useAppContext } from "~/lib/context";
 
 export function ItemCard(props: { item: Item; edit?: () => void }) {
+  const context = useAppContext();
   const [params, setParams] = useSearchParams<MapSearchParams>();
   return (
     <div
@@ -72,7 +73,7 @@ export function ItemCard(props: { item: Item; edit?: () => void }) {
             <GotoIcon
               size="small"
               onClick={() => {
-                getMap().setView(props.item.data.latlng, FOCUS_ZOOM);
+                context.map.setView(props.item.data.latlng, FOCUS_ZOOM);
                 setParams({
                   item: props.item.data.name,
                 });

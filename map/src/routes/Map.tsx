@@ -1,8 +1,6 @@
-// import { Title } from "@solidjs/meta";
-
 import { useParams, useSearchParams } from "@solidjs/router";
-import MapComponent, { MapUrlParams, Position } from "~/components/Map";
-import { MapSearchParams, Stringify } from "~/lib/types";
+import MapComponent from "~/components/Map";
+import { MapSearchParams, MapUrlParams } from "~/lib/types";
 import { Drawer } from "~/components/Drawer";
 import { Protected } from "~/firebase/auth";
 import MapSidebar from "~/components/MapSidebar";
@@ -19,8 +17,6 @@ import "leaflet/dist/leaflet.css";
 export default function Map() {
   const params = useParams<MapUrlParams>();
   const [search, setSearch] = useSearchParams<MapSearchParams>();
-
-  // TODO search.item zoom on item
 
   const [openLeft, setOpenLeft] = createPersistedSignal(MAP_SIDEBAR, false);
   const [openRight, setOpenRight] = createPersistedSignal(
@@ -52,11 +48,7 @@ export default function Map() {
 
   return (
     <div class="w-screen h-screen">
-      <MapComponent
-        map={params.map || "overworld"}
-        onMove={setSearch}
-        position={search}
-      />
+      <MapComponent map={params.map} onMove={setSearch} position={search} />
 
       {!isInIframe() && (
         <>

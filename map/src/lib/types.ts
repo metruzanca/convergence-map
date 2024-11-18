@@ -1,5 +1,11 @@
 import { Component, JSX } from "solid-js";
-import { Position } from "~/components/Map";
+import { z } from "zod";
+
+export type Position = {
+  zoom: number;
+  lat: number;
+  lng: number;
+};
 
 export type Stringify<T> = {
   [K in keyof T]: string;
@@ -36,3 +42,17 @@ type EmbedMapSearchParams = {
 };
 
 export type MapSearchParams = Stringify<Position & EmbedMapSearchParams>;
+
+export type MapUrlParams = { map: string };
+
+export const DEFAULT_MAP = "overworld";
+
+export const MapSchema = z
+  .union([
+    z.literal("overworld"),
+    z.literal("underworld"),
+    z.literal("scadutree"),
+  ])
+  .default(DEFAULT_MAP);
+
+export type MapNames = z.infer<typeof MapSchema>;

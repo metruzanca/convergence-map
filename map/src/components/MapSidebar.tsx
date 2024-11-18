@@ -5,13 +5,11 @@ import {
   useParams,
   useSearchParams,
 } from "@solidjs/router";
-import { MapNames, MapUrlParams } from "./Map";
 import { createMemo, createSignal, For, onCleanup } from "solid-js";
 import { onHotkey } from "~/lib/hotkeys";
 import { getCurrentUser } from "~/firebase/auth";
-import { Item } from "~/firebase";
 import { ItemCard } from "./Item";
-import { MapSearchParams } from "~/lib/types";
+import { MapNames, MapSearchParams, MapUrlParams } from "~/lib/types";
 import { useAppContext } from "~/lib/context";
 
 export default function MapSidebar() {
@@ -57,7 +55,7 @@ export default function MapSidebar() {
     <div class="h-full px-2 flex flex-col justify-between">
       <div>
         <label>
-          <h2>Map</h2>\
+          <h2>Map</h2>
           <select
             class="select w-full"
             onChange={(e) => changeMap(e.target.value as MapNames)}
