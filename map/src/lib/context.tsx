@@ -49,7 +49,7 @@ export function createMarkerIcon(Icon: () => JSXElement) {
     html: markerIconDiv.innerHTML,
     iconSize: [32, 32],
     iconAnchor: [16, 32],
-    popupAnchor: [0, -32],
+    popupAnchor: [0, 0],
     className: "transparent",
   });
   return markerDiv;
