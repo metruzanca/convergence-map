@@ -1,19 +1,13 @@
-import {
-  createContext,
-  JSXElement,
-  useContext,
-  ValidComponent,
-} from "solid-js";
+import { createContext, JSXElement, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 import { Item } from "~/firebase";
 import * as L from "leaflet";
 import { Category } from "~/firebase/models/category";
 import { FOCUS_ZOOM } from "./constants";
 import { MapSearchParams } from "./types";
-import { useLocation } from "@solidjs/router";
-import { render } from "solid-js/web";
 import { MapPinSolidIcon } from "~/components/Icons";
 import { MapPopup } from "~/components/Map";
+import { componentToElement } from "./signals";
 
 type AppState = {
   categories: Category[];
@@ -41,16 +35,11 @@ export const useAppContext = () => {
   return value;
 };
 
-// const GraceIcon = L.icon({
-//   iconUrl: "/icons/grace.webp",
-//   iconSize: [32, 32],
-//   iconAnchor: [16, 16],
-//   // popupAnchor: [0, -32],
-// });
-
 const [store, setStore] = createStore<AppState>(initial);
 
-function createMarkerIcon() {
+const graceIcon = createMarkerIcon();
+
+export function createMarkerIcon() {
   const markerIconDiv = componentToElement(() => (
     <MapPinSolidIcon size="large" class="text-primary stroke-black stroke-1" />
   ));
@@ -65,14 +54,10 @@ function createMarkerIcon() {
   return markerDiv;
 }
 
-function componentToElement(Component: () => JSXElement) {
-  const markerIconDiv = document.createElement("div");
-  render(Component, markerIconDiv);
-
-  return markerIconDiv;
+export function createPopup(item: Item, marker: L.Marker) {
+  return () =>
+    componentToElement(() => <MapPopup item={item} marker={marker} />);
 }
-
-const graceIcon = createMarkerIcon();
 
 export function AppContextProvider(props: { children: JSXElement }) {
   Category.liveCollection((data) => setStore("categories", data));
@@ -89,22 +74,7 @@ export function AppContextProvider(props: { children: JSXElement }) {
       } else {
         const marker = L.marker(item.data.latlng, { icon: graceIcon });
 
-        const popup = L.popup({
-          maxWidth: 300,
-          className: "custom-popup", // Optional custom class
-        });
-
-        // Dynamically render SolidJS component into popup
-        popup.setContent(() => {
-          const container = document.createElement("div");
-          render(() => <MapPopup item={item} marker={marker} />, container);
-          return container;
-        });
-        marker.bindPopup(popup);
-
-        // marker.bindPopup(() =>
-        //   componentToElement(() => <MapPopup item={item} marker={marker} />)
-        // );
+        marker.bindPopup(createPopup(item, marker));
 
         setStore("markers", (prev) => new Map(prev).set(item.id, marker));
       }

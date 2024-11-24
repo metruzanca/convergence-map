@@ -1,6 +1,5 @@
 import { createEffect, createMemo, onMount } from "solid-js";
 import * as L from "leaflet";
-import { z } from "zod";
 import {
   DEFAULT_MAP,
   MapNames,

@@ -1,5 +1,6 @@
 // import { debounce } from "lodash";
-import { createEffect, createSignal } from "solid-js";
+import { createEffect, createSignal, JSXElement } from "solid-js";
+import { render } from "solid-js/web";
 
 function debounce<T extends (...args: any[]) => void>(
   func: T,
@@ -35,4 +36,11 @@ export function createPersistedSignal<T>(key: string, initialValue: T) {
   });
 
   return [state, setState] as const;
+}
+
+export function componentToElement(Component: () => JSXElement) {
+  const markerIconDiv = document.createElement("div");
+  render(Component, markerIconDiv);
+
+  return markerIconDiv;
 }
