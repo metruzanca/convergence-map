@@ -48,7 +48,7 @@ export default function Map() {
 
   return (
     <div class="w-screen h-screen">
-      <MapComponent map={params.map} onMove={setSearch} position={search} />
+      <MapComponent map={params.map} onMove={setSearch} search={search} />
 
       {!isInIframe() && (
         <>

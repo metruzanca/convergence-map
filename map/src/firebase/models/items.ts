@@ -1,6 +1,13 @@
 import { LatLngTuple } from "leaflet";
 import { CollectionRef } from "../types";
-import { collection, onSnapshot, QuerySnapshot } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  onSnapshot,
+  query,
+  QuerySnapshot,
+  where,
+} from "firebase/firestore";
 import { firestore } from "../init";
 import { Firestore, Timestamps } from "../firestore";
 import { DeepPartial, MapNames } from "~/lib/types";
@@ -29,6 +36,19 @@ export class Item {
         snapshot.docs.map((snap) => new Item(snap.id, snap.data() as ItemData))
       );
     });
+  }
+
+  static byName(name: string, onChange: (data: Item[]) => void) {
+    return onSnapshot(
+      query(collection(firestore, Item.collection), where("name", "==", name)),
+      (snapshot: QuerySnapshot) => {
+        onChange(
+          snapshot.docs.map(
+            (snap) => new Item(snap.id, snap.data() as ItemData)
+          )
+        );
+      }
+    );
   }
 
   get embedUrl() {

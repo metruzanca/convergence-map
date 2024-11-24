@@ -3,6 +3,7 @@ import { createStore } from "solid-js/store";
 import { Item } from "~/firebase";
 import * as L from "leaflet";
 import { Category } from "~/firebase/models/category";
+import { FOCUS_ZOOM } from "./constants";
 
 type AppState = {
   categories: Category[];
@@ -63,3 +64,11 @@ export function AppContextProvider(props: { children: JSXElement }) {
 }
 
 export const setMapInstance = (instance: L.Map) => setStore("map", instance);
+
+export function focusPosition(position: L.LatLngTuple | Item) {
+  const context = useAppContext();
+  if (Array.isArray(position)) {
+    context.map.setView(position, FOCUS_ZOOM);
+  }
+  context.map.setView((position as Item).data.latlng, FOCUS_ZOOM);
+}

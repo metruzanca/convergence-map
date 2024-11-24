@@ -7,7 +7,8 @@ export type Position = {
   lng: number;
 };
 
-export type Stringify<T> = {
+/** Utility type that makes reading types easier */
+export type Simplify<T> = {
   [K in keyof T]: string;
 };
 
@@ -41,7 +42,7 @@ type EmbedMapSearchParams = {
   item: string;
 };
 
-export type MapSearchParams = Stringify<Position & EmbedMapSearchParams>;
+export type MapSearchParams = Simplify<Position & EmbedMapSearchParams>;
 
 export type MapUrlParams = { map: string };
 
