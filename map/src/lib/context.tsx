@@ -1,4 +1,9 @@
-import { createContext, JSXElement, useContext } from "solid-js";
+import {
+  createContext,
+  JSXElement,
+  useContext,
+  ValidComponent,
+} from "solid-js";
 import { createStore } from "solid-js/store";
 import { Item } from "~/firebase";
 import * as L from "leaflet";
@@ -8,6 +13,7 @@ import { MapSearchParams } from "./types";
 import { useLocation } from "@solidjs/router";
 import { render } from "solid-js/web";
 import { MapPinSolidIcon } from "~/components/Icons";
+import { MapPopup } from "~/components/Map";
 
 type AppState = {
   categories: Category[];
@@ -45,16 +51,9 @@ export const useAppContext = () => {
 const [store, setStore] = createStore<AppState>(initial);
 
 function createMarkerIcon() {
-  const markerIconDiv = document.createElement("div");
-  render(
-    () => (
-      <MapPinSolidIcon
-        size="large"
-        class="text-success stroke-black stroke-1"
-      />
-    ),
-    markerIconDiv
-  );
+  const markerIconDiv = componentToElement(() => (
+    <MapPinSolidIcon size="large" class="text-success stroke-black stroke-1" />
+  ));
 
   const markerDiv = L.divIcon({
     html: markerIconDiv.innerHTML,
@@ -64,6 +63,13 @@ function createMarkerIcon() {
     className: "transparent",
   });
   return markerDiv;
+}
+
+function componentToElement(Component: () => JSXElement) {
+  const markerIconDiv = document.createElement("div");
+  render(Component, markerIconDiv);
+
+  return markerIconDiv;
 }
 
 const graceIcon = createMarkerIcon();
@@ -82,7 +88,10 @@ export function AppContextProvider(props: { children: JSXElement }) {
         store.markers.get(item.id)!.setLatLng(item.data.latlng);
       } else {
         const marker = L.marker(item.data.latlng, { icon: graceIcon });
-        marker.bindPopup("<b>Hello world!</b><br>I am a popup.");
+
+        marker.bindPopup(() =>
+          componentToElement(() => <MapPopup item={item} marker={marker} />)
+        );
 
         setStore("markers", (prev) => new Map(prev).set(item.id, marker));
       }

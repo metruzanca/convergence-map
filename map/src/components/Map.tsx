@@ -12,6 +12,7 @@ import { LEAFLET_BASE_URL } from "~/lib/constants";
 import { formatLatLng } from "~/lib/leaflet";
 import { focusPosition, setMapInstance, useAppContext } from "~/lib/context";
 import { Item } from "~/firebase";
+import { CloseMarkIcon } from "./Icons";
 
 const MAP_ID = "map";
 
@@ -94,4 +95,13 @@ export default function MapComponent(props: {
   });
 
   return <div id={MAP_ID} class="h-screen" />;
+}
+
+export function MapPopup(props: { marker: L.Marker; item: Item }) {
+  return (
+    <div>
+      <CloseMarkIcon onClick={() => props.marker.closePopup()} />
+      <h2>{props.item.data.map}</h2>
+    </div>
+  );
 }
