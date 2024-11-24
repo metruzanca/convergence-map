@@ -43,7 +43,7 @@ export default function MapComponent(props: {
 
     context.map
       ?.removeLayer(currentLayer)
-      .addLayer(L.tileLayer(TILES_URL(mapNameValue), tileLayerOptions));
+      ?.addLayer(L.tileLayer(TILES_URL(mapNameValue), tileLayerOptions));
   });
 
   onMount(async () => {

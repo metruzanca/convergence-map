@@ -6,6 +6,8 @@ import { Category } from "~/firebase/models/category";
 import { FOCUS_ZOOM } from "./constants";
 import { MapSearchParams } from "./types";
 import { useLocation } from "@solidjs/router";
+import { render } from "solid-js/web";
+import { MapPinSolidIcon } from "~/components/Icons";
 
 type AppState = {
   categories: Category[];
@@ -42,6 +44,30 @@ export const useAppContext = () => {
 
 const [store, setStore] = createStore<AppState>(initial);
 
+function createMarkerIcon() {
+  const markerIconDiv = document.createElement("div");
+  render(
+    () => (
+      <MapPinSolidIcon
+        size="large"
+        class="text-success stroke-black stroke-1"
+      />
+    ),
+    markerIconDiv
+  );
+
+  const markerDiv = L.divIcon({
+    html: markerIconDiv.innerHTML,
+    iconSize: [32, 32],
+    iconAnchor: [16, 16],
+    popupAnchor: [0, -32],
+    className: "transparent",
+  });
+  return markerDiv;
+}
+
+const graceIcon = createMarkerIcon();
+
 export function AppContextProvider(props: { children: JSXElement }) {
   Category.liveCollection((data) => setStore("categories", data));
   Item.liveCollection((items) => {
@@ -55,7 +81,7 @@ export function AppContextProvider(props: { children: JSXElement }) {
       if (store.markers.has(item.id)) {
         store.markers.get(item.id)!.setLatLng(item.data.latlng);
       } else {
-        const marker = L.marker(item.data.latlng);
+        const marker = L.marker(item.data.latlng, { icon: graceIcon });
         marker.bindPopup("<b>Hello world!</b><br>I am a popup.");
 
         setStore("markers", (prev) => new Map(prev).set(item.id, marker));
