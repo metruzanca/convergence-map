@@ -1,5 +1,5 @@
 // https://heroicons.com
-
+// https://freesvgeditor.com/en/svg-editor-online
 // TODO make this an icon font instead for better performance
 
 import { Component } from "solid-js";
@@ -341,9 +341,9 @@ export const MapPinSolidIcon = Icon((props) => (
     {...props}
   >
     <path
-      fill-rule="evenodd"
-      d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
       clip-rule="evenodd"
+      d="m11.54,22.351l0.07,0.04l0.028,0.016a0.76,0.76 0 0 0 0.723,0l0.028,-0.015l0.071,-0.041a16.975,16.975 0 0 0 1.144,-0.742a19.58,19.58 0 0 0 2.683,-2.282c1.944,-1.99 3.963,-4.98 3.963,-8.827a8.25,8.25 0 0 0 -16.5,0c0,3.846 2.02,6.837 3.963,8.827a19.58,19.58 0 0 0 2.682,2.282a16.975,16.975 0 0 0 1.145,0.742z"
+      fill-rule="evenodd"
     />
   </svg>
 ));
@@ -364,3 +364,23 @@ export const ArrowsPointingOutIcon = Icon((props) => (
     />
   </svg>
 ));
+
+// https://www.svgrepo.com/svg/308893/sword-conflict-war-violence
+export const SwordIcon = Icon((props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 260 260"
+    stroke="currentcolor"
+    {...props}
+  >
+    <path
+      d="M258,2l-16,48L97.06,181.76l-7.23-11.14l-11.68-7.58L210,18L258,2z M101.029,238.26l11.314-11.314l-31.176-48.02
+	l-48.02-31.176l-11.314,11.314l31.386,31.386l-34.26,37.693c-4.464-0.586-9.138,0.82-12.568,4.249
+	c-5.858,5.858-5.858,15.355,0,21.213c5.858,5.858,15.355,5.858,21.213,0c3.428-3.428,4.834-8.1,4.25-12.562l37.695-34.262
+	L101.029,238.26z"
+    />
+  </svg>
+));
+
+// Grace: https://www.svgrepo.com/svg/488347/radar
+// Armor: https://www.svgrepo.com/svg/535622/shield

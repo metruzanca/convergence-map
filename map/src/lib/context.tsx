@@ -1,11 +1,16 @@
-import { createContext, JSXElement, useContext } from "solid-js";
+import {
+  createContext,
+  JSXElement,
+  useContext,
+  ValidComponent,
+} from "solid-js";
 import { createStore } from "solid-js/store";
 import { Item } from "~/firebase";
 import * as L from "leaflet";
 import { Category } from "~/firebase/models/category";
 import { FOCUS_ZOOM } from "./constants";
 import { MapSearchParams } from "./types";
-import { MapPinSolidIcon } from "~/components/Icons";
+import { MapPinSolidIcon, SwordIcon } from "~/components/Icons";
 import { MapPopup } from "~/components/Map";
 import { componentToElement } from "./signals";
 
@@ -37,12 +42,8 @@ export const useAppContext = () => {
 
 const [store, setStore] = createStore<AppState>(initial);
 
-const graceIcon = createMarkerIcon();
-
-export function createMarkerIcon() {
-  const markerIconDiv = componentToElement(() => (
-    <MapPinSolidIcon size="large" class="text-primary stroke-black stroke-1" />
-  ));
+export function createMarkerIcon(Icon: () => JSXElement) {
+  const markerIconDiv = componentToElement(Icon);
 
   const markerDiv = L.divIcon({
     html: markerIconDiv.innerHTML,
@@ -59,6 +60,28 @@ export function createPopup(item: Item, marker: L.Marker) {
     componentToElement(() => <MapPopup item={item} marker={marker} />);
 }
 
+// Keep these createMarkerIcon calls outside the iconByCategory so they can be reused
+
+const defaultIcon = createMarkerIcon(() => (
+  <MapPinSolidIcon size="large" class="text-primary stroke-black stroke-1" />
+));
+
+const swordIcon = createMarkerIcon(() => (
+  <span class="relative flex justify-center items-center">
+    <MapPinSolidIcon size="large" class="text-primary stroke-black stroke-1" />
+    <SwordIcon class="w-3 h-3 fill-black absolute" />
+  </span>
+));
+
+function iconByCategory(category: string) {
+  switch (category) {
+    case "weapons":
+      return swordIcon;
+    default:
+      return defaultIcon;
+  }
+}
+
 export function AppContextProvider(props: { children: JSXElement }) {
   Category.liveCollection((data) => setStore("categories", data));
   Item.liveCollection((items) => {
@@ -72,8 +95,9 @@ export function AppContextProvider(props: { children: JSXElement }) {
       if (store.markers.has(item.id)) {
         store.markers.get(item.id)!.setLatLng(item.data.latlng);
       } else {
-        const marker = L.marker(item.data.latlng, { icon: graceIcon });
-
+        const marker = L.marker(item.data.latlng, {
+          icon: iconByCategory(item.data.category),
+        });
         marker.bindPopup(createPopup(item, marker));
 
         setStore("markers", (prev) => new Map(prev).set(item.id, marker));
