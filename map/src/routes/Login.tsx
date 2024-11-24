@@ -78,7 +78,7 @@ export default function Login() {
       class="h-screen flex flex-col items-center justify-center"
     >
       <div class="w-36 flex flex-col gap-4">
-        <button class=" tn btn-primary w-full" onClick={() => navigate("/")}>
+        <button class="btn btn-primary w-full" onClick={() => navigate("/")}>
           back to map
         </button>
         <button class="btn w-full btn-neutral" onClick={logout}>

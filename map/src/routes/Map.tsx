@@ -21,6 +21,7 @@ import "leaflet/dist/leaflet.css";
 import {
   ArrowsPointingOutIcon,
   ArrowUTurnLeftIcon,
+  GotoIcon,
   MinusIcon,
   PlusIcon,
 } from "~/components/Icons";
@@ -82,7 +83,7 @@ export default function Map() {
               focussedItem() && "hidden"
             )}
           >
-            <ArrowUTurnLeftIcon onClick={() => refocusItem(search.item)} />
+            <GotoIcon onClick={() => refocusItem(search.item)} />
           </OverlayElement>
 
           <OverlayElement class="bottom-1 right-1 bg-base-100 rounded-tl rounded-bl p-1 block">

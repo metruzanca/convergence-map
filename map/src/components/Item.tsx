@@ -10,10 +10,9 @@ import {
 } from "./Icons";
 import { useSearchParams } from "@solidjs/router";
 import { MapSearchParams } from "~/lib/types";
-import { focusPosition, useAppContext } from "~/lib/context";
+import { focusPosition } from "~/lib/context";
 
 export function ItemCard(props: { item: Item; edit?: () => void }) {
-  const context = useAppContext();
   const [params, setParams] = useSearchParams<MapSearchParams>();
   return (
     <div
