@@ -59,7 +59,7 @@ function createMarkerIcon() {
   const markerDiv = L.divIcon({
     html: markerIconDiv.innerHTML,
     iconSize: [32, 32],
-    iconAnchor: [16, 16],
+    iconAnchor: [16, 32],
     popupAnchor: [0, -32],
     className: "transparent",
   });

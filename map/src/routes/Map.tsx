@@ -5,7 +5,12 @@ import { Drawer } from "~/components/Drawer";
 import { Protected } from "~/firebase/auth";
 import MapSidebar from "~/components/MapSidebar";
 import { createPersistedSignal } from "~/lib/signals";
-import { EDITOR_SIDEBAR, HOTKEYS, MAP_SIDEBAR } from "~/lib/constants";
+import {
+  BASE_URL,
+  EDITOR_SIDEBAR,
+  HOTKEYS,
+  MAP_SIDEBAR,
+} from "~/lib/constants";
 import { isInIframe } from "~/lib/iframe";
 import EditorSiderbar from "~/components/EditorSidebar";
 import { onHotkey, registerHotkeys } from "~/lib/hotkeys";
@@ -13,8 +18,9 @@ import { onMount, onCleanup, createMemo, createEffect } from "solid-js";
 import cn, { minWidth } from "~/lib/styling";
 
 import "leaflet/dist/leaflet.css";
-import { ArrowUTurnLeftIcon } from "~/components/Icons";
+import { ArrowsPointingOutIcon, ArrowUTurnLeftIcon } from "~/components/Icons";
 import { refocusItem, useAppContext } from "~/lib/context";
+import OverlayElement from "~/components/OverlayElement";
 
 export default function Map() {
   const params = useParams<MapUrlParams>();
@@ -64,14 +70,22 @@ export default function Map() {
       <MapComponent map={params.map} onMove={setSearch} search={search} />
 
       {isInIframe() ? (
-        <aside
-          class={cn(
-            "fixed z-[500] top-0 right-0 bg-base-100 rounded-tl rounded-bl p-1 block",
-            focussedItem() && "hidden"
-          )}
-        >
-          <ArrowUTurnLeftIcon onClick={() => refocusItem(search.item)} />
-        </aside>
+        <>
+          <OverlayElement
+            class={cn(
+              "top-1 right-1 bg-base-100 rounded-tl rounded-bl p-1 block",
+              focussedItem() && "hidden"
+            )}
+          >
+            <ArrowUTurnLeftIcon onClick={() => refocusItem(search.item)} />
+          </OverlayElement>
+
+          <OverlayElement class="bottom-1 right-1 bg-base-100 rounded-tl rounded-bl p-1 block">
+            <ArrowsPointingOutIcon
+              onClick={() => window.open(window.location.href)}
+            />
+          </OverlayElement>
+        </>
       ) : (
         <>
           <Drawer position="left" onChange={setOpenLeft} open={openLeft}>
