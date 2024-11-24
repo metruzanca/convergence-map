@@ -158,27 +158,6 @@ export const CloseMarkIcon = Icon((props) => (
   </svg>
 ));
 
-export type Sprites = "grace";
-
-export function Sprite(props: {
-  sprite: Sprites;
-  size?: number;
-  class?: string;
-  onClick?: VoidFunction;
-}) {
-  return (
-    <img
-      style={{
-        width: `${props.size ?? 1}rem`,
-        height: `${props.size ?? 1}rem`,
-      }}
-      src={`/icons/${props.sprite}.webp`}
-      class={props.class}
-      onClick={props.onClick}
-    />
-  );
-}
-
 export const PinIcon = Icon((props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -333,6 +312,23 @@ export const LinkIcon = Icon((props) => (
       stroke-linecap="round"
       stroke-linejoin="round"
       d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"
+    />
+  </svg>
+));
+
+export const ArrowUTurnLeftIcon = Icon((props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    {...props}
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
     />
   </svg>
 ));

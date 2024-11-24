@@ -5,6 +5,7 @@ import "./app.css";
 import Login from "./routes/Login";
 import Map from "./routes/Map";
 import { AppContextProvider } from "./lib/context";
+import IframeDemo from "./routes/IframeDemo";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
       >
         <Route path="/:map?" component={Map} />
         <Route path="/login" component={Login} />
+        <Route path="/iframedemo" component={IframeDemo} />
       </Router>
     </AppContextProvider>
   );

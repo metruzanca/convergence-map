@@ -81,8 +81,6 @@ export default function MapSidebar() {
           each={filteredItems()}
           children={(item) => <ItemCard item={item} />}
         />
-
-        {/* <Sprite sprite="grace" size={2} /> */}
       </div>
       <div class="pb-10 flex items-center justify-center">
         <A href="/login" class="btn-link">

@@ -106,4 +106,13 @@ export namespace Firestore {
   ) {
     return removeDoc(doc(firestore, base.collection, instance.id));
   }
+
+  export async function promisify<T>(
+    functionWithCallback: (...args: [...unknown[], (data: T) => void]) => void,
+    ...args: unknown[]
+  ): Promise<T> {
+    return new Promise<T>((resolve) => {
+      functionWithCallback(...args, resolve);
+    });
+  }
 }

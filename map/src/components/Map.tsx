@@ -1,4 +1,4 @@
-import { createEffect, createMemo, createSignal, onMount } from "solid-js";
+import { createEffect, createMemo, onMount } from "solid-js";
 import * as L from "leaflet";
 import { z } from "zod";
 import {
@@ -42,13 +42,11 @@ export default function MapComponent(props: {
     if (currentLayer === undefined) return;
 
     context.map
-      .removeLayer(currentLayer)
+      ?.removeLayer(currentLayer)
       .addLayer(L.tileLayer(TILES_URL(mapNameValue), tileLayerOptions));
   });
 
-  onMount(() => {
-    // TODO check that params is a valid value
-
+  onMount(async () => {
     const map = L.map(MAP_ID, {
       zoomControl: false,
       attributionControl: false,
@@ -79,18 +77,21 @@ export default function MapComponent(props: {
   createEffect(() => {
     if (!context.map) return;
 
-    context.markers.forEach((marker) => marker.addTo(context.map));
+    context.markers.forEach((marker) => marker.addTo(context.map!));
   });
 
   // If the map loads with item in url, its an embedded map
-  if (props.search.item) {
-    Item.byName(props.search.item, (items) => {
-      const foundItem = items[0];
-      if (foundItem) {
-        focusPosition(foundItem);
-      }
-    });
-  }
+  createEffect(() => {
+    if (props.search.item) {
+      Item.byName(props.search.item, (foundItem) => {
+        if (foundItem) {
+          focusPosition(foundItem);
+
+          focusPosition(foundItem.data.latlng);
+        }
+      });
+    }
+  });
 
   return <div id={MAP_ID} class="h-screen" />;
 }

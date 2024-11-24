@@ -2,7 +2,6 @@ import { LatLngTuple } from "leaflet";
 import { CollectionRef } from "../types";
 import {
   collection,
-  doc,
   onSnapshot,
   query,
   QuerySnapshot,
@@ -11,7 +10,7 @@ import {
 import { firestore } from "../init";
 import { Firestore, Timestamps } from "../firestore";
 import { DeepPartial, MapNames } from "~/lib/types";
-import { SITE_URL } from "~/lib/constants";
+import { BASE_URL } from "~/lib/constants";
 
 export type ItemData = Timestamps & {
   author: string;
@@ -38,15 +37,12 @@ export class Item {
     });
   }
 
-  static byName(name: string, onChange: (data: Item[]) => void) {
+  static byName(name: string, onChange: (data?: Item) => void) {
     return onSnapshot(
       query(collection(firestore, Item.collection), where("name", "==", name)),
       (snapshot: QuerySnapshot) => {
-        onChange(
-          snapshot.docs.map(
-            (snap) => new Item(snap.id, snap.data() as ItemData)
-          )
-        );
+        const item = snapshot.docs[0];
+        onChange(new Item(item.id, item.data() as ItemData));
       }
     );
   }
@@ -55,7 +51,7 @@ export class Item {
     const params = new URLSearchParams();
     params.append("item", this.data.name);
     // TODO embed url to include item_name to focus, ideally no lat, lng, zoom.
-    return `${SITE_URL}?${params.toString()}`;
+    return `${BASE_URL}?${params.toString()}`;
   }
 
   async softDelete() {

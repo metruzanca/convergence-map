@@ -1,12 +1,11 @@
 import { collection, onSnapshot, QuerySnapshot } from "firebase/firestore";
 import { firestore } from "../init";
 import { CollectionRef } from "../types";
-import { Sprites } from "~/components/Icons";
 
 export namespace Category {
   export type Data = {
     name: string;
-    sprite: Sprites;
+    icon: string;
   };
 }
 
@@ -30,7 +29,7 @@ export class Category {
   static create() {
     return new Category("", {
       name: "",
-      sprite: "grace",
+      icon: "grace",
     } satisfies Category.Data);
   }
 
