@@ -18,11 +18,17 @@ import { onMount, onCleanup, createMemo, createEffect } from "solid-js";
 import cn, { minWidth } from "~/lib/styling";
 
 import "leaflet/dist/leaflet.css";
-import { ArrowsPointingOutIcon, ArrowUTurnLeftIcon } from "~/components/Icons";
+import {
+  ArrowsPointingOutIcon,
+  ArrowUTurnLeftIcon,
+  MinusIcon,
+  PlusIcon,
+} from "~/components/Icons";
 import { refocusItem, useAppContext } from "~/lib/context";
 import OverlayElement from "~/components/OverlayElement";
 
 export default function Map() {
+  const context = useAppContext();
   const params = useParams<MapUrlParams>();
   const [search, setSearch] = useSearchParams<MapSearchParams>();
 
@@ -55,7 +61,6 @@ export default function Map() {
   const widthQuery = minWidth(640);
 
   const focussedItem = createMemo(() => {
-    const context = useAppContext();
     const focusItem = context.items.find((i) => i.data.name === search.item);
 
     const [itemLat, itemLng] = focusItem?.data.latlng ?? [0, 0];
@@ -81,6 +86,10 @@ export default function Map() {
           </OverlayElement>
 
           <OverlayElement class="bottom-1 right-1 bg-base-100 rounded-tl rounded-bl p-1 block">
+            <PlusIcon onClick={() => context.map.zoomIn()} />
+            <hr class="border-neutral-700 my-1" />
+            <MinusIcon onClick={() => context.map.zoomOut()} />
+            <hr class="border-neutral-700 my-1" />
             <ArrowsPointingOutIcon
               onClick={() => window.open(window.location.href)}
             />
