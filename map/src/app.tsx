@@ -2,6 +2,7 @@ import { MetaProvider, Title } from "@solidjs/meta";
 import { Route, Router } from "@solidjs/router";
 import { Suspense } from "solid-js";
 import "./app.css";
+import "./leaflet.css";
 import Login from "./routes/Login";
 import Map from "./routes/Map";
 import { AppContextProvider } from "./lib/context";

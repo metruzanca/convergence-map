@@ -1,0 +1,28 @@
+.leaflet-container {
+  background-color: transparent !important;
+}
+
+.leaflet-popup {
+  .leaflet-popup-content-wrapper {
+    border-radius: 0 !important;
+    background: transparent;
+    box-shadow: none;
+    .leaflet-popup-content,
+    p {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  }
+
+  .leaflet-popup-close-button span {
+    @apply text-neutral-content;
+
+    &:hover {
+      @apply text-neutral-400;
+    }
+  }
+
+  .leaflet-popup-tip {
+    @apply bg-black opacity-80 border border-primary;
+  }
+}

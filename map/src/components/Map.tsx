@@ -12,7 +12,8 @@ import { LEAFLET_BASE_URL } from "~/lib/constants";
 import { formatLatLng } from "~/lib/leaflet";
 import { focusPosition, setMapInstance, useAppContext } from "~/lib/context";
 import { Item } from "~/firebase";
-import { CloseMarkIcon } from "./Icons";
+import { LinkIcon, PinIcon } from "./Icons";
+import { copyToClipboard, kebabToHuman } from "~/lib/utils";
 
 const MAP_ID = "map";
 
@@ -99,9 +100,30 @@ export default function MapComponent(props: {
 
 export function MapPopup(props: { marker: L.Marker; item: Item }) {
   return (
-    <div>
-      <CloseMarkIcon onClick={() => props.marker.closePopup()} />
-      <h2>{props.item.data.map}</h2>
+    <div class="w-40 p-1 pt-2  bg-black opacity-80 border-primary border">
+      <div class="pb-1">
+        <h3 class="flex items-center text-neutral-content border-0 mb-0">
+          {kebabToHuman(props.item.data.name)}
+          <LinkIcon
+            size="small"
+            class="text-primary"
+            onClick={() => window.open(props.item.data.url)}
+          />
+        </h3>
+
+        <h4 class="text-primary">{props.item.data.category}</h4>
+      </div>
+
+      <p
+        class="text-base-content flex items-center cursor-pointer"
+        onClick={() => {
+          focusPosition(props.item.data.latlng);
+          copyToClipboard(location.href);
+        }}
+      >
+        Map coordinates
+        <PinIcon size="small" class="text-primary" />
+      </p>
     </div>
   );
 }

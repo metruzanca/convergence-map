@@ -52,7 +52,7 @@ const [store, setStore] = createStore<AppState>(initial);
 
 function createMarkerIcon() {
   const markerIconDiv = componentToElement(() => (
-    <MapPinSolidIcon size="large" class="text-success stroke-black stroke-1" />
+    <MapPinSolidIcon size="large" class="text-primary stroke-black stroke-1" />
   ));
 
   const markerDiv = L.divIcon({
@@ -89,9 +89,22 @@ export function AppContextProvider(props: { children: JSXElement }) {
       } else {
         const marker = L.marker(item.data.latlng, { icon: graceIcon });
 
-        marker.bindPopup(() =>
-          componentToElement(() => <MapPopup item={item} marker={marker} />)
-        );
+        const popup = L.popup({
+          maxWidth: 300,
+          className: "custom-popup", // Optional custom class
+        });
+
+        // Dynamically render SolidJS component into popup
+        popup.setContent(() => {
+          const container = document.createElement("div");
+          render(() => <MapPopup item={item} marker={marker} />, container);
+          return container;
+        });
+        marker.bindPopup(popup);
+
+        // marker.bindPopup(() =>
+        //   componentToElement(() => <MapPopup item={item} marker={marker} />)
+        // );
 
         setStore("markers", (prev) => new Map(prev).set(item.id, marker));
       }
