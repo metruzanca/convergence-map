@@ -84,6 +84,12 @@ export default function Login() {
         <button class="btn w-full btn-neutral" onClick={logout}>
           Logout
         </button>
+        <button
+          class="btn btn-secondary w-full"
+          onClick={() => navigate("/admin")}
+        >
+          Admin Panel
+        </button>
       </div>
     </Protected>
   );

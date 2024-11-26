@@ -68,6 +68,10 @@ export default function MapComponent(props: {
       });
     });
 
+    map.on("click", (event) => {
+      console.log(event.latlng);
+    });
+
     currentLayer = L.tileLayer(TILES_URL(mapName()), tileLayerOptions).addTo(
       map
     );

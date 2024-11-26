@@ -13,7 +13,7 @@ import { DeepPartial, MapNames } from "~/lib/types";
 import { BASE_URL } from "~/lib/constants";
 
 export type ItemData = Timestamps & {
-  author: string;
+  author?: string;
   deleted: boolean;
   name: string;
   url: string;

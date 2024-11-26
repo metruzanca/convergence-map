@@ -33,7 +33,7 @@ export function ItemCard(props: { item: Item; edit?: () => void }) {
               <span>Y</span>: {props.item.data.latlng?.[1]}
             </span>
           </div>
-          {props.edit && (
+          {props.edit && props.item.data.author && (
             <p class="text-xs">
               author: {props.item.data.author.substring(0, 3)}
             </p>

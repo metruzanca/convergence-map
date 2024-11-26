@@ -26,6 +26,10 @@ button {
 }
 
 @layer components {
+  h1 {
+    @apply text-xl font-bold border-b-neutral-700 border-b mb-2;
+  }
+
   h2 {
     @apply text-lg font-bold border-b-neutral-700 border-b mb-2;
   }
