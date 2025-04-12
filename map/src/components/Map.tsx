@@ -79,10 +79,24 @@ export default function MapComponent(props: {
     setMapInstance(map);
   });
 
+  let markerLayer: L.LayerGroup<any>;
+
   createEffect(() => {
     if (!context.mapReference) return;
 
-    context.markers.forEach((marker) => marker.addTo(context.mapReference!));
+    // SUPER JANK, I'll fix it later
+    // and switching maps doesn't change this atm
+
+    if (markerLayer) context.mapReference!.removeLayer(markerLayer);
+    markerLayer = L.layerGroup().addTo(context.mapReference!);
+
+    context.items
+      .filter((item) => item.data.map === mapName())
+      .forEach((item) => {
+        if (context.markers.has(item.id)) {
+          context.markers.get(item.id)!.addTo(markerLayer);
+        }
+      });
   });
 
   // If the map loads with item in url, its an embedded map

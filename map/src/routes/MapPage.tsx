@@ -2,15 +2,13 @@ import { useParams, useSearchParams } from "@solidjs/router";
 import MapComponent from "~/components/Map";
 import { MapSearchParams, MapUrlParams } from "~/lib/types";
 import { Drawer } from "~/components/Drawer";
-import { Protected } from "~/firebase/auth";
 import MapSidebar from "~/components/MapSidebar";
 import { createPersistedSignal } from "~/lib/signals";
 import { EDITOR_SIDEBAR, HOTKEYS, MAP_SIDEBAR } from "~/lib/constants";
 import { isInIframe } from "~/lib/iframe";
-import EditorSiderbar from "~/components/EditorSidebar";
 import { onHotkey, registerHotkeys } from "~/lib/hotkeys";
 import { onMount, onCleanup, createMemo } from "solid-js";
-import cn, { minWidth } from "~/lib/styling";
+import cn from "~/lib/styling";
 
 import "leaflet/dist/leaflet.css";
 import {
@@ -53,7 +51,7 @@ export default function MapPage() {
     );
   });
 
-  const widthQuery = minWidth(640);
+  // const widthQuery = minWidth(640);
 
   const focussedItem = createMemo(() => {
     const focusItem = context.items.find((i) => i.data.name === search.item);
@@ -95,13 +93,13 @@ export default function MapPage() {
           <Drawer position="left" onChange={setOpenLeft} open={openLeft}>
             <MapSidebar />
           </Drawer>
-          {widthQuery() && (
+          {/* {widthQuery() && (
             <Protected>
               <Drawer onChange={setOpenRight} open={openRight}>
                 <EditorSiderbar />
               </Drawer>
             </Protected>
-          )}
+          )} */}
         </>
       )}
     </div>
