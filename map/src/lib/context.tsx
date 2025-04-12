@@ -1,4 +1,4 @@
-import { createContext, JSXElement, useContext } from "solid-js";
+import { createContext, createEffect, JSXElement, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 import { Item } from "~/firebase";
 import * as L from "leaflet";
@@ -36,6 +36,10 @@ export const useAppContext = () => {
 };
 
 const [store, setStore] = createStore<AppState>(initial);
+
+createEffect(() => {
+  console.log("store changed", store);
+});
 
 export function createMarkerIcon(Icon: () => JSXElement) {
   const markerIconDiv = componentToElement(Icon);
@@ -88,6 +92,7 @@ export function AppContextProvider(props: { children: JSXElement }) {
       if (store.markers.has(item.id)) {
         store.markers.get(item.id)!.setLatLng(item.data.latlng);
       } else {
+        // TODO multiple items in same coordinate can use the same pin, maybe
         const marker = L.marker(item.data.latlng, {
           icon: iconByCategory(item.data.category),
         });

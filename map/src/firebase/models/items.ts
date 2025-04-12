@@ -12,7 +12,7 @@ import { Firestore, Timestamps } from "../firestore";
 import { DeepPartial, MapNames } from "~/lib/types";
 import { BASE_URL } from "~/lib/constants";
 
-export type ItemData = Timestamps & {
+type PartialItem = {
   author?: string;
   deleted: boolean;
   name: string;
@@ -21,9 +21,11 @@ export type ItemData = Timestamps & {
   map: MapNames;
 };
 
+export type ItemData = Timestamps & PartialItem;
+
 export class Item {
   static collection = "item";
-  constructor(public id: string, public data: ItemData) {}
+  constructor(public id: string, public data: PartialItem) {}
 
   static liveCollection(
     onChange: (data: Item[]) => void,
@@ -67,7 +69,7 @@ export class Item {
 
   static async create(
     author: string,
-    data: Partial<ItemData> = {}
+    data: Partial<PartialItem> = {}
   ): Promise<Item> {
     return Firestore.create(Item, {
       author,
@@ -79,7 +81,7 @@ export class Item {
     });
   }
 
-  async update(newData: DeepPartial<ItemData>) {
-    await Firestore.upsert<ItemData>(Item, this, newData);
+  async update(newData: DeepPartial<PartialItem>) {
+    await Firestore.upsert<PartialItem>(Item, this, newData);
   }
 }

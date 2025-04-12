@@ -5,16 +5,12 @@ import { Item } from "~/firebase";
 import {
   ConvergenceImport,
   convergenceImportSchema,
-  ConvergenceItem,
   ConvergenceLocation,
   FlatItem,
-} from "~/firebase/types";
+  getCoordinates,
+} from "~/lib/sticher";
 import { useAppContext } from "~/lib/context";
 import { MapNames } from "~/lib/types";
-
-/** @deprecated this url is now wrong. Don't even store the full URL, build it out in the frontend */
-const createWikiUrl = (item: ConvergenceItem) =>
-  `https://convergencemod.com/${item.Category}/${item.Name}`;
 
 function locationToMap(location: ConvergenceLocation) {
   switch (location) {
@@ -55,25 +51,25 @@ export default function AdminPage() {
     const data = itemData.data as ConvergenceImport;
 
     // Flatten data to be item w/ their own data
-    const flattenedData = data.flatMap((drop) =>
-      drop.Items.map(
+    const flattenedData = data.flatMap((drop) => {
+      const coords =
+        drop.Location === "Overworld" ? getCoordinates(drop) : drop;
+
+      return drop.Items.map(
         (item) =>
           ({
             ...item,
-            CordX: drop.CordX,
-            CordZ: drop.CordZ,
+            CordX: coords.CordX,
+            CordZ: coords.CordZ,
             Location: drop.Location,
             MapArea: drop.MapArea,
             MapBlock: drop.MapBlock,
             MapRegion: drop.MapRegion,
           } satisfies FlatItem)
-      )
-    );
+      );
+    });
 
     const firestore = getFirestore();
-
-    console.log(flattenedData);
-    console.log(flattenedData.length);
 
     if (!confirm("Import?")) return;
 
@@ -92,7 +88,6 @@ export default function AdminPage() {
             latlng: [item.CordX * SCALE, item.CordZ * SCALE],
             map: locationToMap(item.Location),
             category: item.Category,
-            url: createWikiUrl(item),
           }
         ).data
       );

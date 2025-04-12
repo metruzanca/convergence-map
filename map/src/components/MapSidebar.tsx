@@ -15,6 +15,7 @@ import { useAppContext } from "~/lib/context";
 export default function MapSidebar() {
   const context = useAppContext();
   const params = useParams<MapUrlParams>();
+  const mapName = params.map ?? "overworld";
   const [search, setSearch] = useSearchParams<MapSearchParams>();
   let inputRef!: HTMLInputElement;
 
@@ -44,7 +45,7 @@ export default function MapSidebar() {
   const [markFilter, setMarkFilter] = createSignal("");
   const filteredItems = createMemo(() =>
     context.items
-      .filter((i) => i.data.map === params.map)
+      .filter((i) => i.data.map === mapName)
       .filter((i) =>
         i.data.name.toLowerCase().includes(markFilter().toLowerCase())
       )
@@ -60,7 +61,7 @@ export default function MapSidebar() {
           <select
             class="select w-full"
             onChange={(e) => changeMap(e.target.value as MapNames)}
-            value={params.map ?? "overworld"}
+            value={mapName}
           >
             <option value="overworld">overworld</option>
             <option value="underworld">underworld</option>

@@ -49,6 +49,8 @@ export default function MapComponent(props: {
 
   onMount(async () => {
     const map = L.map(MAP_ID, {
+      // https://leafletjs.com/examples/crs-simple/crs-simple.html
+      crs: L.CRS.Simple,
       zoomControl: false,
       attributionControl: false,
       minZoom: 2,
@@ -69,7 +71,7 @@ export default function MapComponent(props: {
     });
 
     map.on("click", (event) => {
-      console.log(event.latlng);
+      console.log("Clicked map at", JSON.stringify(event.latlng));
     });
 
     currentLayer = L.tileLayer(TILES_URL(mapName()), tileLayerOptions).addTo(
