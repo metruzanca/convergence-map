@@ -42,7 +42,7 @@ export default function MapComponent(props: {
     const mapNameValue = mapName(); // keep above return for reactivity purposes
     if (currentLayer === undefined) return;
 
-    context.map
+    context.mapReference
       ?.removeLayer(currentLayer)
       ?.addLayer(L.tileLayer(TILES_URL(mapNameValue), tileLayerOptions));
   });
@@ -80,9 +80,9 @@ export default function MapComponent(props: {
   });
 
   createEffect(() => {
-    if (!context.map) return;
+    if (!context.mapReference) return;
 
-    context.markers.forEach((marker) => marker.addTo(context.map!));
+    context.markers.forEach((marker) => marker.addTo(context.mapReference!));
   });
 
   // If the map loads with item in url, its an embedded map

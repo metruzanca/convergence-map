@@ -30,7 +30,7 @@ export default function ItemForm(props: {
         .get(props.item.id)
         ?.setLatLng([formatLatLng(e.latlng.lat), formatLatLng(e.latlng.lng)]);
     } else {
-      marker(e.latlng).addTo(context.map);
+      marker(e.latlng).addTo(context.mapReference);
     }
 
     setInputs("latlng", [
@@ -42,12 +42,12 @@ export default function ItemForm(props: {
 
   createEffect(() => {
     if (editingPin()) {
-      context.map.on("click", addMarker);
-      context.map.getContainer().style.cursor = "crosshair";
+      context.mapReference.on("click", addMarker);
+      context.mapReference.getContainer().style.cursor = "crosshair";
     }
     onCleanup(() => {
-      context.map.off("click", addMarker);
-      context.map.getContainer().style.cursor = "";
+      context.mapReference.off("click", addMarker);
+      context.mapReference.getContainer().style.cursor = "";
     });
   });
 

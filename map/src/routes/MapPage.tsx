@@ -81,9 +81,9 @@ export default function MapPage() {
           </OverlayElement>
 
           <OverlayElement class="bottom-1 right-1 bg-base-100 rounded-tl rounded-bl p-1 block">
-            <PlusIcon onClick={() => context.map.zoomIn()} />
+            <PlusIcon onClick={() => context.mapReference.zoomIn()} />
             <hr class="border-neutral-700 my-1" />
-            <MinusIcon onClick={() => context.map.zoomOut()} />
+            <MinusIcon onClick={() => context.mapReference.zoomOut()} />
             <hr class="border-neutral-700 my-1" />
             <ArrowsPointingOutIcon
               onClick={() => window.open(window.location.href)}

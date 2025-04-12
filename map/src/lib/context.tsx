@@ -13,7 +13,7 @@ type AppState = {
   categories: Category[];
   items: Item[];
   markers: Map<string, L.Marker>;
-  map: L.Map;
+  mapReference: L.Map;
 
   focus?: Item;
 };
@@ -22,7 +22,7 @@ const initial: AppState = {
   categories: [],
   items: [],
   markers: new Map<string, L.Marker>(),
-  map: {} as L.Map, // we're mounting the map immediately, so this shouldn't be an issue
+  mapReference: {} as L.Map, // we're mounting the map immediately, so this shouldn't be an issue
 };
 
 const appContext = createContext<AppState>(initial satisfies AppState);
@@ -104,7 +104,8 @@ export function AppContextProvider(props: { children: JSXElement }) {
   );
 }
 
-export const setMapInstance = (instance: L.Map) => setStore("map", instance);
+export const setMapInstance = (instance: L.Map) =>
+  setStore("mapReference", instance);
 
 function setSearchParams(newQuery: Partial<MapSearchParams>) {
   const url = new URL(window.location.href);
@@ -122,7 +123,7 @@ export function focusPosition(position: L.LatLngTuple | Item) {
   }
 
   const context = useAppContext();
-  context.map?.setView(position, FOCUS_ZOOM);
+  context.mapReference?.setView(position, FOCUS_ZOOM);
   setSearchParams({
     lat: position[0].toString(),
     lng: position[1].toString(),

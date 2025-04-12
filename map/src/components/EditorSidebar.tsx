@@ -99,7 +99,7 @@ export default function EditorSiderbar() {
                             item={item}
                             edit={() => {
                               setItem(item);
-                              context.map.setView(item.data.latlng);
+                              context.mapReference.setView(item.data.latlng);
                             }}
                           />
                         )}
