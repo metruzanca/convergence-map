@@ -10,23 +10,28 @@ import {
   FlatItem,
 } from "~/firebase/types";
 import { useAppContext } from "~/lib/context";
+import { MapNames } from "~/lib/types";
 
 const createWikiUrl = (item: ConvergenceItem) =>
   `https://convergencemod.com/${item.Category}/${item.Name}`;
 
 function locationToMap(location: ConvergenceLocation) {
   switch (location) {
-    case "DLC_LegacyDungeon":
     case "DLC_Overworld":
-    case "DLC_MinorDungeon":
       return "scadutree";
     case "Underworld":
       return "underworld";
-    default:
-    case "LegacyDungeon":
-    case "MinorDungeon":
+
     case "Overworld":
       return "overworld";
+
+    // TODO
+    default:
+    case "DLC_LegacyDungeon":
+    case "DLC_MinorDungeon":
+    case "MinorDungeon":
+    case "LegacyDungeon":
+      return "other" as MapNames;
   }
 }
 
