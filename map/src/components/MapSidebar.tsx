@@ -44,6 +44,7 @@ export default function MapSidebar() {
   const [markFilter, setMarkFilter] = createSignal("");
   const filteredItems = createMemo(() =>
     context.items
+      .filter((i) => i.data.map === params.map)
       .filter((i) =>
         i.data.name.toLowerCase().includes(markFilter().toLowerCase())
       )
