@@ -1,8 +1,4 @@
-import {
-  createContext,
-  JSXElement,
-  useContext,
-} from "solid-js";
+import { createContext, JSXElement, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 import { Item } from "~/firebase";
 import * as L from "leaflet";
@@ -84,12 +80,10 @@ function iconByCategory(category: string) {
 export function AppContextProvider(props: { children: JSXElement }) {
   Category.liveCollection((data) => setStore("categories", data));
   Item.liveCollection((items) => {
-    // Clear markers whenever items is updated
-    setStore("markers", new Map());
-    // Items raw
     setStore("items", items);
 
-    // Markers
+    // clear
+    const hashmap = new Map<string, L.Marker>();
     for (const item of items) {
       if (store.markers.has(item.id)) {
         store.markers.get(item.id)!.setLatLng(item.data.latlng);
@@ -99,9 +93,10 @@ export function AppContextProvider(props: { children: JSXElement }) {
         });
         marker.bindPopup(createPopup(item, marker));
 
-        setStore("markers", (prev) => new Map(prev).set(item.id, marker));
+        hashmap.set(item.id, marker);
       }
     }
+    setStore("markers", hashmap);
   });
 
   return (
