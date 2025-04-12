@@ -16,8 +16,6 @@ export type ItemData = Timestamps & {
   author?: string;
   deleted: boolean;
   name: string;
-  /** @deprecated store category, subcategory and name instead */
-  url: string;
   latlng: LatLngTuple;
   category: string;
   map: MapNames;
@@ -77,7 +75,6 @@ export class Item {
       name: data.name ?? "new item",
       category: data.category ?? "",
       latlng: [0, 0],
-      url: data.url ?? "",
       deleted: false,
     });
   }

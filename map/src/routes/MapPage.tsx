@@ -4,7 +4,7 @@ import { MapSearchParams, MapUrlParams } from "~/lib/types";
 import { Drawer } from "~/components/Drawer";
 import MapSidebar from "~/components/MapSidebar";
 import { createPersistedSignal } from "~/lib/signals";
-import { EDITOR_SIDEBAR, HOTKEYS, MAP_SIDEBAR } from "~/lib/constants";
+import { HOTKEYS, MAP_SIDEBAR } from "~/lib/constants";
 import { isInIframe } from "~/lib/iframe";
 import { onHotkey, registerHotkeys } from "~/lib/hotkeys";
 import { onMount, onCleanup, createMemo } from "solid-js";
@@ -26,11 +26,6 @@ export default function MapPage() {
   const [search, setSearch] = useSearchParams<MapSearchParams>();
 
   const [openLeft, setOpenLeft] = createPersistedSignal(MAP_SIDEBAR, false);
-  const [openRight, setOpenRight] = createPersistedSignal(
-    EDITOR_SIDEBAR,
-    false
-  );
-
   onMount(() => {
     onCleanup(registerHotkeys(HOTKEYS));
     onCleanup(
@@ -46,7 +41,6 @@ export default function MapPage() {
         }
 
         setOpenLeft(false);
-        setOpenRight(false);
       })
     );
   });
@@ -93,13 +87,6 @@ export default function MapPage() {
           <Drawer position="left" onChange={setOpenLeft} open={openLeft}>
             <MapSidebar />
           </Drawer>
-          {/* {widthQuery() && (
-            <Protected>
-              <Drawer onChange={setOpenRight} open={openRight}>
-                <EditorSiderbar />
-              </Drawer>
-            </Protected>
-          )} */}
         </>
       )}
     </div>

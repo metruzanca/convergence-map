@@ -78,7 +78,7 @@ function iconByCategory(category: string) {
 }
 
 export function AppContextProvider(props: { children: JSXElement }) {
-  Category.liveCollection((data) => setStore("categories", data));
+  // Category.liveCollection((data) => setStore("categories", data));
   Item.liveCollection((items) => {
     setStore("items", items);
 

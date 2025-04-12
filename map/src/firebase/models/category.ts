@@ -10,7 +10,7 @@ export namespace Category {
 }
 
 export class Category {
-  static collection = "item";
+  static collection = "category";
   constructor(public id: string, public data: Category.Data) {}
 
   static liveCollection(
