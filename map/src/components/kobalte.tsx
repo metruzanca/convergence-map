@@ -2,7 +2,7 @@ import { Combobox } from "@kobalte/core/combobox";
 import { Tabs as KTabs } from "@kobalte/core/tabs";
 import { CaretDownIcon, CheckmarkIcon } from "./Icons";
 import cn, { Size } from "~/lib/styling";
-import { Component, For, JSXElement, ValidComponent } from "solid-js";
+import { Component, For } from "solid-js";
 
 // NOTE: Leafletjs uses 500 for the map by default
 const ZINDEX = 1000;

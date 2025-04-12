@@ -1,4 +1,3 @@
-import { createSignal, onCleanup, onMount } from "solid-js";
 
 // TODO use Result type and remove try catch
 export async function copyToClipboard(text: string) {

@@ -6,7 +6,6 @@ import { OnSubmit } from "~/lib/types";
 import { PinIcon } from "./Icons";
 import { CoordinatesInput, Input } from "./inputs";
 import { createStore } from "solid-js/store";
-import { Select } from "./kobalte";
 import { formatLatLng } from "~/lib/leaflet";
 import { useAppContext } from "~/lib/context";
 

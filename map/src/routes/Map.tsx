@@ -6,7 +6,6 @@ import { Protected } from "~/firebase/auth";
 import MapSidebar from "~/components/MapSidebar";
 import { createPersistedSignal } from "~/lib/signals";
 import {
-  BASE_URL,
   EDITOR_SIDEBAR,
   HOTKEYS,
   MAP_SIDEBAR,
@@ -14,13 +13,12 @@ import {
 import { isInIframe } from "~/lib/iframe";
 import EditorSiderbar from "~/components/EditorSidebar";
 import { onHotkey, registerHotkeys } from "~/lib/hotkeys";
-import { onMount, onCleanup, createMemo, createEffect } from "solid-js";
+import { onMount, onCleanup, createMemo } from "solid-js";
 import cn, { minWidth } from "~/lib/styling";
 
 import "leaflet/dist/leaflet.css";
 import {
   ArrowsPointingOutIcon,
-  ArrowUTurnLeftIcon,
   GotoIcon,
   MinusIcon,
   PlusIcon,

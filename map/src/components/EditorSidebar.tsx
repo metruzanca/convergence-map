@@ -1,5 +1,5 @@
 import { Item } from "~/firebase";
-import { createEffect, createMemo, createSignal, For, Show } from "solid-js";
+import { createMemo, createSignal, For, Show } from "solid-js";
 import { CloseMarkIcon, SearchIcon } from "./Icons";
 import { useCurrentUser } from "~/firebase/auth";
 import ItemForm from "./ItemForm";

@@ -1,5 +1,5 @@
 import { A } from "@solidjs/router";
-import { doc, getFirestore, writeBatch, WriteBatch } from "firebase/firestore";
+import { doc, getFirestore, writeBatch } from "firebase/firestore";
 import { Dropzone } from "~/components/dropzone";
 import { Item } from "~/firebase";
 import {
