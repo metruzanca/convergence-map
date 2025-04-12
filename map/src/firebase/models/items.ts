@@ -16,6 +16,7 @@ export type ItemData = Timestamps & {
   author?: string;
   deleted: boolean;
   name: string;
+  /** @deprecated store category, subcategory and name instead */
   url: string;
   latlng: LatLngTuple;
   category: string;

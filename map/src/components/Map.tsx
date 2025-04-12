@@ -7,7 +7,7 @@ import {
   MapSearchParams,
   Position,
 } from "~/lib/types";
-import { LEAFLET_BASE_URL } from "~/lib/constants";
+import { LEAFLET_BASE_URL, wikiSearch } from "~/lib/constants";
 import { formatLatLng } from "~/lib/leaflet";
 import { focusPosition, setMapInstance, useAppContext } from "~/lib/context";
 import { Item } from "~/firebase";
@@ -121,11 +121,10 @@ export function MapPopup(props: { marker: L.Marker; item: Item }) {
       <div class="pb-1">
         <h3 class="flex items-center text-neutral-content border-0 mb-0">
           {kebabToHuman(props.item.data.name)}
-          <LinkIcon
-            size="small"
-            class="text-primary"
-            onClick={() => window.open(props.item.data.url)}
-          />
+
+          <a href={wikiSearch(props.item.data.name)} target="_blank">
+            <LinkIcon size="small" class="text-primary" />
+          </a>
         </h3>
 
         <h4 class="text-primary">{props.item.data.category}</h4>

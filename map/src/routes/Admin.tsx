@@ -12,6 +12,7 @@ import {
 import { useAppContext } from "~/lib/context";
 import { MapNames } from "~/lib/types";
 
+/** @deprecated this url is now wrong. Don't even store the full URL, build it out in the frontend */
 const createWikiUrl = (item: ConvergenceItem) =>
   `https://convergencemod.com/${item.Category}/${item.Name}`;
 

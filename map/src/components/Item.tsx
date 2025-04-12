@@ -11,6 +11,7 @@ import {
 import { useSearchParams } from "@solidjs/router";
 import { MapSearchParams } from "~/lib/types";
 import { focusPosition, useAppContext } from "~/lib/context";
+import { wikiSearch } from "~/lib/constants";
 
 export function ItemCard(props: { item: Item; edit?: () => void }) {
   const [params, setParams] = useSearchParams<MapSearchParams>();
@@ -81,7 +82,9 @@ export function ItemCard(props: { item: Item; edit?: () => void }) {
                 context.markers.get(props.item.id)?.openPopup();
               }}
             />
-            <LinkIcon size="small" onClick={() => {}} />
+            <a href={wikiSearch(props.item.data.name)} target="_blank">
+              <LinkIcon size="small" class="text-primary" />
+            </a>
           </>
         )}
       </div>
