@@ -10,10 +10,11 @@ import {
 } from "./Icons";
 import { useSearchParams } from "@solidjs/router";
 import { MapSearchParams } from "~/lib/types";
-import { focusPosition } from "~/lib/context";
+import { focusPosition, useAppContext } from "~/lib/context";
 
 export function ItemCard(props: { item: Item; edit?: () => void }) {
   const [params, setParams] = useSearchParams<MapSearchParams>();
+  const context = useAppContext();
   return (
     <div
       class={cn(
@@ -77,6 +78,7 @@ export function ItemCard(props: { item: Item; edit?: () => void }) {
                 setParams({
                   item: props.item.data.name,
                 });
+                context.markers.get(props.item.id)?.openPopup();
               }}
             />
             <LinkIcon size="small" onClick={() => {}} />
