@@ -4,7 +4,7 @@ import { Suspense } from "solid-js";
 import "./app.css";
 import "./leaflet.css";
 import Login from "./routes/Login";
-import Map from "./routes/Map";
+import MapPage from "./routes/MapPage";
 import { AppContextProvider } from "./lib/context";
 import IframeDemo from "./routes/IframeDemo";
 import AdminPage from "./routes/Admin";
@@ -20,10 +20,10 @@ export default function App() {
           </MetaProvider>
         )}
       >
-        <Route path="/:map?" component={Map} />
+        <Route path="/:map?" component={MapPage} />
+        <Route path="/admin" component={AdminPage} />
         <Route path="/login" component={Login} />
         <Route path="/iframedemo" component={IframeDemo} />
-        <Route path="/admin" component={AdminPage} />
       </Router>
     </AppContextProvider>
   );

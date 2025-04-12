@@ -5,11 +5,7 @@ import { Drawer } from "~/components/Drawer";
 import { Protected } from "~/firebase/auth";
 import MapSidebar from "~/components/MapSidebar";
 import { createPersistedSignal } from "~/lib/signals";
-import {
-  EDITOR_SIDEBAR,
-  HOTKEYS,
-  MAP_SIDEBAR,
-} from "~/lib/constants";
+import { EDITOR_SIDEBAR, HOTKEYS, MAP_SIDEBAR } from "~/lib/constants";
 import { isInIframe } from "~/lib/iframe";
 import EditorSiderbar from "~/components/EditorSidebar";
 import { onHotkey, registerHotkeys } from "~/lib/hotkeys";
@@ -26,7 +22,7 @@ import {
 import { refocusItem, useAppContext } from "~/lib/context";
 import OverlayElement from "~/components/OverlayElement";
 
-export default function Map() {
+export default function MapPage() {
   const context = useAppContext();
   const params = useParams<MapUrlParams>();
   const [search, setSearch] = useSearchParams<MapSearchParams>();
