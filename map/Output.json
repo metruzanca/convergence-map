@@ -47,7 +47,7 @@
       {
         "ID": 80320,
         "Name": "Harp Bow",
-        "Category": "Weapons/Light Bows"
+        "Category": "Weapons/Light-Bows"
       }
     ],
     "MapArea": 60,
@@ -95,7 +95,7 @@
       {
         "ID": 80350,
         "Name": "Magma Blade",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       }
     ],
     "MapArea": 60,
@@ -127,7 +127,7 @@
       {
         "ID": 80400,
         "Name": "Serpent Crest Shield",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 61,
@@ -175,7 +175,7 @@
       {
         "ID": 10000035,
         "Name": "Brick Hammer",
-        "Category": "Weapons/Great Hammers"
+        "Category": "Weapons/Great-Hammers"
       }
     ],
     "MapArea": 60,
@@ -223,7 +223,7 @@
       {
         "ID": 10000100,
         "Name": "Marred Leather Shield",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 60,
@@ -318,7 +318,7 @@
       {
         "ID": 10000320,
         "Name": "Marred Wooden Shield",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 60,
@@ -403,7 +403,7 @@
       {
         "ID": 10000470,
         "Name": "Warhawk's Talon",
-        "Category": "Weapons/Straight Swords"
+        "Category": "Weapons/Straight-Swords"
       }
     ],
     "MapArea": 60,
@@ -603,7 +603,7 @@
       {
         "ID": 10000810,
         "Name": "Blade of Valor",
-        "Category": "Weapons/Straight Swords"
+        "Category": "Weapons/Straight-Swords"
       }
     ],
     "MapArea": 60,
@@ -693,7 +693,7 @@
       {
         "ID": 10000980,
         "Name": "Zephyr Blades",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       }
     ],
     "MapArea": 60,
@@ -741,7 +741,7 @@
       {
         "ID": 10010100,
         "Name": "Eagle's Edge",
-        "Category": "Weapons/Great Katanas"
+        "Category": "Weapons/Great-Katanas"
       }
     ],
     "MapArea": 60,
@@ -1018,7 +1018,7 @@
       {
         "ID": 11000115,
         "Name": "Cane Sword",
-        "Category": "Weapons/Straight Swords"
+        "Category": "Weapons/Straight-Swords"
       }
     ],
     "MapArea": 60,
@@ -1268,7 +1268,7 @@
       {
         "ID": 11000970,
         "Name": "Coded Sword",
-        "Category": "Weapons/Straight Swords"
+        "Category": "Weapons/Straight-Swords"
       }
     ],
     "MapArea": 60,
@@ -1585,7 +1585,7 @@
       {
         "ID": 12010300,
         "Name": "Antspur Rapier",
-        "Category": "Weapons/Thrusting Swords"
+        "Category": "Weapons/Thrusting-Swords"
       }
     ],
     "MapArea": 60,
@@ -1638,7 +1638,7 @@
       {
         "ID": 12010585,
         "Name": "Flowing Curved Sword",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       }
     ],
     "MapArea": 60,
@@ -1718,7 +1718,7 @@
       {
         "ID": 12010900,
         "Name": "Wing of Astel",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       }
     ],
     "MapArea": 60,
@@ -1750,7 +1750,7 @@
       {
         "ID": 12010945,
         "Name": "Blade of Scarlet Bloom",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       }
     ],
     "MapArea": 60,
@@ -1846,7 +1846,7 @@
       {
         "ID": 12020020,
         "Name": "Dragonkin Seeker Sword",
-        "Category": "Weapons/Straight Swords"
+        "Category": "Weapons/Straight-Swords"
       }
     ],
     "MapArea": 60,
@@ -1957,7 +1957,7 @@
       {
         "ID": 12020130,
         "Name": "Greathorn Hammer",
-        "Category": "Weapons/Great Hammers"
+        "Category": "Weapons/Great-Hammers"
       }
     ],
     "MapArea": 60,
@@ -1973,7 +1973,7 @@
       {
         "ID": 12020140,
         "Name": "Inverted Hawk Heater Shield",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 60,
@@ -2270,7 +2270,7 @@
       {
         "ID": 12030080,
         "Name": "Grossmesser",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       }
     ],
     "MapArea": 60,
@@ -2302,7 +2302,7 @@
       {
         "ID": 12030300,
         "Name": "Siluria's Tree",
-        "Category": "Weapons/Heavy Spears"
+        "Category": "Weapons/Heavy-Spears"
       }
     ],
     "MapArea": 60,
@@ -2444,7 +2444,7 @@
       {
         "ID": 12050755,
         "Name": "Bloodfiend's Sacred Spear",
-        "Category": "Weapons/Heavy Spears"
+        "Category": "Weapons/Heavy-Spears"
       }
     ],
     "MapArea": 60,
@@ -3095,7 +3095,7 @@
       {
         "ID": 14000850,
         "Name": "Carian Knight's Shield",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 60,
@@ -3207,7 +3207,7 @@
       {
         "ID": 14000941,
         "Name": "Noble's Slender Sword",
-        "Category": "Weapons/Straight Swords"
+        "Category": "Weapons/Straight-Swords"
       }
     ],
     "MapArea": 60,
@@ -3429,7 +3429,7 @@
       {
         "ID": 15000530,
         "Name": "Envoy's Greathorn",
-        "Category": "Weapons/Colossal Weapons"
+        "Category": "Weapons/Colossal-Weapons"
       }
     ],
     "MapArea": 60,
@@ -3577,7 +3577,7 @@
       {
         "ID": 15000860,
         "Name": "Rotten Crystal Sword",
-        "Category": "Weapons/Straight Swords"
+        "Category": "Weapons/Straight-Swords"
       }
     ],
     "MapArea": 60,
@@ -3846,7 +3846,7 @@
       {
         "ID": 16000610,
         "Name": "Man-Serpent's Shield",
-        "Category": "Weapons/Small Shields"
+        "Category": "Weapons/Small-Shields"
       }
     ],
     "MapArea": 60,
@@ -3862,7 +3862,7 @@
       {
         "ID": 16000690,
         "Name": "Serpent-Hunter",
-        "Category": "Weapons/Heavy Spears"
+        "Category": "Weapons/Heavy-Spears"
       }
     ],
     "MapArea": 60,
@@ -3942,7 +3942,7 @@
       {
         "ID": 18000030,
         "Name": "Underworld Greatmace",
-        "Category": "Weapons/Great Hammers"
+        "Category": "Weapons/Great-Hammers"
       },
       {
         "ID": 18000050,
@@ -4080,7 +4080,7 @@
       {
         "ID": 20000600,
         "Name": "Bone Bow",
-        "Category": "Weapons/Light Bows"
+        "Category": "Weapons/Light-Bows"
       }
     ],
     "MapArea": 61,
@@ -4413,7 +4413,7 @@
       {
         "ID": 21010620,
         "Name": "Carian Thrusting Shield",
-        "Category": "Weapons/Thrusting Shields"
+        "Category": "Weapons/Thrusting-Shields"
       }
     ],
     "MapArea": 61,
@@ -4477,7 +4477,7 @@
       {
         "ID": 22000150,
         "Name": "Velvet Sword of St. Trina",
-        "Category": "Weapons/Straight Swords"
+        "Category": "Weapons/Straight-Swords"
       }
     ],
     "MapArea": 61,
@@ -4661,7 +4661,7 @@
       {
         "ID": 30030040,
         "Name": "Watchdog's Staff",
-        "Category": "Weapons/Colossal Weapons"
+        "Category": "Weapons/Colossal-Weapons"
       }
     ],
     "MapArea": 60,
@@ -4693,7 +4693,7 @@
       {
         "ID": 30030040,
         "Name": "Watchdog's Staff",
-        "Category": "Weapons/Colossal Weapons"
+        "Category": "Weapons/Colossal-Weapons"
       }
     ],
     "MapArea": 60,
@@ -4772,7 +4772,7 @@
       {
         "ID": 30060070,
         "Name": "Shield of Alacrity",
-        "Category": "Weapons/Small Shields"
+        "Category": "Weapons/Small-Shields"
       },
       {
         "ID": 30060080,
@@ -4809,7 +4809,7 @@
       {
         "ID": 30060070,
         "Name": "Shield of Alacrity",
-        "Category": "Weapons/Small Shields"
+        "Category": "Weapons/Small-Shields"
       }
     ],
     "MapArea": 60,
@@ -5121,17 +5121,17 @@
       {
         "ID": 31170020,
         "Name": "Bandit's Curved Sword",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       },
       {
         "ID": 31170080,
         "Name": "Shamshir",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       },
       {
         "ID": 31170100,
         "Name": "Dismounter",
-        "Category": "Weapons/Curved Greatswords"
+        "Category": "Weapons/Curved-Greatswords"
       }
     ],
     "MapArea": 60,
@@ -5242,7 +5242,7 @@
       {
         "ID": 30130010,
         "Name": "Perfumer's Shield",
-        "Category": "Weapons/Small Shields"
+        "Category": "Weapons/Small-Shields"
       }
     ],
     "MapArea": 60,
@@ -5410,7 +5410,7 @@
       {
         "ID": 30170000,
         "Name": "Cranial Vessel Candlestand",
-        "Category": "Weapons/Great Hammers"
+        "Category": "Weapons/Great-Hammers"
       },
       {
         "ID": 30170010,
@@ -5562,7 +5562,7 @@
       {
         "ID": 30200920,
         "Name": "Aegis of Hadea",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 60,
@@ -5610,7 +5610,7 @@
       {
         "ID": 30200920,
         "Name": "Aegis of Hadea",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 60,
@@ -5820,12 +5820,12 @@
       {
         "ID": 31090010,
         "Name": "Spear of the Dreaming",
-        "Category": "Weapons/Heavy Spears"
+        "Category": "Weapons/Heavy-Spears"
       },
       {
         "ID": 31090040,
         "Name": "Coil Shield",
-        "Category": "Weapons/Small Shields"
+        "Category": "Weapons/Small-Shields"
       }
     ],
     "MapArea": 60,
@@ -5841,7 +5841,7 @@
       {
         "ID": 31090040,
         "Name": "Coil Shield",
-        "Category": "Weapons/Small Shields"
+        "Category": "Weapons/Small-Shields"
       }
     ],
     "MapArea": 60,
@@ -5862,7 +5862,7 @@
       {
         "ID": 31100110,
         "Name": "Beastclaw Greathammer",
-        "Category": "Weapons/Great Hammers"
+        "Category": "Weapons/Great-Hammers"
       }
     ],
     "MapArea": 60,
@@ -5878,7 +5878,7 @@
       {
         "ID": 31100110,
         "Name": "Beastclaw Greathammer",
-        "Category": "Weapons/Great Hammers"
+        "Category": "Weapons/Great-Hammers"
       }
     ],
     "MapArea": 60,
@@ -5931,7 +5931,7 @@
       {
         "ID": 31170020,
         "Name": "Bandit's Curved Sword",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       }
     ],
     "MapArea": 60,
@@ -5947,7 +5947,7 @@
       {
         "ID": 31170080,
         "Name": "Shamshir",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       }
     ],
     "MapArea": 60,
@@ -5963,7 +5963,7 @@
       {
         "ID": 31170100,
         "Name": "Dismounter",
-        "Category": "Weapons/Curved Greatswords"
+        "Category": "Weapons/Curved-Greatswords"
       }
     ],
     "MapArea": 60,
@@ -6015,7 +6015,7 @@
       {
         "ID": 31190030,
         "Name": "Candletree Wooden Shield",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       },
       {
         "ID": 31190100,
@@ -6041,7 +6041,7 @@
       {
         "ID": 31190030,
         "Name": "Candletree Wooden Shield",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 60,
@@ -6136,7 +6136,7 @@
       {
         "ID": 31210210,
         "Name": "Pillory Shield",
-        "Category": "Weapons/Small Shields"
+        "Category": "Weapons/Small-Shields"
       },
       {
         "ID": 31210350,
@@ -6188,7 +6188,7 @@
       {
         "ID": 31210210,
         "Name": "Pillory Shield",
-        "Category": "Weapons/Small Shields"
+        "Category": "Weapons/Small-Shields"
       }
     ],
     "MapArea": 60,
@@ -6266,7 +6266,7 @@
       {
         "ID": 32000070,
         "Name": "Pickaxe",
-        "Category": "Weapons/Great Hammers"
+        "Category": "Weapons/Great-Hammers"
       }
     ],
     "MapArea": 60,
@@ -6298,7 +6298,7 @@
       {
         "ID": 32040050,
         "Name": "Troll's Hammer",
-        "Category": "Weapons/Colossal Weapons"
+        "Category": "Weapons/Colossal-Weapons"
       }
     ],
     "MapArea": 60,
@@ -6647,7 +6647,7 @@
       {
         "ID": 34130900,
         "Name": "Godslayer's Greatsword",
-        "Category": "Weapons/Colossal Swords"
+        "Category": "Weapons/Colossal-Swords"
       },
       {
         "ID": 108800,
@@ -6726,7 +6726,7 @@
       {
         "ID": 35000030,
         "Name": "Omen Cleaver",
-        "Category": "Weapons/Curved Greatswords"
+        "Category": "Weapons/Curved-Greatswords"
       }
     ],
     "MapArea": 60,
@@ -6917,7 +6917,7 @@
       {
         "ID": 39200040,
         "Name": "Serpent-God's Curved Sword",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       },
       {
         "ID": 39200120,
@@ -7172,7 +7172,7 @@
       {
         "ID": 41010220,
         "Name": "Shield of Night",
-        "Category": "Weapons/Small Shields"
+        "Category": "Weapons/Small-Shields"
       }
     ],
     "MapArea": 41,
@@ -7251,7 +7251,7 @@
       {
         "ID": 41020100,
         "Name": "Chilling Perfume Bottle",
-        "Category": "Weapons/Perfume Bottles"
+        "Category": "Weapons/Perfume-Bottles"
       }
     ],
     "MapArea": 41,
@@ -7299,7 +7299,7 @@
       {
         "ID": 42000150,
         "Name": "Smithscript Dagger",
-        "Category": "Weapons/Throwing Blades"
+        "Category": "Weapons/Throwing-Blades"
       }
     ],
     "MapArea": 42,
@@ -7347,7 +7347,7 @@
       {
         "ID": 42020060,
         "Name": "Smithscript Cirque",
-        "Category": "Weapons/Reverse-hand Blades"
+        "Category": "Weapons/Reverse-hand-Blades"
       }
     ],
     "MapArea": 42,
@@ -7379,7 +7379,7 @@
       {
         "ID": 42030120,
         "Name": "Smithscript Shield",
-        "Category": "Weapons/Small Shields"
+        "Category": "Weapons/Small-Shields"
       }
     ],
     "MapArea": 42,
@@ -7395,7 +7395,7 @@
       {
         "ID": 42030160,
         "Name": "Smithscript Greathammer",
-        "Category": "Weapons/Great Hammers"
+        "Category": "Weapons/Great-Hammers"
       }
     ],
     "MapArea": 42,
@@ -7491,7 +7491,7 @@
       {
         "ID": 1033470200,
         "Name": "Carian Knight's Sword",
-        "Category": "Weapons/Straight Swords"
+        "Category": "Weapons/Straight-Swords"
       }
     ],
     "MapArea": 60,
@@ -7571,7 +7571,7 @@
       {
         "ID": 1034480100,
         "Name": "Frozen Needle",
-        "Category": "Weapons/Thrusting Swords"
+        "Category": "Weapons/Thrusting-Swords"
       }
     ],
     "MapArea": 60,
@@ -7858,7 +7858,7 @@
       {
         "ID": 1035440120,
         "Name": "Hawk Crest Wooden Shield",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 60,
@@ -7985,7 +7985,7 @@
       {
         "ID": 1035490000,
         "Name": "Red Branch Shortbow",
-        "Category": "Weapons/Light Bows"
+        "Category": "Weapons/Light-Bows"
       }
     ],
     "MapArea": 60,
@@ -8128,7 +8128,7 @@
       {
         "ID": 1035500900,
         "Name": "Sword of the Cosmos",
-        "Category": "Weapons/Light Greatswords"
+        "Category": "Weapons/Light-Greatswords"
       }
     ],
     "MapArea": 60,
@@ -8160,7 +8160,7 @@
       {
         "ID": 1035540020,
         "Name": "Thorn of the Guilty",
-        "Category": "Weapons/Thrusting Swords"
+        "Category": "Weapons/Thrusting-Swords"
       }
     ],
     "MapArea": 60,
@@ -8176,7 +8176,7 @@
       {
         "ID": 1035540030,
         "Name": "Monk's Flameblade",
-        "Category": "Weapons/Curved Greatswords"
+        "Category": "Weapons/Curved-Greatswords"
       }
     ],
     "MapArea": 60,
@@ -8224,7 +8224,7 @@
       {
         "ID": 1036410000,
         "Name": "Smoldering Shield",
-        "Category": "Weapons/Small Shields"
+        "Category": "Weapons/Small-Shields"
       }
     ],
     "MapArea": 60,
@@ -8272,7 +8272,7 @@
       {
         "ID": 1036500010,
         "Name": "Ice Crest Shield",
-        "Category": "Weapons/Small Shields"
+        "Category": "Weapons/Small-Shields"
       }
     ],
     "MapArea": 60,
@@ -8452,7 +8452,7 @@
       {
         "ID": 1037470010,
         "Name": "Hermit's Buckler",
-        "Category": "Weapons/Small Shields"
+        "Category": "Weapons/Small-Shields"
       }
     ],
     "MapArea": 60,
@@ -8484,7 +8484,7 @@
       {
         "ID": 1037470030,
         "Name": "Spiralhorn Shield",
-        "Category": "Weapons/Small Shields"
+        "Category": "Weapons/Small-Shields"
       }
     ],
     "MapArea": 60,
@@ -8590,7 +8590,7 @@
       {
         "ID": 1037490200,
         "Name": "Great Mace",
-        "Category": "Weapons/Great Hammers"
+        "Category": "Weapons/Great-Hammers"
       }
     ],
     "MapArea": 60,
@@ -8733,7 +8733,7 @@
       {
         "ID": 1037540150,
         "Name": "Scavenger's Curved Sword",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       }
     ],
     "MapArea": 60,
@@ -8881,7 +8881,7 @@
       {
         "ID": 1038450010,
         "Name": "Shield of the Guilty",
-        "Category": "Weapons/Small Shields"
+        "Category": "Weapons/Small-Shields"
       }
     ],
     "MapArea": 60,
@@ -9023,7 +9023,7 @@
       {
         "ID": 1038510090,
         "Name": "Troll's Golden Sword",
-        "Category": "Weapons/Colossal Swords"
+        "Category": "Weapons/Colossal-Swords"
       }
     ],
     "MapArea": 60,
@@ -9457,7 +9457,7 @@
       {
         "ID": 1040400000,
         "Name": "Treespear",
-        "Category": "Weapons/Heavy Spears"
+        "Category": "Weapons/Heavy-Spears"
       }
     ],
     "MapArea": 60,
@@ -9505,7 +9505,7 @@
       {
         "ID": 1040530010,
         "Name": "Bloody Helice",
-        "Category": "Weapons/Heavy Thrusting Swords"
+        "Category": "Weapons/Heavy-Thrusting-Swords"
       },
       {
         "ID": 1040530011,
@@ -9526,7 +9526,7 @@
       {
         "ID": 1040540000,
         "Name": "Great Stars",
-        "Category": "Weapons/Great Hammers"
+        "Category": "Weapons/Great-Hammers"
       }
     ],
     "MapArea": 60,
@@ -9637,7 +9637,7 @@
       {
         "ID": 1041330120,
         "Name": "Draconic Epitaph",
-        "Category": "Weapons/Straight Swords"
+        "Category": "Weapons/Straight-Swords"
       }
     ],
     "MapArea": 60,
@@ -9669,7 +9669,7 @@
       {
         "ID": 1041380040,
         "Name": "Buckler",
-        "Category": "Weapons/Small Shields"
+        "Category": "Weapons/Small-Shields"
       }
     ],
     "MapArea": 60,
@@ -9717,7 +9717,7 @@
       {
         "ID": 1041530020,
         "Name": "Onyx Lord's Greatsword",
-        "Category": "Weapons/Curved Greatswords"
+        "Category": "Weapons/Curved-Greatswords"
       }
     ],
     "MapArea": 60,
@@ -9828,7 +9828,7 @@
       {
         "ID": 1042330000,
         "Name": "Eclipse Crest Heater Shield",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 60,
@@ -9892,7 +9892,7 @@
       {
         "ID": 1042340000,
         "Name": "Gilded Iron Shield",
-        "Category": "Weapons/Small Shields"
+        "Category": "Weapons/Small-Shields"
       }
     ],
     "MapArea": 60,
@@ -9972,7 +9972,7 @@
       {
         "ID": 1042390000,
         "Name": "Weathered Straight Sword",
-        "Category": "Weapons/Straight Swords"
+        "Category": "Weapons/Straight-Swords"
       }
     ],
     "MapArea": 60,
@@ -9988,7 +9988,7 @@
       {
         "ID": 1042390900,
         "Name": "Beast Crest Heater Shield",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 60,
@@ -10004,7 +10004,7 @@
       {
         "ID": 1042500000,
         "Name": "Giant-Crusher",
-        "Category": "Weapons/Colossal Weapons"
+        "Category": "Weapons/Colossal-Weapons"
       }
     ],
     "MapArea": 60,
@@ -10052,7 +10052,7 @@
       {
         "ID": 1042550000,
         "Name": "Celebrant's Skull",
-        "Category": "Weapons/Great Hammers"
+        "Category": "Weapons/Great-Hammers"
       }
     ],
     "MapArea": 60,
@@ -10164,7 +10164,7 @@
       {
         "ID": 1043310600,
         "Name": "Carwyn's Épée",
-        "Category": "Weapons/Heavy Thrusting Swords"
+        "Category": "Weapons/Heavy-Thrusting-Swords"
       }
     ],
     "MapArea": 60,
@@ -10228,7 +10228,7 @@
       {
         "ID": 1043340020,
         "Name": "Misbegotten Shortbow",
-        "Category": "Weapons/Light Bows"
+        "Category": "Weapons/Light-Bows"
       }
     ],
     "MapArea": 60,
@@ -10292,7 +10292,7 @@
       {
         "ID": 1043360110,
         "Name": "Curseblade's Cirque",
-        "Category": "Weapons/Reverse-hand Blades"
+        "Category": "Weapons/Reverse-hand-Blades"
       }
     ],
     "MapArea": 60,
@@ -10371,7 +10371,7 @@
       {
         "ID": 1043500000,
         "Name": "Guardian's Spearblade",
-        "Category": "Weapons/Straight Swords"
+        "Category": "Weapons/Straight-Swords"
       }
     ],
     "MapArea": 60,
@@ -10434,7 +10434,7 @@
       {
         "ID": 1044330000,
         "Name": "Flame Crest Wooden Shield",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 60,
@@ -10498,7 +10498,7 @@
       {
         "ID": 1044340080,
         "Name": "Large Club",
-        "Category": "Weapons/Great Hammers"
+        "Category": "Weapons/Great-Hammers"
       }
     ],
     "MapArea": 60,
@@ -10530,7 +10530,7 @@
       {
         "ID": 1044350030,
         "Name": "Yura's Kanabo",
-        "Category": "Weapons/Straight Swords"
+        "Category": "Weapons/Straight-Swords"
       }
     ],
     "MapArea": 60,
@@ -10562,7 +10562,7 @@
       {
         "ID": 1044350900,
         "Name": "Great Épée",
-        "Category": "Weapons/Heavy Thrusting Swords"
+        "Category": "Weapons/Heavy-Thrusting-Swords"
       }
     ],
     "MapArea": 60,
@@ -10610,7 +10610,7 @@
       {
         "ID": 1044520020,
         "Name": "Duelist Greataxe",
-        "Category": "Weapons/Colossal Weapons"
+        "Category": "Weapons/Colossal-Weapons"
       },
       {
         "ID": 1044520021,
@@ -10882,7 +10882,7 @@
       {
         "ID": 1045380010,
         "Name": "Banished Knight's Shield",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 60,
@@ -10929,7 +10929,7 @@
       {
         "ID": 1045390080,
         "Name": "Scripture Wooden Shield",
-        "Category": "Weapons/Small Shields"
+        "Category": "Weapons/Small-Shields"
       }
     ],
     "MapArea": 60,
@@ -11310,7 +11310,7 @@
       {
         "ID": 1047400910,
         "Name": "Sword of St. Trina",
-        "Category": "Weapons/Straight Swords"
+        "Category": "Weapons/Straight-Swords"
       }
     ],
     "MapArea": 60,
@@ -11326,7 +11326,7 @@
       {
         "ID": 1047400920,
         "Name": "Greatsword",
-        "Category": "Weapons/Colossal Swords"
+        "Category": "Weapons/Colossal-Swords"
       }
     ],
     "MapArea": 60,
@@ -11342,7 +11342,7 @@
       {
         "ID": 1047510000,
         "Name": "Golem's Halberd",
-        "Category": "Weapons/Colossal Weapons"
+        "Category": "Weapons/Colossal-Weapons"
       }
     ],
     "MapArea": 60,
@@ -11358,7 +11358,7 @@
       {
         "ID": 1047550900,
         "Name": "Three Finger Blade",
-        "Category": "Weapons/Curved Greatswords"
+        "Category": "Weapons/Curved-Greatswords"
       }
     ],
     "MapArea": 60,
@@ -11400,7 +11400,7 @@
       {
         "ID": 1047580800,
         "Name": "Silver Mirrorshield",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 60,
@@ -11447,7 +11447,7 @@
       {
         "ID": 1048380000,
         "Name": "Scorpion Kite Shield",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 60,
@@ -11542,7 +11542,7 @@
       {
         "ID": 1048390900,
         "Name": "Cleanrot Knight's Sword",
-        "Category": "Weapons/Thrusting Swords"
+        "Category": "Weapons/Thrusting-Swords"
       }
     ],
     "MapArea": 60,
@@ -11717,7 +11717,7 @@
       {
         "ID": 1049390900,
         "Name": "Nox Flowing Sword",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       }
     ],
     "MapArea": 60,
@@ -11853,7 +11853,7 @@
       {
         "ID": 1049560361,
         "Name": "Albinauric Shield",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 60,
@@ -11949,7 +11949,7 @@
       {
         "ID": 1050390910,
         "Name": "Watchdog's Greatsword",
-        "Category": "Weapons/Colossal Swords"
+        "Category": "Weapons/Colossal-Swords"
       }
     ],
     "MapArea": 60,
@@ -11981,7 +11981,7 @@
       {
         "ID": 1050540801,
         "Name": "Regalia of Eochaid",
-        "Category": "Weapons/Straight Swords"
+        "Category": "Weapons/Straight-Swords"
       }
     ],
     "MapArea": 60,
@@ -12272,7 +12272,7 @@
       {
         "ID": 1051390060,
         "Name": "Reaver's Odachi",
-        "Category": "Weapons/Great Katanas"
+        "Category": "Weapons/Great-Katanas"
       }
     ],
     "MapArea": 60,
@@ -12384,7 +12384,7 @@
       {
         "ID": 1051570600,
         "Name": "Eclipse Shotel",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       }
     ],
     "MapArea": 60,
@@ -12564,7 +12564,7 @@
       {
         "ID": 1052550901,
         "Name": "Fell Flame Sword",
-        "Category": "Weapons/Straight Swords"
+        "Category": "Weapons/Straight-Swords"
       }
     ],
     "MapArea": 60,
@@ -12612,7 +12612,7 @@
       {
         "ID": 1052570910,
         "Name": "Sword of Night and Flame",
-        "Category": "Weapons/Straight Swords"
+        "Category": "Weapons/Straight-Swords"
       }
     ],
     "MapArea": 60,
@@ -13074,7 +13074,7 @@
       {
         "ID": 2047390000,
         "Name": "Spirit Sword",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       }
     ],
     "MapArea": 61,
@@ -13297,7 +13297,7 @@
       {
         "ID": 2047440800,
         "Name": "Milady",
-        "Category": "Weapons/Light Greatswords"
+        "Category": "Weapons/Light-Greatswords"
       }
     ],
     "MapArea": 61,
@@ -13313,12 +13313,12 @@
       {
         "ID": 2047440810,
         "Name": "Messmer Soldier's Spear",
-        "Category": "Weapons/Heavy Spears"
+        "Category": "Weapons/Heavy-Spears"
       },
       {
         "ID": 2047440811,
         "Name": "Messmer Soldier Shield",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 61,
@@ -13334,7 +13334,7 @@
       {
         "ID": 2047440820,
         "Name": "Carian Sorcery Sword",
-        "Category": "Weapons/Thrusting Swords"
+        "Category": "Weapons/Thrusting-Swords"
       }
     ],
     "MapArea": 61,
@@ -13350,7 +13350,7 @@
       {
         "ID": 2047440830,
         "Name": "Wolf Crest Shield",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 61,
@@ -13366,7 +13366,7 @@
       {
         "ID": 2047440840,
         "Name": "Firespark Perfume Bottle",
-        "Category": "Weapons/Perfume Bottles"
+        "Category": "Weapons/Perfume-Bottles"
       }
     ],
     "MapArea": 61,
@@ -13445,7 +13445,7 @@
       {
         "ID": 2047460500,
         "Name": "Fire Knight's Greatsword",
-        "Category": "Weapons/Colossal Swords"
+        "Category": "Weapons/Colossal-Swords"
       }
     ],
     "MapArea": 61,
@@ -13493,7 +13493,7 @@
       {
         "ID": 2048400000,
         "Name": "Lightning Perfume Bottle",
-        "Category": "Weapons/Perfume Bottles"
+        "Category": "Weapons/Perfume-Bottles"
       }
     ],
     "MapArea": 61,
@@ -13971,7 +13971,7 @@
       {
         "ID": 2053410000,
         "Name": "Frenzyflame Perfume Bottle",
-        "Category": "Weapons/Perfume Bottles"
+        "Category": "Weapons/Perfume-Bottles"
       }
     ],
     "MapArea": 61,
@@ -14372,7 +14372,7 @@
       {
         "ID": 12010935,
         "Name": "Quicksilver Rapier",
-        "Category": "Weapons/Thrusting Swords"
+        "Category": "Weapons/Thrusting-Swords"
       }
     ],
     "MapArea": 60,
@@ -14805,7 +14805,7 @@
       {
         "ID": 102921,
         "Name": "Devourer's Scepter",
-        "Category": "Weapons/Great Hammers"
+        "Category": "Weapons/Great-Hammers"
       },
       {
         "ID": 102922,
@@ -15042,7 +15042,7 @@
       {
         "ID": 16000940,
         "Name": "Ghiza's Wheel",
-        "Category": "Weapons/Colossal Weapons"
+        "Category": "Weapons/Colossal-Weapons"
       },
       {
         "ID": 16000941,
@@ -15079,7 +15079,7 @@
       {
         "ID": 105700,
         "Name": "Lodestone of Gelmir",
-        "Category": "Weapons/Colossal Weapons"
+        "Category": "Weapons/Colossal-Weapons"
       }
     ],
     "MapArea": 60,
@@ -15095,7 +15095,7 @@
       {
         "ID": 20001993,
         "Name": "Horned Warrior's Sword",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       }
     ],
     "MapArea": 61,
@@ -15111,7 +15111,7 @@
       {
         "ID": 20001993,
         "Name": "Horned Warrior's Sword",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       }
     ],
     "MapArea": 61,
@@ -15143,7 +15143,7 @@
       {
         "ID": 20011991,
         "Name": "Horned Warrior's Greatsword",
-        "Category": "Weapons/Curved Greatswords"
+        "Category": "Weapons/Curved-Greatswords"
       }
     ],
     "MapArea": 61,
@@ -15222,7 +15222,7 @@
       {
         "ID": 116100,
         "Name": "Falx",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       },
       {
         "ID": 116101,
@@ -15997,7 +15997,7 @@
       {
         "ID": 1038440100,
         "Name": "Crest of the Dragon Cult",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 60,
@@ -16179,7 +16179,7 @@
       {
         "ID": 105100,
         "Name": "Great Stars",
-        "Category": "Weapons/Great Hammers"
+        "Category": "Weapons/Great-Hammers"
       }
     ],
     "MapArea": 60,
@@ -16195,7 +16195,7 @@
       {
         "ID": 1041350100,
         "Name": "Shield of Starlight",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 60,
@@ -16483,7 +16483,7 @@
       {
         "ID": 30180,
         "Name": "Staff of the Avatar",
-        "Category": "Weapons/Colossal Weapons"
+        "Category": "Weapons/Colossal-Weapons"
       },
       {
         "ID": 30181,
@@ -16525,7 +16525,7 @@
       {
         "ID": 1043340400,
         "Name": "Lordsworn's Straight Sword",
-        "Category": "Weapons/Straight Swords"
+        "Category": "Weapons/Straight-Swords"
       }
     ],
     "MapArea": 60,
@@ -16557,7 +16557,7 @@
       {
         "ID": 1043380100,
         "Name": "Osian's Greatsword",
-        "Category": "Weapons/Colossal Swords"
+        "Category": "Weapons/Colossal-Swords"
       }
     ],
     "MapArea": 60,
@@ -16609,7 +16609,7 @@
       {
         "ID": 1043520501,
         "Name": "Brass Shield",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 60,
@@ -16704,7 +16704,7 @@
       {
         "ID": 1044530300,
         "Name": "Twinbird Kite Shield",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 60,
@@ -16746,7 +16746,7 @@
       {
         "ID": 1044530300,
         "Name": "Twinbird Kite Shield",
-        "Category": "Weapons/Medium Shields"
+        "Category": "Weapons/Medium-Shields"
       }
     ],
     "MapArea": 60,
@@ -16904,7 +16904,7 @@
       {
         "ID": 30315,
         "Name": "Dragon Greatclaw",
-        "Category": "Weapons/Colossal Weapons"
+        "Category": "Weapons/Colossal-Weapons"
       },
       {
         "ID": 30316,
@@ -16961,7 +16961,7 @@
       {
         "ID": 30315,
         "Name": "Dragon Greatclaw",
-        "Category": "Weapons/Colossal Weapons"
+        "Category": "Weapons/Colossal-Weapons"
       },
       {
         "ID": 30316,
@@ -17608,7 +17608,7 @@
       {
         "ID": 30437,
         "Name": "Rotten Staff",
-        "Category": "Weapons/Colossal Weapons"
+        "Category": "Weapons/Colossal-Weapons"
       },
       {
         "ID": 30440,
@@ -17946,7 +17946,7 @@
       {
         "ID": 2045470400,
         "Name": "Devonia's Hammer",
-        "Category": "Weapons/Colossal Weapons"
+        "Category": "Weapons/Colossal-Weapons"
       },
       {
         "ID": 2045470401,
@@ -17983,7 +17983,7 @@
       {
         "ID": 2045470400,
         "Name": "Devonia's Hammer",
-        "Category": "Weapons/Colossal Weapons"
+        "Category": "Weapons/Colossal-Weapons"
       },
       {
         "ID": 2045470401,
@@ -18649,7 +18649,7 @@
       {
         "ID": 30810,
         "Name": "Dancing Blade of Ranah",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       },
       {
         "ID": 30811,
@@ -18702,7 +18702,7 @@
       {
         "ID": 42000000,
         "Name": "Anvil Hammer",
-        "Category": "Weapons/Colossal Weapons"
+        "Category": "Weapons/Colossal-Weapons"
       }
     ],
     "MapArea": 42,
@@ -18718,7 +18718,7 @@
       {
         "ID": 42020000,
         "Name": "Ancient Meteoric Ore Greatsword",
-        "Category": "Weapons/Colossal Swords"
+        "Category": "Weapons/Colossal-Swords"
       }
     ],
     "MapArea": 42,
@@ -19002,7 +19002,7 @@
       {
         "ID": 30377,
         "Name": "Fallingstar Beast Jaw",
-        "Category": "Weapons/Colossal Weapons"
+        "Category": "Weapons/Colossal-Weapons"
       },
       {
         "ID": 30378,
@@ -19075,7 +19075,7 @@
       {
         "ID": 1037490301,
         "Name": "Vyke's War Spear",
-        "Category": "Weapons/Heavy Spears"
+        "Category": "Weapons/Heavy-Spears"
       },
       {
         "ID": 1037490302,
@@ -19493,7 +19493,7 @@
       {
         "ID": 30315,
         "Name": "Dragon Greatclaw",
-        "Category": "Weapons/Colossal Weapons"
+        "Category": "Weapons/Colossal-Weapons"
       },
       {
         "ID": 30316,
@@ -19763,7 +19763,7 @@
       {
         "ID": 30130,
         "Name": "Bloodhound's Fang",
-        "Category": "Weapons/Curved Greatswords"
+        "Category": "Weapons/Curved-Greatswords"
       },
       {
         "ID": 30131,
@@ -20448,7 +20448,7 @@
       {
         "ID": 116100,
         "Name": "Falx",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       },
       {
         "ID": 116101,
@@ -20469,7 +20469,7 @@
       {
         "ID": 116100,
         "Name": "Falx",
-        "Category": "Weapons/Curved Swords"
+        "Category": "Weapons/Curved-Swords"
       },
       {
         "ID": 116101,
@@ -20569,7 +20569,7 @@
       {
         "ID": 30865,
         "Name": "Moonrithyll's Knight Sword",
-        "Category": "Weapons/Colossal Swords"
+        "Category": "Weapons/Colossal-Swords"
       }
     ],
     "MapArea": 61,
@@ -20590,7 +20590,7 @@
       {
         "ID": 30865,
         "Name": "Moonrithyll's Knight Sword",
-        "Category": "Weapons/Colossal Swords"
+        "Category": "Weapons/Colossal-Swords"
       }
     ],
     "MapArea": 61,
@@ -20722,7 +20722,7 @@
       {
         "ID": 30865,
         "Name": "Moonrithyll's Knight Sword",
-        "Category": "Weapons/Colossal Swords"
+        "Category": "Weapons/Colossal-Swords"
       }
     ],
     "MapArea": 61,
@@ -20738,7 +20738,7 @@
       {
         "ID": 30865,
         "Name": "Moonrithyll's Knight Sword",
-        "Category": "Weapons/Colossal Swords"
+        "Category": "Weapons/Colossal-Swords"
       }
     ],
     "MapArea": 61,
@@ -20902,7 +20902,7 @@
       {
         "ID": 2048410980,
         "Name": "Black Steel Greathammer",
-        "Category": "Weapons/Great Hammers"
+        "Category": "Weapons/Great-Hammers"
       }
     ],
     "MapArea": 61,

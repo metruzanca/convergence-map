@@ -24,8 +24,3 @@ export const BASE_URL = import.meta.env.DEV
 export const FOCUS_ZOOM = 5;
 
 export const WIKI_BASEURL = `https://convergencemod.com`;
-
-/** This is just a temporary fix to make the links somewhat usable */
-export function wikiSearch(query: string) {
-  return WIKI_BASEURL + `/?s=${query.replaceAll(" ", "+")}`;
-}

@@ -11,7 +11,7 @@ import {
 import { useSearchParams } from "@solidjs/router";
 import { MapSearchParams } from "~/lib/types";
 import { focusPosition, useAppContext } from "~/lib/context";
-import { wikiSearch } from "~/lib/constants";
+import { itemLink } from "~/lib/wiki-integration";
 
 export function ItemCard(props: { item: Item; edit?: () => void }) {
   const [params, setParams] = useSearchParams<MapSearchParams>();
@@ -82,18 +82,15 @@ export function ItemCard(props: { item: Item; edit?: () => void }) {
                 context.markers.get(props.item.id)?.openPopup();
               }}
             />
-            <a href={wikiSearch(props.item.data.name)} target="_blank">
+            <a
+              href={itemLink(props.item.data.category, props.item.data.name)}
+              target="_blank"
+            >
               <LinkIcon size="small" class="text-primary" />
             </a>
           </>
         )}
       </div>
-
-      {props.item.data.deleted && (
-        <p class="text-xs absolute bottom-1 left-1">
-          deleted on {props.item.data.updatedAt?.toDate().toDateString()}
-        </p>
-      )}
     </div>
   );
 }

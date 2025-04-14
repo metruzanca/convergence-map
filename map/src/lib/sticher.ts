@@ -47,6 +47,8 @@ const SIZE = 255;
 //   },
 // };
 
+// https://cdn.discordapp.com/attachments/1291764947180716055/1298158799504408576/mapcoords.jpg?ex=67fbf6d8&is=67faa558&hm=dbda96573b19365512f9e61de044c745969a11ddd7276154a39aff5d56fc0e65&
+
 // type MapBlock = number
 // type MapRegion = number
 // prettier-ignore
@@ -62,8 +64,16 @@ const SIZE = 255;
 //   [[8, 7],  [9, 7],  [10, 7],  [11, 7],  [12, 7],  [13, 7],  [14, 7]],
 // ]
 
-const MAX_WIDTH = SIZE * 7
-const MAX_HEIGHT = SIZE * 9;
+const MIN_WIDTH = SIZE * 8
+const MAX_WIDTH = SIZE * 14;
+const MIN_HEIGHT = SIZE * 7;
+const MAX_HEIGHT = SIZE * 15;
+
+// doesn't seem to work
+// export const overworldBounds = L.latLngBounds(
+//   L.latLng(MIN_HEIGHT, MIN_WIDTH),
+//   L.latLng(MAX_HEIGHT, MAX_WIDTH)
+// );
 
 export function getCoordinates(
   drop: ConvergenceDrop

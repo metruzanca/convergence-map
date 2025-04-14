@@ -7,12 +7,13 @@ import {
   MapSearchParams,
   Position,
 } from "~/lib/types";
-import { LEAFLET_BASE_URL, wikiSearch } from "~/lib/constants";
+import { LEAFLET_BASE_URL } from "~/lib/constants";
 import { formatLatLng } from "~/lib/leaflet";
 import { focusPosition, setMapInstance, useAppContext } from "~/lib/context";
 import { Item } from "~/firebase";
 import { LinkIcon, PinIcon } from "./Icons";
 import { copyToClipboard, kebabToHuman } from "~/lib/utils";
+import { itemLink } from "~/lib/wiki-integration";
 
 const MAP_ID = "map";
 
@@ -77,6 +78,7 @@ export default function MapComponent(props: {
     currentLayer = L.tileLayer(TILES_URL(mapName()), tileLayerOptions).addTo(
       map
     );
+    // map.fitBounds(overworldBounds);
 
     setMapInstance(map);
   });
@@ -124,7 +126,10 @@ export function MapPopup(props: { marker: L.Marker; item: Item }) {
         <h3 class="flex items-center text-neutral-content border-0 mb-0">
           {kebabToHuman(props.item.data.name)}
 
-          <a href={wikiSearch(props.item.data.name)} target="_blank">
+          <a
+            href={itemLink(props.item.data.category, props.item.data.name)}
+            target="_blank"
+          >
             <LinkIcon size="small" class="text-primary" />
           </a>
         </h3>
