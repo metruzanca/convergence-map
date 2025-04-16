@@ -2,10 +2,10 @@ import cn from "~/lib/styling";
 import { GotoIcon, LinkIcon } from "./Icons";
 import { useSearchParams } from "@solidjs/router";
 import { MapSearchParams } from "~/lib/types";
-import { focusPosition, useAppContext } from "~/lib/context";
+import { changeMap, focusPosition, useAppContext } from "~/lib/context";
 import { itemLink } from "~/lib/wiki-integration";
 import { FlatItem } from "~/lib/sticher";
-import { getLatlng } from "~/lib/markers";
+import { getLatlng, locationToMap } from "~/lib/markers";
 
 export function ItemCard(props: { item: FlatItem }) {
   const [params, setParams] = useSearchParams<MapSearchParams>();
@@ -15,11 +15,18 @@ export function ItemCard(props: { item: FlatItem }) {
       <div>
         <h4 class="text-sm">{props.item.Name}</h4>
 
-        <div class="flex justify-between">
-          <div class="text-xs">
-            <span>X: {props.item.CordX}</span>
-            <span>Y: {props.item.CordZ}</span>
-          </div>
+        <div class="flex justify-between text-xs ">
+          {import.meta.env.DEV && (
+            <div class="text-[10px] flex gap-1">
+              <span>
+                X: <span class="opacity-75">{props.item.CordX}</span>
+              </span>
+              <span>
+                Y: <span class="opacity-75">{props.item.CordZ}</span>
+              </span>
+            </div>
+          )}
+          <div class="opacity-75">{props.item.Location.toLowerCase()}</div>
         </div>
       </div>
 
@@ -33,13 +40,14 @@ export function ItemCard(props: { item: FlatItem }) {
               item: props.item.Name,
             });
             context.markers.get(props.item.ID)?.openPopup();
+            changeMap(locationToMap(props.item.Location));
           }}
         />
         <a
           href={itemLink(props.item.Category, props.item.Name)}
           target="_blank"
         >
-          <LinkIcon size="small" class="text-primary" />
+          <LinkIcon size="small" class="text-indigo-200" />
         </a>
       </div>
     </div>
