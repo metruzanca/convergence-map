@@ -42,10 +42,12 @@ type EmbedMapSearchParams = {
 
 export type MapSearchParams = Simplify<Position & EmbedMapSearchParams>;
 
-export type MapUrlParams = { map: string };
+export type MapUrlSegments = { map: string };
 
+/** @deprecated, use {@link ConvergenceLocation} */
 export const DEFAULT_MAP = "overworld";
 
+/** @deprecated, use {@link ConvergenceLocation} */
 export const MapSchema = z
   .union([
     z.literal("overworld"),
@@ -54,5 +56,5 @@ export const MapSchema = z
   ])
   .default(DEFAULT_MAP);
 
-/** @deprecated use ConvergenceLocation */
+/** @deprecated, use {@link ConvergenceLocation} */
 export type MapNames = z.infer<typeof MapSchema>;

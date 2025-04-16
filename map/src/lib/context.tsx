@@ -2,12 +2,13 @@ import { createContext, createEffect, JSXElement, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 import * as L from "leaflet";
 import { FOCUS_ZOOM } from "./constants";
-import { MapSearchParams } from "./types";
+import { MapNames, MapSearchParams, MapUrlSegments } from "./types";
 import { MapPinSolidIcon, SwordIcon } from "~/components/Icons";
 import { MapPopup } from "~/components/Map";
 import { componentToElement } from "./signals";
 import { getItems, getLatlng } from "./markers";
 import { FlatItem } from "./sticher";
+import { useLocation, useNavigate } from "@solidjs/router";
 
 type MarkerKey = number;
 
@@ -104,6 +105,12 @@ export function AppContextProvider(props: { children: JSXElement }) {
   setStore("items", items);
   setStore("markers", hashmap);
 
+  // const navigate = useNavigate();
+  // const location = useLocation();
+
+  // const params = useParams<MapUrlSegments>();
+  // const [initialQuery] = useSearchParams<MapSearchParams>();
+
   return (
     <appContext.Provider value={store}>{props.children}</appContext.Provider>
   );
@@ -139,3 +146,55 @@ export function refocusItem(itemName?: string) {
     focusPosition(getLatlng(foundItem));
   }
 }
+
+export function changeMap(mapname: MapNames) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  if (window.location.href.includes(mapname)) return;
+  if (window.location.href.includes("scadutree")) {
+    return navigate(`/${mapname}`);
+  }
+
+  // Between overworld & underworld, keep positions in sync, so things like sofia river elevators line up
+  return navigate(`/${mapname}${location.search.toString()}`);
+}
+
+type UseUrlState = {
+  segments: MapUrlSegments;
+  query: Partial<MapSearchParams>;
+};
+
+type UseUrlActions = {
+  changeMap: (mapname: MapNames) => void;
+};
+
+// export function useUrl(): [Store<UseUrlState>, UseUrlActions] {
+//   const navigate = useNavigate();
+//   const location = useLocation();
+
+//   const params = useParams<MapUrlSegments>();
+//   const [initialQuery] = useSearchParams<MapSearchParams>();
+
+//   const [state, setState] = createStore<UseUrlState>({
+//     segments: {
+//       map: MapSchema.safeParse(params.map).data!,
+//     },
+//     query: initialQuery,
+//   });
+
+//   createEffect(() => {
+//     navigate(`/${state.segments.map}${location.search.toString()}`);
+//   });
+
+//   return [
+//     state,
+//     {
+//       changeMap: (map: string) =>
+//         setState("segments", "map", (prev) => {
+//           if (prev === map) return prev;
+//           return MapSchema.safeParse(map).data!;
+//         }),
+//     },
+//   ];
+// }

@@ -2,23 +2,11 @@
 
 Heavily inspired by Fextralife's map of elden ring. I wanted to bring something similar to mods of the game.
 
-## Resources
+## Project Features
 
-- [Firebase Project](https://console.firebase.google.com/u/2/project/convergence-mod-map/overview)
+### Map - Web UI
 
----
-
-### TODO
-
-- UI Kits to look at:
-
-  - https://ark-ui.com
-  - https://kobalte.dev
-
-## Project Features (todolist)
-
-### Map Package
-
+- [ ] UI Kits to look at: [ark-ui](https://ark-ui.com), [kobalte](https://kobalte.dev)
 - Full screen map
   - Item search: search by name, go to item on map & show marker or copy link.
 - [ ] Multiple maps
@@ -35,8 +23,11 @@ Heavily inspired by Fextralife's map of elden ring. I wanted to bring something 
 - [ ] Map marker
   - [ ] Link to wiki (needs work)
 - [ ] REMOVE firebase from deps
+- [ ] Maybe drop sidebar in favour of a command pallete style search
 
-### Slicer Package
+- [ ] ASK Exelot, where is 0,0 in game? Is it by chance the exact center of the `.tga` map file?
+
+### Slicer - Image & Data preprocessor
 
 - From raw `.tga` files, produce leafletjs tiles
   - [ ] Improve offsets logic and crop scadutree tiles

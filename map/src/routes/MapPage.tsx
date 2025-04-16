@@ -1,6 +1,6 @@
 import { useParams, useSearchParams } from "@solidjs/router";
 import MapComponent from "~/components/Map";
-import { MapSearchParams, MapUrlParams } from "~/lib/types";
+import { MapSearchParams, MapUrlSegments } from "~/lib/types";
 import { Drawer } from "~/components/Drawer";
 import MapSidebar from "~/components/MapSidebar";
 import { createPersistedSignal } from "~/lib/signals";
@@ -23,7 +23,7 @@ import { getLatlng } from "~/lib/markers";
 
 export default function MapPage() {
   const context = useAppContext();
-  const params = useParams<MapUrlParams>();
+  const params = useParams<MapUrlSegments>();
   const [search, setSearch] = useSearchParams<MapSearchParams>();
 
   const [openLeft, setOpenLeft] = createPersistedSignal(MAP_SIDEBAR, false);
