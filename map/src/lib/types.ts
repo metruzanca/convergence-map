@@ -54,4 +54,5 @@ export const MapSchema = z
   ])
   .default(DEFAULT_MAP);
 
+/** @deprecated use ConvergenceLocation */
 export type MapNames = z.infer<typeof MapSchema>;

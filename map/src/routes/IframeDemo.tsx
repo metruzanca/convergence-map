@@ -9,7 +9,7 @@ export default function IframeDemo() {
     <div class="h-screen flex flex-col items-center justify-center">
       <h2>This is what it'll look like in an Iframe!</h2>
       <iframe
-        src={`${BASE_URL}/?item=${search.item ?? "blade-of-valor"}`}
+        src={`${BASE_URL}/?item=${search.item ?? "Greatsword"}`}
         height="300"
         width="300"
       />

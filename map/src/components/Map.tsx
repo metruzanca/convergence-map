@@ -8,12 +8,17 @@ import {
   Position,
 } from "~/lib/types";
 import { LEAFLET_BASE_URL } from "~/lib/constants";
-import { formatLatLng } from "~/lib/leaflet";
 import { focusPosition, setMapInstance, useAppContext } from "~/lib/context";
-import { Item } from "~/firebase";
 import { LinkIcon, PinIcon } from "./Icons";
 import { copyToClipboard, kebabToHuman } from "~/lib/utils";
 import { itemLink } from "~/lib/wiki-integration";
+import { FlatItem } from "~/lib/sticher";
+import {
+  getItems,
+  getLatlng,
+  locationToMap,
+  formatLatLng,
+} from "~/lib/markers";
 
 const MAP_ID = "map";
 
@@ -95,10 +100,10 @@ export default function MapComponent(props: {
     markerLayer = L.layerGroup().addTo(context.mapReference!);
 
     context.items
-      .filter((item) => item.data.map === mapName())
+      .filter((item) => locationToMap(item.Location) === mapName())
       .forEach((item) => {
-        if (context.markers.has(item.id)) {
-          context.markers.get(item.id)!.addTo(markerLayer);
+        if (context.markers.has(item.ID)) {
+          context.markers.get(item.ID)!.addTo(markerLayer);
         }
       });
   });
@@ -106,41 +111,40 @@ export default function MapComponent(props: {
   // If the map loads with item in url, its an embedded map
   createEffect(() => {
     if (props.search.item) {
-      Item.byName(props.search.item, (foundItem) => {
-        if (foundItem) {
-          focusPosition(foundItem);
-
-          focusPosition(foundItem.data.latlng);
-        }
-      });
+      const foundItem = getItems().find(
+        (item) => item.Name === props.search.item
+      );
+      if (foundItem) {
+        focusPosition(getLatlng(foundItem));
+      }
     }
   });
 
   return <div id={MAP_ID} class="h-screen" />;
 }
 
-export function MapPopup(props: { marker: L.Marker; item: Item }) {
+export function MapPopup(props: { marker: L.Marker; item: FlatItem }) {
   return (
     <div class="w-40 p-1 pt-2  bg-black opacity-80 border-primary border">
       <div class="pb-1">
         <h3 class="flex items-center text-neutral-content border-0 mb-0">
-          {kebabToHuman(props.item.data.name)}
+          {kebabToHuman(props.item.Name)}
 
           <a
-            href={itemLink(props.item.data.category, props.item.data.name)}
+            href={itemLink(props.item.Category, props.item.Name)}
             target="_blank"
           >
             <LinkIcon size="small" class="text-primary" />
           </a>
         </h3>
 
-        <h4 class="text-primary">{props.item.data.category}</h4>
+        <h4 class="text-primary">{props.item.Category}</h4>
       </div>
 
       <p
         class="text-base-content flex items-center cursor-pointer"
         onClick={() => {
-          focusPosition(props.item.data.latlng);
+          focusPosition(getLatlng(props.item));
           copyToClipboard(location.href);
         }}
       >

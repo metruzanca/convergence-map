@@ -1,27 +1,27 @@
 import { createContext, createEffect, JSXElement, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
-import { Item } from "~/firebase";
 import * as L from "leaflet";
-import { Category } from "~/firebase/models/category";
 import { FOCUS_ZOOM } from "./constants";
 import { MapSearchParams } from "./types";
 import { MapPinSolidIcon, SwordIcon } from "~/components/Icons";
 import { MapPopup } from "~/components/Map";
 import { componentToElement } from "./signals";
+import { getItems, getLatlng } from "./markers";
+import { FlatItem } from "./sticher";
+
+type MarkerKey = number;
 
 type AppState = {
-  categories: Category[];
-  items: Item[];
-  markers: Map<string, L.Marker>;
+  // categories: string[];
+  items: FlatItem[];
+  markers: Map<MarkerKey, L.Marker>;
   mapReference: L.Map;
-
-  focus?: Item;
 };
 
 const initial: AppState = {
-  categories: [],
+  // categories: [],
   items: [],
-  markers: new Map<string, L.Marker>(),
+  markers: new Map<MarkerKey, L.Marker>(),
   mapReference: {} as L.Map, // we're mounting the map immediately, so this shouldn't be an issue
 };
 
@@ -37,9 +37,11 @@ export const useAppContext = () => {
 
 const [store, setStore] = createStore<AppState>(initial);
 
-createEffect(() => {
-  console.log("store changed", store);
-});
+if (import.meta.env.DEV) {
+  createEffect(() => {
+    console.log("store changed", store);
+  });
+}
 
 export function createMarkerIcon(Icon: () => JSXElement) {
   const markerIconDiv = componentToElement(Icon);
@@ -54,7 +56,7 @@ export function createMarkerIcon(Icon: () => JSXElement) {
   return markerDiv;
 }
 
-export function createPopup(item: Item, marker: L.Marker) {
+export function createPopup(item: FlatItem, marker: L.Marker) {
   return () =>
     componentToElement(() => <MapPopup item={item} marker={marker} />);
 }
@@ -73,8 +75,8 @@ const swordIcon = createMarkerIcon(() => (
 ));
 
 function iconByCategory(category: string) {
-  switch (category) {
-    case "weapons":
+  switch (true) {
+    case category.includes("weapons"):
       return swordIcon;
     default:
       return defaultIcon;
@@ -82,27 +84,25 @@ function iconByCategory(category: string) {
 }
 
 export function AppContextProvider(props: { children: JSXElement }) {
-  // Category.liveCollection((data) => setStore("categories", data));
-  Item.liveCollection((items) => {
-    setStore("items", items);
+  const items = getItems();
 
-    // clear
-    const hashmap = new Map<string, L.Marker>();
-    for (const item of items) {
-      if (store.markers.has(item.id)) {
-        store.markers.get(item.id)!.setLatLng(item.data.latlng);
-      } else {
-        // TODO multiple items in same coordinate can use the same pin, maybe
-        const marker = L.marker(item.data.latlng, {
-          icon: iconByCategory(item.data.category),
-        });
-        marker.bindPopup(createPopup(item, marker));
+  const hashmap = new Map<MarkerKey, L.Marker>();
+  for (const item of items) {
+    if (store.markers.has(item.ID)) {
+      store.markers.get(item.ID)!.setLatLng(getLatlng(item));
+    } else {
+      // TODO multiple items in same coordinate can use the same pin, maybe
+      const marker = L.marker(getLatlng(item), {
+        icon: iconByCategory(item.Category),
+      });
+      marker.bindPopup(createPopup(item, marker));
 
-        hashmap.set(item.id, marker);
-      }
+      hashmap.set(item.ID, marker);
     }
-    setStore("markers", hashmap);
-  });
+  }
+
+  setStore("items", items);
+  setStore("markers", hashmap);
 
   return (
     <appContext.Provider value={store}>{props.children}</appContext.Provider>
@@ -122,11 +122,7 @@ function setSearchParams(newQuery: Partial<MapSearchParams>) {
   window.history.replaceState({}, "", url);
 }
 
-export function focusPosition(position: L.LatLngTuple | Item) {
-  if (!Array.isArray(position) && "data" in position) {
-    position = (position as Item).data.latlng;
-  }
-
+export function focusPosition(position: L.LatLngTuple) {
   const context = useAppContext();
   context.mapReference?.setView(position, FOCUS_ZOOM);
   setSearchParams({
@@ -138,8 +134,8 @@ export function focusPosition(position: L.LatLngTuple | Item) {
 export function refocusItem(itemName?: string) {
   const context = useAppContext();
 
-  const foundItem = context.items.find((item) => item.data.name === itemName);
+  const foundItem = context.items.find((item) => item.Name === itemName);
   if (foundItem) {
-    focusPosition(foundItem);
+    focusPosition(getLatlng(foundItem));
   }
 }

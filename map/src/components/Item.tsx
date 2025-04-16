@@ -1,95 +1,46 @@
-import { Item } from "~/firebase";
 import cn from "~/lib/styling";
-import Copy from "./Copy";
-import {
-  RestoreIcon,
-  PencilSquareIcon,
-  TrashIcon,
-  GotoIcon,
-  LinkIcon,
-} from "./Icons";
+import { GotoIcon, LinkIcon } from "./Icons";
 import { useSearchParams } from "@solidjs/router";
 import { MapSearchParams } from "~/lib/types";
 import { focusPosition, useAppContext } from "~/lib/context";
 import { itemLink } from "~/lib/wiki-integration";
+import { FlatItem } from "~/lib/sticher";
+import { getLatlng } from "~/lib/markers";
 
-export function ItemCard(props: { item: Item; edit?: () => void }) {
+export function ItemCard(props: { item: FlatItem }) {
   const [params, setParams] = useSearchParams<MapSearchParams>();
   const context = useAppContext();
   return (
-    <div
-      class={cn(
-        "bg-primary-content min-h-16 rounded relative p-1",
-        props.item.data.deleted && "bg-error-content text-error"
-      )}
-    >
+    <div class={cn("bg-primary-content min-h-16 rounded relative p-1")}>
       <div>
-        <h4 class="text-sm">{props.item.data.name}</h4>
+        <h4 class="text-sm">{props.item.Name}</h4>
 
         <div class="flex justify-between">
           <div class="text-xs">
-            <span>
-              <span>X</span>: {props.item.data.latlng?.[0]}
-            </span>
-            <span>
-              <span>Y</span>: {props.item.data.latlng?.[1]}
-            </span>
+            <span>X: {props.item.CordX}</span>
+            <span>Y: {props.item.CordZ}</span>
           </div>
-          {props.edit && props.item.data.author && (
-            <p class="text-xs">
-              author: {props.item.data.author.substring(0, 3)}
-            </p>
-          )}
         </div>
       </div>
 
       {/* Controls */}
       <div class="absolute top-1 right-1 flex gap-1">
-        {props.edit ? (
-          <>
-            {props.item.data.deleted ? (
-              <RestoreIcon
-                class="text-base-content"
-                size="small"
-                onClick={() => {
-                  props.item.restore();
-                }}
-              />
-            ) : (
-              props.edit && (
-                <>
-                  <PencilSquareIcon size="small" onClick={props.edit} />
-                  <TrashIcon
-                    size="small"
-                    onClick={() => {
-                      props.item.softDelete();
-                    }}
-                  />
-                  <Copy text={props.item.embedUrl} />
-                </>
-              )
-            )}
-          </>
-        ) : (
-          <>
-            <GotoIcon
-              size="small"
-              onClick={() => {
-                focusPosition(props.item.data.latlng);
-                setParams({
-                  item: props.item.data.name,
-                });
-                context.markers.get(props.item.id)?.openPopup();
-              }}
-            />
-            <a
-              href={itemLink(props.item.data.category, props.item.data.name)}
-              target="_blank"
-            >
-              <LinkIcon size="small" class="text-primary" />
-            </a>
-          </>
-        )}
+        <GotoIcon
+          size="small"
+          onClick={() => {
+            focusPosition(getLatlng(props.item));
+            setParams({
+              item: props.item.Name,
+            });
+            context.markers.get(props.item.ID)?.openPopup();
+          }}
+        />
+        <a
+          href={itemLink(props.item.Category, props.item.Name)}
+          target="_blank"
+        >
+          <LinkIcon size="small" class="text-primary" />
+        </a>
       </div>
     </div>
   );

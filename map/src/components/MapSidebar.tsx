@@ -1,22 +1,15 @@
-import {
-  A,
-  useLocation,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "@solidjs/router";
+import { useLocation, useNavigate, useParams } from "@solidjs/router";
 import { createMemo, createSignal, For, onCleanup } from "solid-js";
 import { onHotkey } from "~/lib/hotkeys";
-import { getCurrentUser } from "~/firebase/auth";
 import { ItemCard } from "./Item";
-import { MapNames, MapSearchParams, MapUrlParams } from "~/lib/types";
+import { MapNames, MapUrlParams } from "~/lib/types";
 import { useAppContext } from "~/lib/context";
+import { locationToMap } from "~/lib/markers";
 
 export default function MapSidebar() {
   const context = useAppContext();
   const params = useParams<MapUrlParams>();
   const mapName = params.map ?? "overworld";
-  const [search, setSearch] = useSearchParams<MapSearchParams>();
   let inputRef!: HTMLInputElement;
 
   onCleanup(
@@ -45,12 +38,8 @@ export default function MapSidebar() {
   const [markFilter, setMarkFilter] = createSignal("");
   const filteredItems = createMemo(() =>
     context.items
-      .filter((i) => i.data.map === mapName)
-      .filter((i) =>
-        i.data.name.toLowerCase().includes(markFilter().toLowerCase())
-      )
-      .filter((i) => !i.data.deleted)
-      .sort((a, b) => Number(a.data.deleted) - Number(b.data.deleted))
+      .filter((i) => locationToMap(i.Location) === mapName)
+      .filter((i) => i.Name.toLowerCase().includes(markFilter().toLowerCase()))
   );
 
   return (
@@ -83,11 +72,6 @@ export default function MapSidebar() {
           each={filteredItems()}
           children={(item) => <ItemCard item={item} />}
         />
-      </div>
-      <div class="pb-10 flex items-center justify-center">
-        <A href="/login" class="btn-link">
-          {getCurrentUser().type === "user" ? "Account" : "Login"}
-        </A>
       </div>
     </div>
   );

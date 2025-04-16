@@ -3,11 +3,9 @@ import { Route, Router } from "@solidjs/router";
 import { Suspense } from "solid-js";
 import "./app.css";
 import "./leaflet.css";
-import Login from "./routes/Login";
 import MapPage from "./routes/MapPage";
 import { AppContextProvider } from "./lib/context";
 import IframeDemo from "./routes/IframeDemo";
-import AdminPage from "./routes/Admin";
 
 export default function App() {
   return (
@@ -21,8 +19,8 @@ export default function App() {
         )}
       >
         <Route path="/:map?" component={MapPage} />
-        <Route path="/admin" component={AdminPage} />
-        <Route path="/login" component={Login} />
+        {/* Disabling login until that's reimplemented for optional logged in features later */}
+        {/* <Route path="/login" component={Login} /> */}
         <Route path="/iframedemo" component={IframeDemo} />
       </Router>
     </AppContextProvider>
