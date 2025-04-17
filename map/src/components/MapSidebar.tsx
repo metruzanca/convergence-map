@@ -67,6 +67,23 @@ export default function MapSidebar() {
           />
         </div>
       </div>
+
+      <div class="flex justify-around gap-2 text-center text-xs">
+        <span>
+          Made with <span class="text-indigo-200">♥</span> by{" "}
+          <a href="https://zanca.dev" target="_blank">
+            @Metruzanca
+          </a>
+        </span>
+        <span>
+          <a
+            href="https://github.com/metruzanca/convergence-map"
+            target="_blank"
+          >
+            Github
+          </a>
+        </span>
+      </div>
     </div>
   );
 }

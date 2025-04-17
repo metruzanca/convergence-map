@@ -68,3 +68,7 @@ button {
 ::-webkit-scrollbar {
   width: 6px;
 }
+
+a, .link {
+  @apply text-indigo-200 hover:text-indigo-300;
+}
