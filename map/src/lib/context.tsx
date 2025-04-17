@@ -8,7 +8,7 @@ import { MapPopup } from "~/components/Map";
 import { componentToElement } from "./signals";
 import { getItems, getLatlng } from "./markers";
 import { FlatItem } from "./sticher";
-import { useLocation, useNavigate } from "@solidjs/router";
+import { useNavigate } from "@solidjs/router";
 
 type MarkerKey = number;
 
@@ -119,7 +119,8 @@ export function AppContextProvider(props: { children: JSXElement }) {
 export const setMapInstance = (instance: L.Map) =>
   setStore("mapReference", instance);
 
-function setSearchParams(newQuery: Partial<MapSearchParams>) {
+/** Update url search query params & history */
+export function setSearchParams(newQuery: Partial<MapSearchParams>) {
   const url = new URL(window.location.href);
   const params = new URLSearchParams(url.search);
   for (const [k, v] of Object.entries(newQuery)) {
@@ -129,6 +130,7 @@ function setSearchParams(newQuery: Partial<MapSearchParams>) {
   window.history.replaceState({}, "", url);
 }
 
+/** Focus Position and update url with lat,lng */
 export function focusPosition(position: L.LatLngTuple) {
   const context = useAppContext();
   context.mapReference?.setView(position, FOCUS_ZOOM);
@@ -138,26 +140,30 @@ export function focusPosition(position: L.LatLngTuple) {
   });
 }
 
-export function refocusItem(itemName?: string) {
+/** Focus Position and update url with lat,lng,item */
+export function focusItem(item: FlatItem) {
+  focusPosition(getLatlng(item));
+  setSearchParams({ item: item.Name });
+}
+
+export function focusItemByName(name?: string) {
   const context = useAppContext();
 
-  const foundItem = context.items.find((item) => item.Name === itemName);
+  const foundItem = context.items.find((item) => item.Name === name);
   if (foundItem) {
-    focusPosition(getLatlng(foundItem));
+    focusItem(foundItem);
   }
 }
 
-export function changeMap(mapname: MapNames) {
+export function useChangeMap() {
   const navigate = useNavigate();
-  const location = useLocation();
 
-  if (window.location.href.includes(mapname)) return;
-  if (window.location.href.includes("scadutree")) {
-    return navigate(`/${mapname}`);
-  }
+  return (mapname: string) => {
+    if (window.location.href.includes(mapname)) return;
 
-  // Between overworld & underworld, keep positions in sync, so things like sofia river elevators line up
-  return navigate(`/${mapname}${location.search.toString()}`);
+    // Between overworld & underworld, keep positions in sync, so things like sofia river elevators line up
+    return navigate(`/${mapname}${window.location.search.toString()}`);
+  };
 }
 
 type UseUrlState = {

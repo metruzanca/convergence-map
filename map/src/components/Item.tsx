@@ -1,15 +1,14 @@
 import cn from "~/lib/styling";
 import { GotoIcon, LinkIcon } from "./Icons";
-import { useSearchParams } from "@solidjs/router";
-import { MapSearchParams } from "~/lib/types";
-import { changeMap, focusPosition, useAppContext } from "~/lib/context";
+import { focusItem, useAppContext, useChangeMap } from "~/lib/context";
 import { itemLink } from "~/lib/wiki-integration";
 import { FlatItem } from "~/lib/sticher";
-import { getLatlng, locationToMap } from "~/lib/markers";
+import { locationToMap } from "~/lib/markers";
 
 export function ItemCard(props: { item: FlatItem }) {
-  const [params, setParams] = useSearchParams<MapSearchParams>();
   const context = useAppContext();
+  const changeMap = useChangeMap();
+
   return (
     <div class={cn("bg-primary-content min-h-16 rounded relative p-1")}>
       <div>
@@ -35,10 +34,7 @@ export function ItemCard(props: { item: FlatItem }) {
         <GotoIcon
           size="small"
           onClick={() => {
-            focusPosition(getLatlng(props.item));
-            setParams({
-              item: props.item.Name,
-            });
+            focusItem(props.item);
             context.markers.get(props.item.ID)?.openPopup();
             changeMap(locationToMap(props.item.Location));
           }}

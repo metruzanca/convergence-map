@@ -3,7 +3,7 @@ import { createMemo, createSignal, For, onCleanup } from "solid-js";
 import { onHotkey } from "~/lib/hotkeys";
 import { ItemCard } from "./Item";
 import { MapNames, MapUrlSegments } from "~/lib/types";
-import { changeMap, useAppContext } from "~/lib/context";
+import { useAppContext, useChangeMap } from "~/lib/context";
 
 export default function MapSidebar() {
   const context = useAppContext();
@@ -16,6 +16,8 @@ export default function MapSidebar() {
       inputRef.focus();
     })
   );
+
+  const changeMap = useChangeMap();
 
   // NOTE: there might be a memory leak with event handlers when you change map. Noticible when spamming it tf out of it.
   onCleanup(onHotkey({ key: "1", ctrl: true }, () => changeMap("overworld")));

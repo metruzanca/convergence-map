@@ -8,17 +8,12 @@ import {
   Position,
 } from "~/lib/types";
 import { LEAFLET_BASE_URL } from "~/lib/constants";
-import { focusPosition, setMapInstance, useAppContext } from "~/lib/context";
+import { focusItem, setMapInstance, useAppContext } from "~/lib/context";
 import { LinkIcon, PinIcon } from "./Icons";
 import { copyToClipboard, kebabToHuman } from "~/lib/utils";
 import { itemLink } from "~/lib/wiki-integration";
 import { FlatItem } from "~/lib/sticher";
-import {
-  getItems,
-  getLatlng,
-  locationToMap,
-  formatLatLng,
-} from "~/lib/markers";
+import { getItems, locationToMap, formatLatLng } from "~/lib/markers";
 
 const MAP_ID = "map";
 
@@ -115,7 +110,7 @@ export default function MapComponent(props: {
         (item) => item.Name === props.search.item
       );
       if (foundItem) {
-        focusPosition(getLatlng(foundItem));
+        focusItem(foundItem);
       }
     }
   });
@@ -144,7 +139,7 @@ export function MapPopup(props: { marker: L.Marker; item: FlatItem }) {
       <p
         class="text-base-content flex items-center cursor-pointer"
         onClick={() => {
-          focusPosition(getLatlng(props.item));
+          focusItem(props.item);
           copyToClipboard(location.href);
         }}
       >

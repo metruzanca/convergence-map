@@ -17,7 +17,7 @@ import {
   MinusIcon,
   PlusIcon,
 } from "~/components/Icons";
-import { refocusItem, useAppContext } from "~/lib/context";
+import { focusItemByName, useAppContext } from "~/lib/context";
 import OverlayElement from "~/components/OverlayElement";
 import { getLatlng } from "~/lib/markers";
 
@@ -72,7 +72,7 @@ export default function MapPage() {
               (focussedItem() || !search.item) && "hidden"
             )}
           >
-            <GotoIcon onClick={() => refocusItem(search.item)} />
+            <GotoIcon onClick={() => focusItemByName(search.item)} />
           </OverlayElement>
 
           <OverlayElement class="bottom-1 right-1 bg-base-300 rounded-tl rounded-bl p-1 block">
